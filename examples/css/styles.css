@@ -1,0 +1,114 @@
+body {
+    width: 980px;
+    margin: 30px auto;
+}
+
+a:focus {
+    outline: red 2px dotted;
+}
+
+.tab-nav {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+
+
+.tabs-hero {
+    position: relative;
+    width: 600px;
+    margin-bottom: 50px;
+}
+
+.tabs-hero .tab-nav {
+    position: absolute;
+}
+
+.tabs-hero .tab-info,
+.tabs-hero .tab-nav-item {
+    background-color: #333;
+    background-color: rgba(0, 0, 0, .7);
+    border-radius: 5px;
+    color: #fff;
+}
+
+.tabs-hero .tab-nav-current {
+    background-color: #666;
+    background-color: rgba(0, 0, 0, .4);
+}
+
+.tabs-hero .tab-info {
+    position: absolute;
+    padding: 0 10px;
+}
+
+.tabs-hero .tab-info a {
+    color: inherit;
+}
+
+.tabs-hero .tab-nav-item a {
+    display: block;
+    padding: 10px;
+    color: inherit;
+    text-decoration: none;
+}
+
+
+
+.tabs-stacked .tab-nav {
+    left: 10px;
+    top: 10px;
+}
+
+.tabs-stacked .tab-info {
+    right: 10px;
+    bottom: 10px;
+}
+
+.tabs-stacked .tab-nav-item {
+    margin-bottom: 10px;
+}
+
+
+
+
+.tabs-horizontal .tab-nav {
+    bottom: 10px;
+    left: 10px;
+    overflow: hidden;
+}
+
+.tabs-horizontal .tab-nav-item {
+    float: left;
+    margin-right: 10px;
+}
+
+.tabs-horizontal .tab-info {
+    right: 10px;
+    top: 10px;
+}
+
+
+.tabs-standard .tab-nav-item {
+    display: inline-block;
+    background-color: #ddd;
+}
+
+.tabs-standard .tab-nav-item a {
+    display: block;
+    padding: 10px;
+}
+
+.tabs-standard .tab-nav-current {
+    background-color: #bbb;
+}
+
+.tabs-standard .tab-pane {
+    background-color: #bbb;
+    padding: 10px;
+}
+
+.tabs-standard p {
+    margin: 0;
+}
