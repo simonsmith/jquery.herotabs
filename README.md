@@ -6,6 +6,7 @@ Useful for standard tabs and also 'hero' style tabs often found at the top of we
 
 ## Demo
 http://jsfiddle.net/Blink/cWMY9/
+http://jsfiddle.net/Blink/cWMY9/show (Easier to use)
 
 
 ## Features
