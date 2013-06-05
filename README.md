@@ -163,8 +163,8 @@ Fired when a tab is shown
 Receives an object containing the current tab
 
 ```js
-$('.tabs').herotabs().on('herotabs.show', function(event, data) {
-	data.current.text('I am the current tab!');
+$('.tabs').herotabs().on('herotabs.show', function(event, tabs) {
+	tabs.current.text('I am the current tab!');
 })
 ```
 
@@ -174,9 +174,9 @@ Fired when the next tab is shown
 Receives an object containing the current visible tab before the event was fired and the next tab that will be visible.
 
 ```js
-$('.tabs').herotabs().on('herotabs.next', function(event, data) {
-	data.current.text('I am the tab that was visible before the event was fired!');
-	data.next.text('I am the next tab and am now visible!')
+$('.tabs').herotabs().on('herotabs.next', function(event, tabs) {
+	tabs.current.text('I am the tab that was visible before the event was fired!');
+	tabs.next.text('I am the next tab and am now visible!')
 })
 ```
 
@@ -186,9 +186,9 @@ Fired when the previous tab is shown
 Receives an object containing the current visible tab before the event was fired and the previous tab that will be visible.
 
 ```js
-$('.tabs').herotabs().on('herotabs.next', function(event, data) {
-	data.current.text('I am the tab that was visible before the event was fired!');
-	data.prev.text('I am the previous tab and am now visible!')
+$('.tabs').herotabs().on('herotabs.next', function(event, tabs) {
+	tabs.current.text('I am the tab that was visible before the event was fired!');
+	tabs.prev.text('I am the previous tab and am now visible!')
 })
 ```
 
@@ -198,8 +198,8 @@ Fired before the tabs begin cycling on a timed delay
 Receives an object containing the current tab
 
 ```js
-$('.tabs').herotabs().on('herotabs.beforeStart', function(event, data) {
-	data.current.text('I am the current tab!');
+$('.tabs').herotabs().on('herotabs.beforeStart', function(event, tabs) {
+	tabs.current.text('I am the current tab!');
 })
 ```
 
@@ -209,8 +209,8 @@ Fired after the tabs have begun cycling on a timed delay
 Receives an object containing the current tab
 
 ```js
-$('.tabs').herotabs().on('herotabs.start', function(event, data) {
-	data.current.text('I am the current tab!');
+$('.tabs').herotabs().on('herotabs.start', function(event, tabs) {
+	tabs.current.text('I am the current tab!');
 })
 ```
 
@@ -220,8 +220,8 @@ Fired before the tabs stop cycling on a timed delay
 Receives an object containing the current tab
 
 ```js
-$('.tabs').herotabs().on('herotabs.beforeStop', function(event, data) {
-	data.current.text('I am the current tab!');
+$('.tabs').herotabs().on('herotabs.beforeStop', function(event, tabs) {
+	tabs.current.text('I am the current tab!');
 })
 ```
 
@@ -231,8 +231,8 @@ Fired after the tabs have stopped cycling
 Receives an object containing the current tab
 
 ```js
-$('.tabs').herotabs().on('herotabs.stop', function(event, data) {
-	data.current.text('I am the current tab!');
+$('.tabs').herotabs().on('herotabs.stop', function(event, tabs) {
+	tabs.current.text('I am the current tab!');
 })
 ```
 	

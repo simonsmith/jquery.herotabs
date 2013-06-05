@@ -284,7 +284,7 @@
                 var current     = opt.css.navCurrent;
                 var navItem     = this.navItem;
 
-                self.container.on('herotabs.show', function(event, data) {
+                self.container.on('herotabs.show', function(event, tabs) {
                     navItem
                         .removeClass(current)
                         .find('a')
@@ -295,7 +295,7 @@
 
                     // Current nav item link
                     var navItemLink = navItem
-                        .eq(self.tab.index(data.current))
+                        .eq(self.tab.index(tabs.current))
                         .addClass(current)
                         .find('a');
                     
