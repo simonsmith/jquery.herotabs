@@ -287,24 +287,20 @@ describe('Herotabs', function() {
 
             it('should fire events when the start method is called', function() {
                 spyOnEvent(tabs, 'herotabs.start');
-                spyOnEvent(tabs, 'herotabs.beforeStart');
 
                 instance.options.delay = 200;
                 instance.start();
 
-                expect('herotabs.beforeStart').toHaveBeenTriggeredOn(tabs);
                 expect('herotabs.start').toHaveBeenTriggeredOn(tabs);
             });
 
             it('should fire events when the stop method is called', function() {
-                spyOnEvent(tabs, 'herotabs.beforeStop');
                 spyOnEvent(tabs, 'herotabs.stop');
 
                 instance.options.delay = 200;
                 instance.start();
                 instance.stop();
 
-                expect('herotabs.beforeStop').toHaveBeenTriggeredOn(tabs);
                 expect('herotabs.stop').toHaveBeenTriggeredOn(tabs);
             });
         });

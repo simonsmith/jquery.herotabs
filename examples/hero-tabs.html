@@ -90,20 +90,23 @@
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="../src/jquery.herotabs.js"></script>
         <script>
-
             $('.tabs-stacked').herotabs({
                 delay: 2000
-            }).data('herotabs');
+            });
+
             $('.tabs-horizontal').herotabs({
                 interactEvent: 'hover',
                 css: {
                     navId: 'horizontalnav'
                 }
             });
+
             $('.tabs-standard').herotabs({
                 css: {
                     navId: 'standardtab'
                 }
+            }).on('herotabs.show', function(event, data) {
+                console.log(data);
             });
         </script>
     </body>

@@ -1,6 +1,6 @@
 /** @preserve
  * jquery.herotabs
- * version 1.0.0;
+ * version 1.0.1;
  * https://github.com/simonsmith/jquery.herotabs
  * @blinkdesign
  */
@@ -73,7 +73,7 @@
                 if (this._currentTab == null) {
                     this._currentTab = this.tab;
                 }
-                
+
                 this._currentTab
                     .removeClass(opt.css.current)
                     .hide()
@@ -91,10 +91,7 @@
                     .attr('tabindex', '0');
 
                 this._currentTab = tabToShow;
-
-                this.container.trigger('herotabs.show', {
-                    current: tabToShow
-                });
+                this.container.trigger('herotabs.show', this._getEventData(tabToShow));
 
                 return this;
             },
@@ -102,31 +99,23 @@
             nextTab: function() {
                 var currentIndex = this.tab.index(this._currentTab);
                 var nextTab = this.tab.eq(currentIndex + 1);
-                
-                this.container.trigger('herotabs.next', {
-                    next: nextTab,
-                    current: this._currentTab
-                });
+                nextTab = (nextTab.length > 0 ? nextTab : this.tab.eq(0));
 
-                // If nextTab doesn't exist then assume last tab is selected
-                // and grab the first one
-                this.showTab(nextTab.length > 0 ? nextTab : this.tab.eq(0));
+                this.showTab(nextTab);
+                this.container.trigger('herotabs.next', this._getEventData(nextTab));
+
                 return this;
             },
 
             prevTab: function() {
                 var currentIndex = this.tab.index(this._currentTab);
-
                 // Assume that if currentIndex is 0 the first tab is selected and
                 // grab the last one.
                 var prevTab = this.tab.eq(currentIndex == 0 ? -1 : currentIndex - 1);
-                
-                this.container.trigger('herotabs.prev', {
-                    prev: prevTab,
-                    current: this._currentTab
-                });
 
                 this.showTab(prevTab);
+                this.container.trigger('herotabs.prev', this._getEventData(prevTab));
+
                 return this;
             },
 
@@ -138,10 +127,6 @@
 
                 var self     = this;
                 var reverse  = opt.reverse;
-
-                this.container.trigger('herotabs.beforeStart', {
-                    current: this._currentTab
-                });
 
                 this._timer = setInterval(function() {
                     if (self._navItemHasFocus()) {
@@ -155,23 +140,15 @@
                     }
                 }, opt.delay);
 
-                this.container.trigger('herotabs.start', {
-                    current: this._currentTab
-                });
+                this.container.trigger('herotabs.start', this._getEventData(this._currentTab));
 
                 return this;
             },
 
             stop: function() {
-                this.container.trigger('herotabs.beforeStop', {
-                    current: this._currentTab
-                });
-
                 clearInterval(this._timer);
 
-                this.container.trigger('herotabs.stop', {
-                    current: this._currentTab
-                });
+                this.container.trigger('herotabs.stop', this._getEventData(this._currentTab));
 
                 return this;
             },
@@ -181,6 +158,16 @@
 
                 for (var element in selectors) {
                     this[element] = this.container.find(selectors[element]);
+                }
+            },
+
+            _getEventData: function(tab) {
+                var index = this.tab.index(tab);
+
+                return {
+                    currentTab: tab,
+                    currentTabIndex: index,
+                    currentNavItem: this.navItem.eq(index)
                 }
             },
             
@@ -208,13 +195,13 @@
                 this.container.on('mouseenter', function() {
                     self.stop();
                     $(this).trigger('herotabs.mouseenter', {
-                        current: self._currentTab
+                        currentTab: self._currentTab
                     });
                 });
                 this.container.on('mouseleave', function() {
                     self.start();
                     $(this).trigger('herotabs.mouseleave', {
-                        current: self._currentTab
+                        currentTab: self._currentTab
                     });
                 });
             },
@@ -295,7 +282,7 @@
 
                     // Current nav item link
                     var navItemLink = navItem
-                        .eq(self.tab.index(tabs.current))
+                        .eq(tabs.currentTabIndex)
                         .addClass(current)
                         .find('a');
                     
