@@ -129,10 +129,23 @@ If the tabs are currently cycling, it will stop them
 tabs.stop()
 ```
 
-#### Chaining
+### Chaining
 All methods return the instance so you can chain as many calls as you wish
 ```js
 tabs.showTab(2).nextTab().nextTab();
+```
+
+### Accessing the constructor
+If for any reason you need to override or add your own methods then you can access the Herotabs prototype before initialising it.
+
+```js
+var Herotabs = $.fn.herotabs.Herotabs;
+Herotabs.prototype.newMethod = function() {
+    // Something new!
+};
+
+var tabs = $('.tabs').herotabs().data('herotabs');
+tabs.newMethod();
 ```
 
 ## Events

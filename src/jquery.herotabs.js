@@ -7,27 +7,27 @@
 
 !function(global) {
     'use strict';
-    
-    var wrap = function($) {
 
-        var defaults = {
-            delay: 0,
-            startOn: 0,
-            reverse: false,
-            interactEvent: 'click',
-            useTouch: true,
-            css: {
-                active:     'is-active',
-                current:    'tab-current',
-                navCurrent: 'tab-nav-current',
-                navId:      'tabnav'
-            },
-            selectors: {
-                tab:       '.js-tab',
-                nav:       '.js-nav',
-                navItem:   '.js-nav-item'
-            }
-        };
+    var defaults = {
+        delay: 0,
+        startOn: 0,
+        reverse: false,
+        interactEvent: 'click',
+        useTouch: true,
+        css: {
+            active:     'is-active',
+            current:    'tab-current',
+            navCurrent: 'tab-nav-current',
+            navId:      'tabnav'
+        },
+        selectors: {
+            tab:       '.js-tab',
+            nav:       '.js-nav',
+            navItem:   '.js-nav-item'
+        }
+    };
+
+    var wrap = function($) {
 
         var Herotabs = function(container, options) {
             this.container         = container;
