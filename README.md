@@ -157,46 +157,46 @@ Fired after the tabs have stopped cycling
 You can get at the Herotabs instance by accessing it from the elements `.data` method
 
 ```js
-var $tabs = $('.tabs').herotabs().data('herotabs');
-$tabs.nextTab();
+var instance = $('.tabs').herotabs().data('herotabs');
+instance.nextTab();
 ```
 
 ### showTab
 Shows a tab. Accepts a zero based index or a jQuery element
 
 ```js
-$tabs.showTab(2) // Index
-$tabs.showTab($('.js-tab').eq(1)) // jQuery element
+instance.showTab(2) // Index
+instance.showTab($('.js-tab').eq(1)) // jQuery element
 ```
 
 ### nextTab
 Shows the next tab. If the current tab is the last in the set it will show the first.
 ```js
-$tabs.nextTab()
+instance.nextTab()
 ```
 
 ### prevTab
 Shows the previous tab. If the current tab is the first in the set it will show the last.
 ```js
-$tabs.prevTab()
+instance.prevTab()
 ```
 
 ### start
 If a delay is set in the options, then it will begin cycling through the tabs.
 ```js
-$tabs.start()
+instance.start()
 ```
 
 ###stop
 If the tabs are currently cycling, it will stop them
 ```js
-$tabs.stop()
+instance.stop()
 ```
 
 ### Chaining
 All methods return the instance so you can chain as many calls as you wish
 ```js
-$tabs.showTab(2).nextTab().nextTab();
+instance.showTab(2).nextTab().nextTab();
 ```
 
 ### Accessing the constructor
@@ -208,8 +208,8 @@ Herotabs.prototype.newMethod = function() {
     // Something new!
 };
 
-var tabs = $('.tabs').herotabs().data('herotabs');
-tabs.newMethod();
+var instance = $('.tabs').herotabs().data('herotabs');
+instance.newMethod();
 ```
 ## Example
 
@@ -229,6 +229,8 @@ $tabContainer.herotabs({
 $tabContainer.on('herotabs.show', function(event, tab) {
     tab.currentTab.text('You are looking at a tab!');
 });
+
+// The above can also be chained into one call if you're into that kind of thing
 ```
 	
 ## Contributing
