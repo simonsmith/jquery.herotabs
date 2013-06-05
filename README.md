@@ -226,4 +226,16 @@ $('.tabs').herotabs().on('herotabs.stop', function(event, data) {
 ## Contributing
 If you find a bug or need a feature added, please open an issue first.
 
+### Running the tests
+
+Check out the repo into a directory
+
+`git clone git@github.com:simonsmith/jquery.herotabs.git`
+
+Install the test dependencies with [Bower](http://bower.io)
+
+`bower install --dev`
+
+This will create a `components` directory containing Jasmine and other assets. Load the page in a server. On mac you can use `python -m SimpleHTTPServer`
+
 
