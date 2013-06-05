@@ -42,9 +42,25 @@ A simple example of markup.
 ```
 Herotabs depends on classnames rather than a specific structure so feel free to nest and shuffle your HTML as necessary. [JS prefixed classnames](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) are the default, but are not compulsory. 
 
-The only expectation it has is that your tab navigation will be contained by an element and that each tab `</a>` will be contained by an element. 
+The only expectation it has is that your tab navigation will be contained by an element structure like the following:
+
+```
+<ul class="js-nav">
+	<li class="js-nav-item"><a href="#tab1">Item 1</a></li>
+	<li class="js-nav-item"><a href="#tab2">Item 2</a></li>
+	<li class="js-nav-item"><a href="#tab3">Item 3</a></li>
+</ul>
+
+<div class="js-nav">
+	<span class="js-nav-item"><a href="#tab1">Item 1</a></span>
+	<span class="js-nav-item"><a href="#tab2">Item 2</a></span>
+	<span class="js-nav-item"><a href="#tab3">Item 3</a></span>
+</div>
+```
 
 ### JS
+
+Herotabs can be used as a normal script or with an AMD compatible loader like [RequireJS](http://requirejs.org)
 
 #### Standard way
 
@@ -89,50 +105,118 @@ require(['jquery', 'jquery.herotabs'], function($) {
 	* **nav** _(string)_ The nav container _default_ `.js-nav`
 	* **navItem** _(string)_ Each navigation item _default_ `.js-nav-item`
 	
+## Events
+Herotabs fires various events that you can listen to. They are fired off the element that `herotabs` is instantiated  on.
+
+
+```js
+var $tabs = $('.tabs').herotabs();
+
+$tabs.on('herotabs.show', function() {
+    // Do something when the tab shows!
+});
+
+$tabs.on('herotabs.show', function() {
+    // Do something else when the next tab has shown!
+});
+```
+### Event parameters
+
+Every event handler receives the jQuery event object and also an object containing some useful properties:
+
+* **currentTab** - _(jQuery object)_ The currently visible tab
+* **currentTabIndex** - _(number)_ The index of the currently visible tab
+* **currentNavItem** - _(jQuery object)_ The current selected nav item
+
+```js
+var $tabs = $('.tabs').herotabs();
+
+$tabs.on('herotabs.show', function(event, tab) {
+    tab.currentTab.addClass('currently-visible-tab');
+    $('body').text('The current tab index is ' + tab.currentTabIndex);
+    tab.currentNavItem.text('I am the current nav element');
+});
+```
+
+### herotabs.show
+Fired when a tab is shown
+
+### herotabs.next
+Fired when the next tab is shown
+
+### herotabs.prev
+Fired when the previous tab is shown
+
+### herotabs.start
+Fired after the tabs have begun cycling on a timed delay
+
+### herotabs.stop
+Fired after the tabs have stopped cycling
+
+## Example
+
+```js
+var $tabContainer = $('.tabs');
+
+$tabContainer.herotabs({
+    useTouch: false,
+    interactEvent: 'hover',
+    selectors: {
+        tab: '.tab-panel',
+        navItem: '.tab-nav-item',
+        nav: '.tab-nav-container'
+    }
+});
+
+$tabContainer.on('herotabs.show', function(event, tab) {
+    tab.currentTab.text('You are looking at a tab!');
+});
+```
+	
 ## Methods
 You can get at the Herotabs instance by accessing it from the elements `.data` method
 
 ```js
-var tabs = $('.tabs').herotabs().data('herotabs');
-tabs.nextTab();
+var $tabs = $('.tabs').herotabs().data('herotabs');
+$tabs.nextTab();
 ```
 
 ### showTab
-Shows a tab. Accepts an element index or a jQuery element
+Shows a tab. Accepts a zero based index or a jQuery element
 
 ```js
-tabs.showTab(2) // Index
-tabs.showTab($('.js-tab').eq(1)) // jQuery element
+$tabs.showTab(2) // Index
+$tabs.showTab($('.js-tab').eq(1)) // jQuery element
 ```
 
 ### nextTab
 Shows the next tab. If the current tab is the last in the set it will show the first.
 ```js
-tabs.nextTab()
+$tabs.nextTab()
 ```
 
 ### prevTab
 Shows the previous tab. If the current tab is the first in the set it will show the last.
 ```js
-tabs.prevTab()
+$tabs.prevTab()
 ```
 
 ### start
 If a delay is set in the options, then it will begin cycling through the tabs.
 ```js
-tabs.start()
+$tabs.start()
 ```
 
 ###stop
 If the tabs are currently cycling, it will stop them
 ```js
-tabs.stop()
+$tabs.stop()
 ```
 
 ### Chaining
 All methods return the instance so you can chain as many calls as you wish
 ```js
-tabs.showTab(2).nextTab().nextTab();
+$tabs.showTab(2).nextTab().nextTab();
 ```
 
 ### Accessing the constructor
@@ -146,94 +230,6 @@ Herotabs.prototype.newMethod = function() {
 
 var tabs = $('.tabs').herotabs().data('herotabs');
 tabs.newMethod();
-```
-
-## Events
-Herotabs uses custom events. They are fired off the element that `herotabs` is instantiated  on.
-```js
-var tabs = $('.tabs').herotabs();
-tabs.on('herotabs.next', function() {
-	// Do something!
-})
-```
-
-### herotabs.show
-Fired when a tab is shown
-
-Receives an object containing the current tab
-
-```js
-$('.tabs').herotabs().on('herotabs.show', function(event, tabs) {
-	tabs.current.text('I am the current tab!');
-})
-```
-
-### herotabs.next
-Fired when the next tab is shown
-
-Receives an object containing the current visible tab before the event was fired and the next tab that will be visible.
-
-```js
-$('.tabs').herotabs().on('herotabs.next', function(event, tabs) {
-	tabs.current.text('I am the tab that was visible before the event was fired!');
-	tabs.next.text('I am the next tab and am now visible!')
-})
-```
-
-### herotabs.prev
-Fired when the previous tab is shown
-
-Receives an object containing the current visible tab before the event was fired and the previous tab that will be visible.
-
-```js
-$('.tabs').herotabs().on('herotabs.next', function(event, tabs) {
-	tabs.current.text('I am the tab that was visible before the event was fired!');
-	tabs.prev.text('I am the previous tab and am now visible!')
-})
-```
-
-### herotabs.beforeStart
-Fired before the tabs begin cycling on a timed delay
-
-Receives an object containing the current tab
-
-```js
-$('.tabs').herotabs().on('herotabs.beforeStart', function(event, tabs) {
-	tabs.current.text('I am the current tab!');
-})
-```
-
-### herotabs.start
-Fired after the tabs have begun cycling on a timed delay
-
-Receives an object containing the current tab
-
-```js
-$('.tabs').herotabs().on('herotabs.start', function(event, tabs) {
-	tabs.current.text('I am the current tab!');
-})
-```
-
-### herotabs.beforeStop
-Fired before the tabs stop cycling on a timed delay
-
-Receives an object containing the current tab
-
-```js
-$('.tabs').herotabs().on('herotabs.beforeStop', function(event, tabs) {
-	tabs.current.text('I am the current tab!');
-})
-```
-
-### herotabs.stop
-Fired after the tabs have stopped cycling
-
-Receives an object containing the current tab
-
-```js
-$('.tabs').herotabs().on('herotabs.stop', function(event, tabs) {
-	tabs.current.text('I am the current tab!');
-})
 ```
 	
 ## Contributing
@@ -249,6 +245,10 @@ Install the test dependencies with [Bower](http://bower.io)
 
 `bower install --dev`
 
-This will create a `components` directory containing Jasmine and other assets. Load the page in a server. On mac you can use `python -m SimpleHTTPServer`
+This will create a `components` directory containing Jasmine and other assets. 
+
+Now run the `tests/index.html` page on a server. 
+
+**Tip** On mac you can use `python -m SimpleHTTPServer`
 
 
