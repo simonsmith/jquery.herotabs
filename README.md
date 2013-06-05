@@ -44,7 +44,7 @@ Herotabs depends on classnames rather than a specific structure so feel free to 
 
 The only expectation it has is that your tab navigation will be contained by an element structure like the following:
 
-```
+```html
 <ul class="js-nav">
 	<li class="js-nav-item"><a href="#tab1">Item 1</a></li>
 	<li class="js-nav-item"><a href="#tab2">Item 2</a></li>
@@ -152,26 +152,6 @@ Fired after the tabs have begun cycling on a timed delay
 
 ### herotabs.stop
 Fired after the tabs have stopped cycling
-
-## Example
-
-```js
-var $tabContainer = $('.tabs');
-
-$tabContainer.herotabs({
-    useTouch: false,
-    interactEvent: 'hover',
-    selectors: {
-        tab: '.tab-panel',
-        navItem: '.tab-nav-item',
-        nav: '.tab-nav-container'
-    }
-});
-
-$tabContainer.on('herotabs.show', function(event, tab) {
-    tab.currentTab.text('You are looking at a tab!');
-});
-```
 	
 ## Methods
 You can get at the Herotabs instance by accessing it from the elements `.data` method
@@ -231,6 +211,25 @@ Herotabs.prototype.newMethod = function() {
 var tabs = $('.tabs').herotabs().data('herotabs');
 tabs.newMethod();
 ```
+## Example
+
+```js
+var $tabContainer = $('.tabs');
+
+$tabContainer.herotabs({
+    useTouch: false,
+    interactEvent: 'hover',
+    selectors: {
+        tab: '.tab-panel',
+        navItem: '.tab-nav-item',
+        nav: '.tab-nav-container'
+    }
+});
+
+$tabContainer.on('herotabs.show', function(event, tab) {
+    tab.currentTab.text('You are looking at a tab!');
+});
+```
 	
 ## Contributing
 If you find a bug or need a feature added, please open an issue first.
@@ -250,5 +249,3 @@ This will create a `components` directory containing Jasmine and other assets.
 Now run the `tests/index.html` page on a server. 
 
 **Tip** On mac you can use `python -m SimpleHTTPServer`
-
-
