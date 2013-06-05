@@ -117,7 +117,7 @@ $tabs.on('herotabs.show', function() {
 });
 
 $tabs.on('herotabs.show', function() {
-    // Do something else when the next tab has shown!
+    // Do something else when the tab has shown!
 });
 ```
 ### Event parameters
