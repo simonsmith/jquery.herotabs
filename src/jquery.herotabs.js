@@ -1,6 +1,6 @@
 /** @preserve
  * jquery.herotabs
- * version 1.0.1;
+ * version 1.0.2;
  * https://github.com/simonsmith/jquery.herotabs
  * @blinkdesign
  */
@@ -32,10 +32,8 @@
         var Herotabs = function(container, options) {
             this.container         = container;
             this.options           = options;
-
             this._currentTab       = null;
             this._timer            = null;
-            this._isTouchEnabled   = ('ontouchend' in document.documentElement) && this.options.useTouch;
 
             this._getDOMElements();
 
@@ -48,7 +46,7 @@
             this.showTab(options.startOn);
             this._attachKeyEvents();
 
-            if (options.delay > 0 && !this._isTouchEnabled) {
+            if (options.delay > 0 && !this._isTouchEnabled()) {
                 this.start();
                 this._attachHoverEvents();
             }
@@ -223,14 +221,18 @@
                 });
             },
 
+            _isTouchEnabled: function() {
+                return ('ontouchend' in document.documentElement) && this.options.useTouch;
+            },
+
             _getEventType: function() {
                 var eventMap = {
                     hover: 'mouseenter',
                     touch: 'touchend',
                     click: 'click'
                 };
-
-                return (this._isTouchEnabled ? eventMap.touch : eventMap[this.options.interactEvent]);
+                
+                return (this._isTouchEnabled() ? eventMap.touch : eventMap[this.options.interactEvent]);
             },
 
             _attachNavEvents: function() {
