@@ -29,13 +29,13 @@ A simple example of markup.
         <li class="js-nav-item"><a href="#tab2">Item 2</a></li>
         <li class="js-nav-item"><a href="#tab3">Item 3</a></li>
     </ul>
-    <div class="js-tab">
+    <div class="js-tab" id="tab1">
         <p>content 1</p>
     </div>
-    <div class="js-tab">
+    <div class="js-tab" id="tab2">
         <p>content 2</p>
     </div>
-    <div class="js-tab">
+    <div class="js-tab" id="tab3">
         <p>content 3</p>
     </div>
 </div>
@@ -57,6 +57,8 @@ The only expectation it has is that your tab navigation will be contained by an 
 	<span class="js-nav-item"><a href="#tab3">Item 3</a></span>
 </div>
 ```
+
+**Note** Your navigation anchors must link to the tab content IDs (tab behaviour), or be fully-qualified URLs (follow link behaviour).
 
 ### JS
 
