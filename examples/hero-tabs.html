@@ -71,17 +71,17 @@
                 <li class="tab-nav-item js-nav-item"><a href="#tab3">Third tab!</a></li>
             </ul>
             <div>
-            <div class="tab-pane js-tab">
+            <div class="tab-pane js-tab" id="tab1">
                 <p>Nullam faucibus rutrum nibh, nec lobortis ligula suscipit ac. <a href="#">Aliquam sagittis odio pharetra</a> dolor pulvinar varius. Nunc nisi justo, ornare non congue in, vulputate sed turpis.
                 Integer placerat bibendum libero vel varius. Aenean pellentesque blandit magna ut tempor. Sed eleifend viverra nunc. Vestibulum metus velit, gravida at feugiat eu,
                 pretium id mauris. Fusce ullamcorper nisi <a href="#">id purus laoreet nec consectetur leo</a> condimentum. Vestibulum tempor lobortis hendrerit. Nam porta tincidunt
                 nisi non fringilla. Aenean quis massa eu diam accumsan aliquet.</p>
             </div>
             </div>
-            <div class="tab-pane js-tab">
+            <div class="tab-pane js-tab" id="tab2">
                 <p>Sed elit velit, pharetra vel sodales nec, <a href="#">vehicula sit amet arcu</a>. Vestibulum consequat consectetur tincidunt. Fusce eget erat sit amet odio rhoncus commodo a eu purus</p>
             </div>
-            <div class="tab-pane js-tab">
+            <div class="tab-pane js-tab" id="tab3">
                 <p>Vivamus consequat euismod ante ut semper. <a href="#">Pellentesque fringilla faucibus</a> ipsum ullamcorper dapibus. Aliquam tempor vulputate aliquet. Quisque sed commodo dolor. Curabitur ut orci at dolor lobortis faucibus
                 quis eu augue. Aenean laoreet <a href="#">suscipit erat ac vehicula.</a> Proin bibendum porttitor ante, ut accumsan turpis tempus nec.</p>
             </div>
@@ -105,8 +105,6 @@
                 css: {
                     navId: 'standardtab'
                 }
-            }).on('herotabs.show', function(event, data) {
-                console.log(data);
             });
         </script>
     </body>

@@ -1,6 +1,6 @@
 /** @preserve
  * jquery.herotabs
- * version 1.0.2;
+ * version 1.0.3;
  * https://github.com/simonsmith/jquery.herotabs
  * @blinkdesign
  */
@@ -13,6 +13,7 @@
         startOn: 0,
         reverse: false,
         interactEvent: 'click',
+        useHash: true,
         useTouch: true,
         css: {
             active:     'is-active',
@@ -43,7 +44,7 @@
                 this._attachNavEvents();
             }
 
-            this.showTab(options.startOn);
+            this._setInitialTab(options.startOn);
             this._attachKeyEvents();
 
             if (options.delay > 0 && !this._isTouchEnabled()) {
@@ -156,6 +157,17 @@
 
                 for (var element in selectors) {
                     this[element] = this.container.find(selectors[element]);
+                }
+            },
+
+            _setInitialTab: function(startOn) {
+                var tabToShow;
+
+                if (location.hash && this.options.useHash) {
+                    tabToShow = this.tab.filter(location.hash);
+                    this.showTab(tabToShow.length > 0 ? tabToShow : startOn);
+                } else {
+                    this.showTab(startOn);
                 }
             },
 

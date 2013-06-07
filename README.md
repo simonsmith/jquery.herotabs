@@ -95,6 +95,7 @@ require(['jquery', 'jquery.herotabs'], function($) {
 * **reverse** - _(boolean)_ Will reverse display order of tabs when on a timed delay _default_ `false`
 * **interactEvent** - _(string)_ Event to interact with the tab navigation. Possible values are `click` or `hover` _default_ `click`
 * **useTouch** - _(boolean)_ - If the browser supports touch then Herotabs will try to use it instead of the `interactEvent` above _default_ `true`
+* **useHash** - _(boolean)_ - If the page loads with a URL hash that matches a tab id then that tab will be shown first _default_ `true`
 * **css** _(object)_  Classes applied to the HTML structure
 	*	**active** _(string)_ - Added to the container when the plugin has setup _default_ `is-active`
 	*	**current** _(string)_ - Added to the current visible tab panel _default_ `tab-current`
@@ -107,7 +108,6 @@ require(['jquery', 'jquery.herotabs'], function($) {
 	
 ## Events
 Herotabs fires various events that you can listen to. They are fired off the element that `herotabs` is instantiated  on.
-
 
 ```js
 var $tabs = $('.tabs').herotabs();
