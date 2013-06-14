@@ -1,6 +1,6 @@
 /** @preserve
  * jquery.herotabs
- * version 1.0.3;
+ * version 1.0.4;
  * https://github.com/simonsmith/jquery.herotabs
  * @blinkdesign
  */

@@ -1,6 +1,6 @@
 {
-  "name": "jquery-herotabs",
-  "version": "1.0.0",
+  "name": "jquery.herotabs",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -21,7 +21,7 @@
     "url": "http://github.com/simonsmith/jquery-herotabs"
   },
   "author": "Simon Smith",
-  "license": "BSD",
+  "license": "MIT",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/simonsmith/jquery-herotabs/issues"
