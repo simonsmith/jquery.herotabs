@@ -67,7 +67,7 @@ describe('Herotabs', function() {
 
             it('should generate ids on the nav links', function() {
                 nav.find('a').each(function(index) {
-                    expect($(this)).toHaveId($.fn.herotabs.defaults.css.navId + (index + 1));
+                    expect($(this)).toHaveId($.fn.herotabs.defaults.css.navId + instance._instanceId + '-' + (index + 1));
                 });
             });
 
@@ -89,7 +89,7 @@ describe('Herotabs', function() {
 
             it('should link tab panels to their nav item ids', function() {
                 tabPanels.each(function(index) {
-                    expect($(this)).toHaveAttr('aria-labelledby', $.fn.herotabs.defaults.css.navId + (index + 1));
+                    expect($(this)).toHaveAttr('aria-labelledby', $.fn.herotabs.defaults.css.navId + instance._instanceId + '-' + (index + 1));
                 });
             });
 

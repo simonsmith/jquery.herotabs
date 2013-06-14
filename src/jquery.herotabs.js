@@ -8,6 +8,7 @@
 !function(global) {
     'use strict';
 
+    var instanceId = 0;
     var defaults = {
         delay: 0,
         startOn: 0,
@@ -35,6 +36,7 @@
             this.options           = options;
             this._currentTab       = null;
             this._timer            = null;
+            this._instanceId       = ++instanceId;
 
             this._getDOMElements();
 
@@ -182,7 +184,7 @@
             },
             
             _ariafy: function() {
-                var navId = this.options.css.navId;
+                var navId = this.options.css.navId + this._instanceId + '-';
 
                 this.nav[0].setAttribute('role', 'tablist');
                 this.navItem
