@@ -1,23 +1,11 @@
 describe('Herotabs', function() {
 
-    describe('Basic HTML', function() {
-        testSuite('basic.html');
-    });
-
-    describe('Heavily nested HTML', function() {
-        testSuite('nesting.html');
-    });
-
-    describe('Mixed HTML elements', function() {
-        testSuite('mixed-elements.html');
-    });
-
-    function testSuite(fixture) {
-        var tabs, nav, tabPanels, instance;
+    describe('Setup', function() {
+        var tabs, instance;
 
         describe('Object init', function() {
             beforeEach(function() {
-                loadFixtures(fixture);
+                loadFixtures('basic.html');
                 tabs = $('.tabs').herotabs({
                     interactEvent: 'hover',
                     css: {
@@ -49,6 +37,41 @@ describe('Herotabs', function() {
                 expect(tabs).toHaveClass($.fn.herotabs.defaults.css.active);
             });
         });
+
+        describe('checkUrlIsAnchor regex', function() {
+            it('should match hrefs that are anchor links', function() {
+                expect(instance._checkUrlIsAnchor('#href')).toBeTruthy();
+                expect(instance._checkUrlIsAnchor('#href_foo')).toBeTruthy();
+                expect(instance._checkUrlIsAnchor('#href-foo')).toBeTruthy();
+                expect(instance._checkUrlIsAnchor('#hREffoo')).toBeTruthy();
+                expect(instance._checkUrlIsAnchor('/#hREffoo')).toBeTruthy();
+
+                expect(instance._checkUrlIsAnchor('http://google.com')).toBeFalsy();
+                expect(instance._checkUrlIsAnchor('fooo')).toBeFalsy();
+                expect(instance._checkUrlIsAnchor('')).toBeFalsy();
+            });
+        });
+    });
+
+    /**
+     * Run the same tests against different HTML structures
+     * ----------------------------------------------------
+     */
+
+    describe('Basic HTML', function() {
+        testSuite('basic.html');
+    });
+
+    describe('Heavily nested HTML', function() {
+        testSuite('nesting.html');
+    });
+
+    describe('Mixed HTML elements', function() {
+        testSuite('mixed-elements.html');
+    });
+
+    function testSuite(fixture) {
+        var tabs, nav, tabPanels, instance;
 
         beforeEach(function() {
             loadFixtures(fixture);
@@ -367,22 +390,7 @@ describe('Herotabs', function() {
                 expect(tabPanels.eq(2)).toHaveClass($.fn.herotabs.defaults.css.current);
             });
         });
-
-        describe('checkUrlIsAnchor regex', function() {
-            it('should match hrefs that are anchor links', function() {
-                expect(instance._checkUrlIsAnchor('#href')).toBeTruthy();
-                expect(instance._checkUrlIsAnchor('#href_foo')).toBeTruthy();
-                expect(instance._checkUrlIsAnchor('#href-foo')).toBeTruthy();
-                expect(instance._checkUrlIsAnchor('#hREffoo')).toBeTruthy();
-                expect(instance._checkUrlIsAnchor('/#hREffoo')).toBeTruthy();
-
-                expect(instance._checkUrlIsAnchor('http://google.com')).toBeFalsy();
-                expect(instance._checkUrlIsAnchor('fooo')).toBeFalsy();
-                expect(instance._checkUrlIsAnchor('')).toBeFalsy();
-            });
-        });
     }
-
 });
 
 
