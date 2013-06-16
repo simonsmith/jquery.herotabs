@@ -278,7 +278,7 @@
                 // This stops the tabs stealing focus if the user is somewhere else
                 // For example if the tabs are on a delay and the user is focused elsewhere it would be
                 // annoying to have focus snap back to the tabs every time an item changed
-                return $(document.activeElement).closest(this.container)[0] == this.container[0];
+                return $(document.activeElement).closest(this.container).is(this.container);
             },
 
             _setCurrentNav: function() {
