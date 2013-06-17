@@ -305,11 +305,9 @@
                         .eq(tab.currentTabIndex)
                         .addClass(current)
                         .find('a');
-                    
-                    navItemLink.attr({
-                        'aria-selected': true,
-                        'tabindex': '0'
-                    });
+
+                    navItemLink[0].setAttribute('aria-selected', 'true');
+                    navItemLink[0].setAttribute('tabindex', '0');
 
                     if (self._navItemHasFocus()) {
                         navItemLink.focus();
