@@ -88,7 +88,7 @@
                 // Move the next tab above all the others except the current visible
                 // tab. This allows for a smooth fade transition effect
                 tabToShow[0].style.zIndex  = opt.zIndex.middle;
-                tabToShow[0].style.opacity = 1;
+                tabToShow.css('opacity', 1); // Use .css() so that opacity is set correctly in IE
                 tabToShow.show();
 
                 // Animate the current tab
