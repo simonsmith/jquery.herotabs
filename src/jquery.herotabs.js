@@ -1,8 +1,8 @@
-/** @preserve
+/** @cc_on
  * jquery.herotabs
- * version 1.0.5;
+ * version 1.1.0;
+ * Requires jQuery 1.9.0 or higher
  * https://github.com/simonsmith/jquery.herotabs
- * @blinkdesign
  */
 
 !function(global) {
