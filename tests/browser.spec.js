@@ -326,6 +326,12 @@ describe('Herotabs', function() {
 
                 expect('herotabs.stop').toHaveBeenTriggeredOn(tabs);
             });
+
+            it('should allow events to be fired manually', function() {
+                spyOnEvent(tabs, 'herotabs.show');
+                instance.triggerEvent('herotabs.show', 1);
+                expect('herotabs.show').toHaveBeenTriggeredOn(tabs);
+            });
         });
 
         describe('Browser events', function() {
