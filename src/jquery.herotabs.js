@@ -29,6 +29,7 @@
         }
     };
 
+    // Wrap is used for AMD support
     var wrap = function($) {
 
         var Herotabs = function(container, options) {
@@ -49,7 +50,8 @@
             this._setInitialTab(options.startOn);
             this._attachKeyEvents();
 
-            if (options.delay > 0 && !this._isTouchEnabled()) {
+            // Begin cycling through tabs if a delay has been set
+            if (options.delay > 0) {
                 this.start();
                 this._attachHoverEvents();
             }
@@ -110,8 +112,9 @@
 
             prevTab: function() {
                 var currentIndex = this.tab.index(this._currentTab);
-                // Assume that if currentIndex is 0 the first tab is selected and
-                // grab the last one.
+
+                // Assume that if currentIndex is 0 the first tab is currently
+                // selected so grab the last one.
                 var prevTab = this.tab.eq(currentIndex == 0 ? -1 : currentIndex - 1);
 
                 this.showTab(prevTab);
@@ -245,7 +248,8 @@
                     touch: 'touchend',
                     click: 'click'
                 };
-                
+
+                // If touch is supported then override the event in options
                 return (this._isTouchEnabled() ? eventMap.touch : eventMap[this.options.interactEvent]);
             },
 
