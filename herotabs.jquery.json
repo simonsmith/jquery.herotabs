@@ -1,8 +1,8 @@
 {
     "name": "herotabs",
-    "version": "1.0.5",
+    "version": "1.1.0",
     "title": "jQuery Herotabs",
-    "description": "A tiny (less than 1k gzipped), fully accessible tab switcher for jQuery. Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.",
+    "description": "A tiny (1k gzipped), fully accessible tab switcher for jQuery. Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.",
     "homepage": "https://github.com/simonsmith/jquery.herotabs",
     "author": {
         "name": "Simon Smith",
@@ -15,7 +15,7 @@
         }
     ],
     "dependencies": {
-        "jquery": ">=1.8.3"
+        "jquery": ">=1.9.0"
     },
     "keywords": [
         "tabs",
