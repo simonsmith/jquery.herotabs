@@ -72,7 +72,6 @@
                 // Allow element or index to be passed
                 tabToShow = (typeof tabToShow != 'number' ? tabToShow : this.tab.eq(tabToShow));
 
-                var self        = this;
                 var currentTab  = this._currentTab;
                 var opt         = this.options;
 
@@ -92,6 +91,7 @@
                 tabToShow.show();
 
                 // Animate the current tab
+                var self = this;
                 currentTab.animate({ opacity: 0 }, opt.duration, function() {
                     self._setTabVisibilty(tabToShow, currentTab);
                 });
@@ -99,8 +99,8 @@
                 // Trigger event outside of .animate()
                 // Allows user to use keyboard navigation and skip a tab
                 // without waiting for animations to finish
-                self.container.trigger('herotabs.show', self._getEventData(tabToShow));
-                self._currentTab = tabToShow;
+                this.triggerEvent('herotabs.show', tabToShow);
+                this._currentTab = tabToShow;
 
                 return this;
             },
@@ -111,7 +111,7 @@
                 nextTab = (nextTab.length > 0 ? nextTab : this.tab.eq(0));
 
                 this.showTab(nextTab);
-                this.container.trigger('herotabs.next', this._getEventData(nextTab));
+                this.triggerEvent('herotabs.next', nextTab);
 
                 return this;
             },
@@ -124,7 +124,7 @@
                 var prevTab = this.tab.eq(currentIndex == 0 ? -1 : currentIndex - 1);
 
                 this.showTab(prevTab);
-                this.container.trigger('herotabs.prev', this._getEventData(prevTab));
+                this.triggerEvent('herotabs.prev', prevTab);
 
                 return this;
             },
@@ -150,7 +150,7 @@
                     }
                 }, opt.delay);
 
-                this.container.trigger('herotabs.start', this._getEventData(this._currentTab));
+                this.triggerEvent('herotabs.start', this._currentTab);
 
                 return this;
             },
@@ -158,9 +158,20 @@
             stop: function() {
                 clearInterval(this._timer);
 
-                this.container.trigger('herotabs.stop', this._getEventData(this._currentTab));
+                this.triggerEvent('herotabs.stop', this._currentTab);
 
                 return this;
+            },
+
+            triggerEvent: function(eventName, tab) {
+                tab = (typeof tab != 'number' ? tab : this.tab.eq(tab));
+                var index = this.tab.index(tab);
+
+                this.container.trigger(eventName, {
+                    currentTab: tab,
+                    currentTabIndex: index,
+                    currentNavItem: this.navItem.eq(index)
+                });
             },
 
             _getDOMElements: function() {
@@ -178,7 +189,7 @@
 
                 this._setTabVisibilty(initialTab, this.tab.not(initialTab));
 
-                this.container.trigger('herotabs.show', this._getEventData(initialTab));
+                this.triggerEvent('herotabs.show', initialTab);
                 this._currentTab = initialTab;
             },
 
@@ -204,16 +215,6 @@
                     .find('a')
                     .addBack()
                     .attr('tabindex', '-1');
-            },
-
-            _getEventData: function(tab) {
-                var index = this.tab.index(tab);
-
-                return {
-                    currentTab: tab,
-                    currentTabIndex: index,
-                    currentNavItem: this.navItem.eq(index)
-                }
             },
             
             _ariafy: function() {

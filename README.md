@@ -1,6 +1,6 @@
 # jQuery Herotabs
 
-A tiny (__1k__ gzipped), fully accessible tab switcher for jQuery. 
+A tiny ( __1k__ gzipped ), fully accessible tab switcher for jQuery.
 
 Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.
 
@@ -201,11 +201,20 @@ If a delay is set in the options, then it will begin cycling through the tabs.
 instance.start()
 ```
 
-###stop
+### stop
 If the tabs are currently cycling, it will stop them
 ```js
 instance.stop()
 ```
+
+### triggerEvent
+Manually invoke a Herotabs event. Accepts an event name and jQuery object/index
+
+```js
+instance.triggerEvent('herotabs.show', 2); // Use an index
+instance.triggerEvent('herotabs.show', $('.a-single-tab')); // Or a jQuery object
+```
+Due to the events being attached after the plugin has initialised, this method might be useful if you have events that need to fire immediately or from somewhere else.
 
 ### Chaining
 All methods return the instance so you can chain as many calls as you wish
