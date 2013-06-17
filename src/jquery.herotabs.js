@@ -11,6 +11,7 @@
     var instanceId = 0;
     var defaults = {
         delay: 0,
+        duration: 0,
         startOn: 0,
         reverse: false,
         interactEvent: 'click',
@@ -26,6 +27,11 @@
             tab:       '.js-tab',
             nav:       '.js-nav',
             navItem:   '.js-nav-item'
+        },
+        zIndex: {
+            bottom: 1,
+            middle: 2,
+            top:    3
         }
     };
 
@@ -63,38 +69,38 @@
             constructor: Herotabs,
 
             showTab: function(tabToShow) {
+                // Allow element or index to be passed
                 tabToShow = (typeof tabToShow != 'number' ? tabToShow : this.tab.eq(tabToShow));
 
-                if (tabToShow.length == 0) {
+                var self        = this;
+                var currentTab  = this._currentTab;
+                var opt         = this.options;
+
+                // Exit if there is no tab to show or the same one
+                // is already showing
+                if (tabToShow.length == 0 || currentTab.is(tabToShow)) {
                     return this;
                 }
 
-                var opt = this.options;
+                // Quit any running animations first
+                this.tab.finish();
 
-                // Handle no current tab on first load
-                // Sets initial hidden state for all tab items
-                if (this._currentTab == null) {
-                    this._currentTab = this.tab;
-                }
+                // Move the next tab above all the others except the current visible
+                // tab. This allows for a smooth fade transition effect
+                tabToShow[0].style.zIndex  = opt.zIndex.middle;
+                tabToShow[0].style.opacity = 1;
+                tabToShow.show();
 
-                this._currentTab
-                    .removeClass(opt.css.current)
-                    .hide()
-                    .attr('aria-hidden', true)
-                    .find('a')
-                    .addBack()
-                    .attr('tabindex', '-1');
-                
-                tabToShow
-                    .addClass(opt.css.current)
-                    .show()
-                    .attr('aria-hidden', false)
-                    .find('a')
-                    .addBack()
-                    .attr('tabindex', '0');
+                // Animate the current tab
+                currentTab.animate({ opacity: 0 }, opt.duration, function() {
+                    self._setTabVisibilty(tabToShow, currentTab);
+                });
 
-                this._currentTab = tabToShow;
-                this.container.trigger('herotabs.show', this._getEventData(tabToShow));
+                // Trigger event outside of .animate()
+                // Allows user to use keyboard navigation and skip a tab
+                // without waiting for animations to finish
+                self.container.trigger('herotabs.show', self._getEventData(tabToShow));
+                self._currentTab = tabToShow;
 
                 return this;
             },
@@ -166,14 +172,38 @@
             },
 
             _setInitialTab: function(startOn) {
-                var tabToShow;
+                // Check whether there is a tab selected by the URL hash
+                var tabFromHash = location.hash && this.tab.filter(location.hash);
+                var initialTab  = tabFromHash.length == 0 ? this.tab.eq(startOn) : tabFromHash;
 
-                if (location.hash && this.options.useHash) {
-                    tabToShow = this.tab.filter(location.hash);
-                    this.showTab(tabToShow.length > 0 ? tabToShow : startOn);
-                } else {
-                    this.showTab(startOn);
-                }
+                this._setTabVisibilty(initialTab, this.tab.not(initialTab));
+
+                this.container.trigger('herotabs.show', this._getEventData(initialTab));
+                this._currentTab = initialTab;
+            },
+
+            _setTabVisibilty: function(tabToShow, tabToHide) {
+                var opt    = this.options;
+                var css    = opt.css;
+                var zIndex = opt.zIndex;
+
+                tabToShow
+                    .addClass(css.current)
+                    .css('z-index', zIndex.top)
+                    .attr('aria-hidden', false)
+                    .find('a')
+                    .addBack()
+                    .attr('tabindex', '0');
+
+                tabToHide
+                    .removeClass(css.current)
+                    .css('z-index', zIndex.bottom)
+                    .css('opacity', 0)
+                    .hide()
+                    .attr('aria-hidden', true)
+                    .find('a')
+                    .addBack()
+                    .attr('tabindex', '-1');
             },
 
             _getEventData: function(tab) {
