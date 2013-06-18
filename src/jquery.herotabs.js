@@ -69,8 +69,7 @@
             constructor: Herotabs,
 
             showTab: function(tabToShow) {
-                // Allow element or index to be passed
-                tabToShow = (typeof tabToShow != 'number' ? tabToShow : this.tab.eq(tabToShow));
+                tabToShow = this._getTab(tabToShow);
 
                 var currentTab  = this._currentTab;
                 var opt         = this.options;
@@ -169,12 +168,12 @@
                 return this;
             },
 
-            triggerEvent: function(eventName, tab) {
-                tab = (typeof tab != 'number' ? tab : this.tab.eq(tab));
-                var index = this.tab.index(tab);
+            triggerEvent: function(eventName, tabToShow) {
+                tabToShow = this._getTab(tabToShow);
+                var index = this.tab.index(tabToShow);
 
                 this.container.trigger(eventName, {
-                    currentTab: tab,
+                    currentTab: tabToShow,
                     currentTabIndex: index,
                     currentNavItem: this.navItem.eq(index)
                 });
@@ -186,6 +185,10 @@
                 for (var element in selectors) {
                     this[element] = this.container.find(selectors[element]);
                 }
+            },
+
+            _getTab: function(tab) {
+                return (typeof tab != 'number' ? tab : this.tab.eq(tab));
             },
 
             _showInitialTab: function(startOn) {
