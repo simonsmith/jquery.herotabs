@@ -4,7 +4,7 @@
 */
 body {
     width: 600px;
-    margin: 30px auto;
+    margin: 30px auto 60px;
 }
 
 a:focus {
@@ -35,6 +35,10 @@ hr {
     margin: 0;
 }
 
+.tab-pane {
+    position: relative;
+}
+
 .tab-nav li {
     margin-bottom: 5px;
 }
@@ -59,14 +63,6 @@ hr {
     color: inherit;
 }
 
-.tabs .tab-pane {
-    position: relative;
-}
-
-.tabs.is-active .tab-pane {
-    position: absolute;
-}
-
 
 
 /*
@@ -77,11 +73,6 @@ hr {
     position: absolute;
     top: 15px;
     right: 15px;
-}
-
-.tabs-horiz.is-active {
-    position: relative;
-    height: 250px;
 }
 
 .tabs-horiz.is-active .tab-nav {
@@ -120,11 +111,6 @@ hr {
     position: absolute;
     bottom: 15px;
     right: 15px;
-}
-
-.tabs-vert.is-active {
-    position: relative;
-    height: 250px;
 }
 
 .tabs-vert.is-active .tab-nav {
@@ -167,12 +153,6 @@ hr {
 
 .tabs-standard .tab-pane p {
     margin: 0;
-}
-
-.tabs-standard.is-active {
-    position: relative;
-    width: 600px;
-    min-height: 250px;
 }
 
 .tabs-standard.is-active .tab-nav-item {
