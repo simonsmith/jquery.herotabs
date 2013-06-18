@@ -52,7 +52,7 @@
                 this._attachNavEvents();
             }
 
-            this._setInitialTab(options.startOn);
+            this._showInitialTab(options.startOn);
             this._attachKeyEvents();
 
             // Begin cycling through tabs if a delay has been set
@@ -188,7 +188,7 @@
                 }
             },
 
-            _setInitialTab: function(startOn) {
+            _showInitialTab: function(startOn) {
                 // Check whether there is a tab selected by the URL hash
                 var tabFromHash = location.hash && this.tab.filter(location.hash);
                 var initialTab  = tabFromHash.length == 0 ? this.tab.eq(startOn) : tabFromHash;
