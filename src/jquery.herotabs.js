@@ -68,6 +68,9 @@
         Herotabs.prototype = {
             constructor: Herotabs,
 
+            // Public Methods
+            // ---------------------------------------
+
             showTab: function(tabToShow) {
                 tabToShow = this._getTab(tabToShow);
 
@@ -105,6 +108,8 @@
                 // Allows user to use keyboard navigation and skip a tab
                 // without waiting for animations to finish
                 this.triggerEvent('herotabs.show', tabToShow);
+
+                // Update reference to the current tab
                 this._currentTab = tabToShow;
 
                 return this;
@@ -178,6 +183,9 @@
                     currentNavItem: this.navItem.eq(index)
                 });
             },
+
+            // Private Methods
+            // ---------------------------------------
 
             _getDOMElements: function() {
                 var selectors = this.options.selectors;
