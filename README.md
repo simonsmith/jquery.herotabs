@@ -61,12 +61,6 @@ The only expectation it has is that your tab navigation will be contained by an 
 
 **Note** Your navigation anchors must link to the tab content IDs (tab behaviour), or be fully-qualified URLs (follow link behaviour).
 
-### CSS
-
-As of version 1.1.0 Herotabs uses `z-index` on the tab panels. One of the parent elements containing the tabs will require `position: relative`. The choice has been left up to the developer which element this is applied to. 
-
-See [the examples](http://jsfiddle.net/Blink/cWMY9/) for an idea of how this works.
-
 ### JS
 
 Herotabs can be used as a normal script or with an AMD compatible loader like [RequireJS](http://requirejs.org)
@@ -116,9 +110,8 @@ require(['jquery', 'jquery.herotabs'], function($) {
 	* **nav** _(string)_ The nav container _default_ `.js-nav`
 	* **navItem** _(string)_ Each navigation item _default_ `.js-nav-item`
 * **zIndex** _(object)_ z-index values applied to the tabs
-	* **bottom** (number) Applied to the lowest stacked tabs _default_ `1`
-	* **middle** (number) Applied to the tab that is to be shown next _default_ `1`
-	* **top** (number) Applied to the currently visible tab
+	* **bottom** (number) Applied to all tabs _default_ `1`
+	* **top** (number) Applied to the currently visible tab _default_ `2`
 	
 ## Events
 Herotabs fires various events that you can listen to. They are fired off the element that `herotabs` is instantiated  on.
