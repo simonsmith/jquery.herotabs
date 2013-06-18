@@ -30,8 +30,7 @@
         },
         zIndex: {
             bottom: 1,
-            middle: 2,
-            top:    3
+            top:    2
         }
     };
 
@@ -63,6 +62,7 @@
             }
 
             container.addClass(options.css.active);
+            container[0].style.position = 'relative';
         };
 
         Herotabs.prototype = {
@@ -84,13 +84,19 @@
                 // Quit any running animations first
                 this.tab.finish();
 
-                // Move the next tab above all the others except the current visible
-                // tab. This allows for a smooth fade transition effect
-                tabToShow[0].style.zIndex  = opt.zIndex.middle;
-                tabToShow.css('opacity', 1); // Use .css() so that opacity is set correctly in IE
-                tabToShow.show();
+                // The next tab to be shown needs position: absolute to allow
+                // it to be under the current tab as it begins animation. Once the current tab
+                // has finished animating the next tab will have position: relative reapplied
+                // so it maintains the height of the herotabs in the DOM.
+                tabToShow
+                    .show()
+                    .css({
+                        'position': 'absolute',
+                        'opacity': 1
+                    });
 
-                // Animate the current tab
+                // Animate the current tab and set visibility when
+                // the animation has completed
                 var self = this;
                 currentTab.animate({ opacity: 0 }, opt.duration, function() {
                     self._setTabVisibilty(tabToShow, currentTab);
@@ -187,6 +193,7 @@
                 var tabFromHash = location.hash && this.tab.filter(location.hash);
                 var initialTab  = tabFromHash.length == 0 ? this.tab.eq(startOn) : tabFromHash;
 
+                this.tab.css('top', 0);
                 this._setTabVisibilty(initialTab, this.tab.not(initialTab));
 
                 this.triggerEvent('herotabs.show', initialTab);
@@ -200,7 +207,10 @@
 
                 tabToShow
                     .addClass(css.current)
-                    .css('z-index', zIndex.top)
+                    .css({
+                        'z-index': zIndex.top,
+                        'position': 'relative'
+                    })
                     .attr('aria-hidden', false)
                     .find('a')
                     .addBack()
@@ -208,8 +218,10 @@
 
                 tabToHide
                     .removeClass(css.current)
-                    .css('z-index', zIndex.bottom)
-                    .css('opacity', 0)
+                    .css({
+                        'opacity': 0,
+                        'z-index': zIndex.bottom
+                    })
                     .hide()
                     .attr('aria-hidden', true)
                     .find('a')
