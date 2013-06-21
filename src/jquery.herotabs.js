@@ -1,6 +1,6 @@
 /** @cc_on
  * jquery.herotabs
- * version 1.1.3;
+ * version 1.1.2;
  * Requires jQuery 1.9.0 or higher
  * https://github.com/simonsmith/jquery.herotabs
  */
@@ -262,12 +262,15 @@
 
                 this.container.on('mouseenter', function() {
                     self.stop();
-                    self.triggerEvent('herotabs.mouseenter', self._currentTab);
+                    $(this).trigger('herotabs.mouseenter', {
+                        currentTab: self._currentTab
+                    });
                 });
-
                 this.container.on('mouseleave', function() {
                     self.start();
-                    self.triggerEvent('herotabs.mouseleave', self._currentTab);
+                    $(this).trigger('herotabs.mouseleave', {
+                        currentTab: self._currentTab
+                    });
                 });
             },
             
