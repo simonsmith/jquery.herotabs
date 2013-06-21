@@ -158,6 +158,12 @@ Fired after the tabs have begun cycling on a timed delay
 
 ### herotabs.stop
 Fired after the tabs have stopped cycling
+
+### herotabs.mouseenter
+Fired when the mouse enters the container of the tabs
+
+### herotabs.mouseleave
+Fired when the mouse leaves the container of the tabs
 	
 ## Methods
 You can get at the Herotabs instance by accessing it from the elements `.data` method
