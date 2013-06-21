@@ -1,6 +1,6 @@
 /** @cc_on
  * jquery.herotabs
- * version 1.1.1;
+ * version 1.1.2;
  * Requires jQuery 1.9.0 or higher
  * https://github.com/simonsmith/jquery.herotabs
  */
@@ -15,7 +15,6 @@
         startOn: 0,
         reverse: false,
         interactEvent: 'click',
-        useHash: true,
         useTouch: true,
         css: {
             active:     'is-active',
