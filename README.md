@@ -19,7 +19,47 @@ http://jsfiddle.net/Blink/cWMY9/show (Easier to use)
 * Flexible HTML
 * Rotate tabs with a delay
 
+## Installation
+
+Quickest way is to [grab it via Bower](http://bower.io)
+
+`bower install jquery.herotabs --save`
+
+Failing that, simply clone this repo or [grab the file itself](https://raw.github.com/simonsmith/jquery.herotabs/master/src/jquery.herotabs.js).
+
 ## Usage
+### JS
+
+Herotabs can be used as a normal script or with an AMD compatible loader like [RequireJS](http://requirejs.org)
+
+#### Standard way
+
+```html
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="jquery.herotabs.js"></script>
+<script>
+    $('.tabs').herotabs({
+	    // options
+    });
+</script>    
+```
+
+#### RequireJS
+Herotabs will work with RequireJS without any need for shims. Just ensure that `jquery` is set as a path.
+
+```js
+require.config({
+	paths: {
+		jquery: 'http://code.jquery.com/jquery-latest',
+	}
+});
+
+require(['jquery', 'jquery.herotabs'], function($) {
+	$('.tabs').herotabs();
+});
+```
+
+
 ### HTML
 A simple example of markup.
 
@@ -61,40 +101,10 @@ The only expectation it has is that your tab navigation will be contained by an 
 
 **Note** Your navigation anchors must link to the tab content IDs (tab behaviour), or be fully-qualified URLs (follow link behaviour).
 
-### JS
-
-Herotabs can be used as a normal script or with an AMD compatible loader like [RequireJS](http://requirejs.org)
-
-#### Standard way
-
-```html
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="jquery.herotabs.js"></script>
-<script>
-    $('.tabs').herotabs({
-	    // options
-    });
-</script>    
-```
-
-#### RequireJS
-Herotabs will work with RequireJS without any need for shims. Just ensure that `jquery` is set as a path.
-
-```js
-require.config({
-	paths: {
-		jquery: 'http://code.jquery.com/jquery-latest',
-	}
-});
-
-require(['jquery', 'jquery.herotabs'], function($) {
-	$('.tabs').herotabs();
-});
-```
 
 ## Options
 * **delay** - _(number)_ How long between each tab change. If set to 0 no timed change will happen _default_ `0` 
-* **duration** - _(number)_ If set to greater than zero, then this will decide how long it takes to fade transition between tabs _default_ `0`
+* **duration** - _(number)_ If set to greater than zero, then this will decide how long it takes to fade transition between tabs otherwise it will be instant _default_ `0`
 * **startOn** - _(number)_ Index of the tab to show first _default_ `0`
 * **reverse** - _(boolean)_ Will reverse display order of tabs when on a timed delay _default_ `false`
 * **interactEvent** - _(string)_ Event to interact with the tab navigation. Possible values are `click` or `hover` _default_ `click`
