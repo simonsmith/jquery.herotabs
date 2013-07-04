@@ -1,7 +1,7 @@
 /** @cc_on
  * jquery.herotabs
- * version 1.1.3;
- * Requires jQuery 1.9.0 or higher
+ * version 1.1.4;
+ * Requires jQuery 1.7.0 or higher
  * https://github.com/simonsmith/jquery.herotabs
  */
 
@@ -83,7 +83,7 @@
                 }
 
                 // Quit any running animations first
-                this.tab.finish();
+                this.tab.stop(true, true);
 
                 // The next tab to be shown needs position: absolute to allow
                 // it to be under the current tab as it begins animation. Once the current tab
@@ -223,7 +223,7 @@
                     })
                     .attr('aria-hidden', false)
                     .find('a')
-                    .addBack()
+                    .andSelf()
                     .attr('tabindex', '0');
 
                 tabToHide
@@ -235,7 +235,7 @@
                     .hide()
                     .attr('aria-hidden', true)
                     .find('a')
-                    .addBack()
+                    .andSelf()
                     .attr('tabindex', '-1');
             },
             
