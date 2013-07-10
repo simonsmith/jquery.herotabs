@@ -1,6 +1,6 @@
 /** @cc_on
  * jquery.herotabs
- * version 1.1.4;
+ * version 1.1.5;
  * Requires jQuery 1.7.0 or higher
  * https://github.com/simonsmith/jquery.herotabs
  */
@@ -289,13 +289,13 @@
             },
 
             _isTouchEnabled: function() {
-                return ('ontouchend' in document.documentElement) && this.options.useTouch;
+                return ('ontouchstart' in document.documentElement) && this.options.useTouch;
             },
 
             _getEventType: function() {
                 var eventMap = {
                     hover: 'mouseenter',
-                    touch: 'touchend',
+                    touch: 'touchstart',
                     click: 'click'
                 };
 
@@ -316,6 +316,7 @@
                     // Allows nav links to use external urls
                     if (self._checkUrlIsAnchor(this.href)) {
                         event.preventDefault();
+                        event.stopPropagation();    
                     }
                 });
             },
