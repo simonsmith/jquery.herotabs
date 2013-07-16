@@ -53,6 +53,34 @@ describe('Herotabs', function() {
         });
     });
 
+    describe('Ready/Setup', function() {
+        beforeEach(function() {
+            loadFixtures('basic.html');
+        });
+
+        it('should allow a setup callback before any plugin init is done', function() {
+            var context;
+            var tabs = $('.tabs').herotabs({
+                onSetup: function() {
+                    expect(true).toBeTruthy();
+                    context = this;
+                }
+            });
+            expect(context).toEqual(tabs.data('herotabs'));
+        });
+
+        it('should allow a ready callback when the plugin has instantiated', function() {
+            var context;
+            var tabs = $('.tabs').herotabs({
+                onReady: function() {
+                    expect(true).toBeTruthy();
+                    context = this;
+                }
+            });
+            expect(context).toEqual(tabs.data('herotabs'));
+        });
+    });
+
     /**
      * Run the same tests against different HTML structures
      * ----------------------------------------------------

@@ -1,6 +1,6 @@
 /** @cc_on
  * jquery.herotabs
- * version 1.1.5;
+ * version 1.1.6;
  * Requires jQuery 1.7.0 or higher
  * https://github.com/simonsmith/jquery.herotabs
  */
@@ -16,6 +16,8 @@
         reverse: false,
         interactEvent: 'click',
         useTouch: true,
+        onSetup: null,
+        onReady: null,
         css: {
             active:     'is-active',
             current:    'tab-current',
@@ -43,6 +45,8 @@
             this._timer            = null;
             this._instanceId       = ++instanceId;
 
+            typeof options.onSetup == 'function' && options.onSetup.call(this);
+
             this._getDOMElements();
 
             if (this.nav.length > 0) {
@@ -62,6 +66,8 @@
 
             container.addClass(options.css.active);
             container[0].style.position = 'relative';
+
+            typeof options.onReady == 'function' && options.onReady.call(this);
         };
 
         Herotabs.prototype = {
