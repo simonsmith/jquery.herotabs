@@ -63,6 +63,21 @@ hr {
     color: inherit;
 }
 
+.tabs-horiz .tab-nav,
+.tabs-vert .tab-nav {
+    list-style-type: none;
+}
+
+.tab-container {
+    height: 250px;
+    overflow-y: scroll;
+    overflow-x: auto;
+}
+
+.is-active .tab-container {
+    height: auto;
+    overflow: visible;
+}
 
 
 /*
