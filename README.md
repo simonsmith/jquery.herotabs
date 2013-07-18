@@ -257,6 +257,10 @@ $tabContainer.herotabs({
         tab: '.tab-panel',
         navItem: '.tab-nav-item',
         nav: '.tab-nav-container'
+    },
+    onSetup: function() {
+    	// Do some setup work here
+    	// e.g. generate some markup dynamically for Herotabs to attach to
     }
 });
 
