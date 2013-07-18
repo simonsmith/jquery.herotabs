@@ -1,7 +1,7 @@
 {
   "name": "jquery.herotabs",
   "version": "1.1.6",
-  "main": "src",
+  "main": ["src/jquery.herotabs.js"],
   "ignore": [
     "examples",
     "tests",
