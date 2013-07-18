@@ -227,7 +227,7 @@
                         'z-index': zIndex.top,
                         'position': 'relative'
                     })
-                    .attr('aria-hidden', false)
+                    .prop('hidden', false)
                     .find('a')
                     .andSelf()
                     .attr('tabindex', '0');
@@ -239,7 +239,7 @@
                         'z-index': zIndex.bottom
                     })
                     .hide()
-                    .attr('aria-hidden', true)
+                    .prop('hidden', true)
                     .find('a')
                     .andSelf()
                     .attr('tabindex', '-1');
