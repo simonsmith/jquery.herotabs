@@ -229,7 +229,7 @@
                     })
                     .prop('hidden', false)
                     .find('a')
-                    .andSelf()
+                    .andSelf() // Use .andSelf() to maintain compat with older jQuery
                     .attr('tabindex', '0');
 
                 tabToHide
