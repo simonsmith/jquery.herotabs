@@ -88,30 +88,27 @@
                     return this;
                 }
 
-                // Quit any running animations first
-                this.tab.stop(true, true);
+                this.tab
+                    .removeClass('fade');
 
-                // The next tab to be shown needs position: absolute to allow
-                // it to be under the current tab as it begins animation. Once the current tab
-                // has finished animating the next tab will have position: relative reapplied
-                // so it maintains the height of the herotabs in the DOM.
+                this._setTabVisibilty(currentTab, this.tab.not(currentTab));
+
                 tabToShow
                     .show()
                     .css({
-                        'position': 'absolute',
-                        'opacity': 1
+                        'position': 'absolute'
                     });
 
-                // Animate the current tab and set visibility when
-                // the animation has completed
-                var self = this;
-                currentTab.animate({ opacity: 0 }, opt.duration, function() {
-                    self._setTabVisibilty(tabToShow, currentTab);
-                });
+                currentTab
+                    .addClass('fade');
 
-                // Trigger event outside of .animate()
-                // Allows user to use keyboard navigation and skip a tab
-                // without waiting for animations to finish
+                var self = this;
+                currentTab
+                    .one('webkitTransitionEnd transitionend', function() {
+                        self._setTabVisibilty(tabToShow, currentTab);
+                        console.log('hai');
+                    });
+
                 this.triggerEvent('herotabs.show', tabToShow);
 
                 // Update reference to the current tab
@@ -235,7 +232,6 @@
                 tabToHide
                     .removeClass(css.current)
                     .css({
-                        'opacity': 0,
                         'z-index': zIndex.bottom
                     })
                     .hide()
@@ -261,6 +257,31 @@
                     this.setAttribute('role', 'tabpanel');
                     this.setAttribute('aria-labelledby', navId + (index + 1));
                 });
+            },
+
+            _getVendorPropertyName: function(prop) {
+                var div = document.createElement('div');
+
+                if (prop in div.style) {
+                    return prop;
+                }
+
+                var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
+                var prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
+
+                if (prop in div.style) {
+                    return prop;
+                }
+
+                var matchedProp;
+                for (var i = 0; i < prefixes.length; ++i) {
+                    var vendorProp = prefixes[i] + prop_;
+                    if (vendorProp in div.style) {
+                        matchedProp = vendorProp;
+                    }
+                }
+
+                return matchedProp;
             },
 
             _attachHoverEvents: function() {
