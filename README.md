@@ -11,7 +11,7 @@ http://jsfiddle.net/Blink/cWMY9/show (Easier to use)
 
 
 ## Features
-* Fade transition between tabs
+* Fade transition between tabs using CSS3
 * Keyboard navigation
 * WAI-ARIA (via http://www.accessibleculture.org/articles/2010/08/aria-tabs/)
 * Focus on tab contents

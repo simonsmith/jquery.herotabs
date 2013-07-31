@@ -9,16 +9,46 @@ module.exports = function(grunt) {
                     preserveComments: 'some'
                 },
                 files: {
-                    'src/jquery.herotabs.min.js': 'src/jquery.herotabs.js',
-                    'src/jquery.herotabs-animate.min.js': 'src/jquery.herotabs-animate.js'
+                    'dist/jquery.herotabs.min.js': 'dist/jquery.herotabs.js'
+                }
+            }
+        },
+
+        copy: {
+            build: {
+                files: {
+                    'dist/jquery.herotabs.js': 'src/herotabs.js'
+                }
+            }
+        },
+
+        usebanner: {
+            build: {
+                options: {
+                    position: 'top',
+                    banner: [
+                        '/*!',
+                        ' * <%= pkg.name %>',
+                        ' * version <%= pkg.version %>',
+                        ' * Requires jQuery 1.7.0 or higher',
+                        ' * <%= pkg.repository.url %>',
+                        ' */\n'
+                    ].join('\n')
+                },
+                files: {
+                    'dist/jquery.herotabs.js': 'dist/jquery.herotabs.js'
                 }
             }
         }
     });
 
     grunt.registerTask('default', [
+        'copy',
+        'usebanner',
         'uglify'
     ]);
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-banner');
 };

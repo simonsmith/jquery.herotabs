@@ -1,7 +1,7 @@
 {
   "name": "jquery.herotabs",
   "version": "1.2.0",
-  "main": ["src/jquery.herotabs.js", "src/jquery.herotabs.min.js", "src/jquery.herotabs-animate.js", "src/jquery.herotabs-animate.min.js"],
+  "main": ["dist/jquery.herotabs.js", "dist/jquery.herotabs.min.js"],
   "ignore": [
     "examples",
     "tests",
@@ -10,6 +10,7 @@
     "README.md",
     "herotabs.jquery.json",
     "bower.json",
+    "src",
     "Gruntfile.js",
     "LICENSE"
   ],

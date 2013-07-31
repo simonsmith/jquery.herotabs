@@ -1,8 +1,8 @@
-/** @cc_on
+/*!
  * jquery.herotabs
- * version 1.2.0;
+ * version 1.2.0
  * Requires jQuery 1.7.0 or higher
- * https://github.com/simonsmith/jquery.herotabs
+ * http://github.com/simonsmith/jquery-herotabs
  */
 
 !function(global) {
@@ -20,19 +20,19 @@
         onSetup: null,
         onReady: null,
         css: {
-            active:     'is-active',
-            current:    'tab-current',
+            active: 'is-active',
+            current: 'tab-current',
             navCurrent: 'tab-nav-current',
-            navId:      'tabnav'
+            navId: 'tabnav'
         },
         selectors: {
-            tab:       '.js-tab',
-            nav:       '.js-nav',
-            navItem:   '.js-nav-item'
+            tab: '.js-tab',
+            nav: '.js-nav',
+            navItem: '.js-nav-item'
         },
         zIndex: {
             bottom: 1,
-            top:    2
+            top: 2
         }
     };
 
@@ -40,11 +40,11 @@
     var wrap = function($) {
 
         var Herotabs = function(container, options) {
-            this.container          = container;
-            this.options            = options;
-            this._currentTab        = null;
-            this._timer             = null;
-            this._instanceId        = ++instanceId;
+            this.container = container;
+            this.options = options;
+            this._currentTab = null;
+            this._timer = null;
+            this._instanceId = ++instanceId;
             this._opacityTransition = 'opacity ' + (parseInt(options.duration) / 1000) + 's ' + options.easing;
 
             typeof options.onSetup == 'function' && options.onSetup.call(this);
@@ -81,7 +81,7 @@
             showTab: function(tabToShow) {
                 tabToShow = this._getTab(tabToShow);
 
-                var currentTab      = this._currentTab;
+                var currentTab = this._currentTab;
                 var transitionProps = this._transitionProps;
 
                 // Exit if there is no tab to show or the same one
@@ -111,7 +111,7 @@
                         'position': 'absolute'
                     });
 
-                var self     = this;
+                var self = this;
                 var duration = parseInt(this.options.duration);
 
                 if (duration > 0) {
@@ -171,8 +171,8 @@
                     return this;
                 }
 
-                var self     = this;
-                var reverse  = opt.reverse;
+                var self = this;
+                var reverse = opt.reverse;
 
                 this._timer = setInterval(function() {
                     if (self._navItemHasFocus()) {
@@ -228,7 +228,7 @@
             _showInitialTab: function(startOn) {
                 // Check whether there is a tab selected by the URL hash
                 var tabFromHash = location.hash && this.tab.filter(location.hash);
-                var initialTab  = tabFromHash.length == 0 ? this.tab.eq(startOn) : tabFromHash;
+                var initialTab = tabFromHash.length == 0 ? this.tab.eq(startOn) : tabFromHash;
 
                 this.tab.css('top', 0);
                 this._setTabVisibilty(initialTab, this.tab.not(initialTab));
@@ -238,8 +238,8 @@
             },
 
             _setTabVisibilty: function(tabToShow, tabToHide) {
-                var opt    = this.options;
-                var css    = opt.css;
+                var opt = this.options;
+                var css = opt.css;
                 var zIndex = opt.zIndex;
 
                 tabToShow
@@ -264,7 +264,7 @@
                     .andSelf()
                     .attr('tabindex', '-1');
             },
-            
+
             _ariafy: function() {
                 var navId = this.options.css.navId + this._instanceId + '-';
 
@@ -295,10 +295,10 @@
                 }
 
                 var transitionend = {
-                    'transition':       'transitionend',
+                    'transition': 'transitionend',
                     'webkitTransition': 'webkitTransitionEnd',
-                    'MozTransition':    'transitionend',
-                    'OTransition':      'oTransitionEnd otransitionend'
+                    'MozTransition': 'transitionend',
+                    'OTransition': 'oTransitionEnd otransitionend'
                 };
                 var prefixes = ['Moz', 'webkit', 'O'];
                 var prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
@@ -328,20 +328,20 @@
                     self.triggerEvent('herotabs.mouseleave', self._currentTab);
                 });
             },
-            
+
             _attachKeyEvents: function() {
                 var self = this;
 
                 this.nav.on('keydown', 'a', function(event) {
-                    switch(event.keyCode) {
+                    switch (event.keyCode) {
                         case 37: // Left
                         case 38: // Up
                             self.prevTab();
-                        break;
+                            break;
                         case 39: // Right
                         case 40: // Down
                             self.nextTab();
-                        break;
+                            break;
                     }
                 });
             },
@@ -362,11 +362,11 @@
             },
 
             _attachNavEvents: function() {
-                var nav       = this.nav;
+                var nav = this.nav;
                 var eventType = this._getEventType();
-                var opt       = this.options;
-                var self      = this;
-                
+                var opt = this.options;
+                var self = this;
+
                 nav.on(eventType, 'a', function(event) {
                     self.showTab($(this).parents(opt.selectors.navItem).index());
 
@@ -374,7 +374,7 @@
                     // Allows nav links to use external urls
                     if (self._checkUrlIsAnchor(this.href)) {
                         event.preventDefault();
-                        event.stopPropagation();    
+                        event.stopPropagation();
                     }
                 });
             },
@@ -395,10 +395,10 @@
             },
 
             _setCurrentNav: function() {
-                var self        = this;
-                var opt         = this.options;
-                var current     = opt.css.navCurrent;
-                var navItem     = this.navItem;
+                var self = this;
+                var opt = this.options;
+                var current = opt.css.navCurrent;
+                var navItem = this.navItem;
 
                 self.container.on('herotabs.show', function(event, tab) {
                     navItem
@@ -425,6 +425,53 @@
             }
         };
 
+        // Override showTab method if browser does not support transitions
+        if (Herotabs.prototype._transitionProps.css == undefined) {
+            Herotabs.prototype.showTab = function(tabToShow) {
+                tabToShow = this._getTab(tabToShow);
+
+                var currentTab = this._currentTab;
+                var opt = this.options;
+
+                // Exit if there is no tab to show or the same one
+                // is already showing
+                if (tabToShow.length == 0 || currentTab.is(tabToShow)) {
+                    return this;
+                }
+
+                // Quit any running animations first
+                this.tab.stop(true, true);
+
+                // The next tab to be shown needs position: absolute to allow
+                // it to be under the current tab as it begins animation. Once the current tab
+                // has finished animating the next tab will have position: relative reapplied
+                // so it maintains the height of the herotabs in the DOM.
+                tabToShow
+                    .show()
+                    .css({
+                        'position': 'absolute',
+                        'opacity': 1
+                    });
+
+                // Animate the current tab and set visibility when
+                // the animation has completed
+                var self = this;
+                currentTab.animate({ opacity: 0 }, opt.duration, function() {
+                    self._setTabVisibilty(tabToShow, currentTab);
+                });
+
+                // Trigger event outside of .animate()
+                // Allows user to use keyboard navigation and skip a tab
+                // without waiting for animations to finish
+                this.triggerEvent('herotabs.show', tabToShow);
+
+                // Update reference to the current tab
+                this._currentTab = tabToShow;
+
+                return this;
+            }
+        }
+
         // Create the jQuery plugin
         $.fn.herotabs = function(options) {
             options = $.extend(true, {}, defaults, options);
@@ -437,7 +484,7 @@
 
         $.fn.herotabs.defaults = defaults;
         $.fn.herotabs.Herotabs = Herotabs;
-        
+
     };
 
     if (typeof define == 'function' && define.amd) {
