@@ -1,6 +1,6 @@
 {
   "name": "jquery.herotabs",
-  "version": "1.1.7",
+  "version": "1.2.0",
   "main": ["src/jquery.herotabs.js", "src/jquery.herotabs.min.js", "src/jquery.herotabs-animate.js", "src/jquery.herotabs-animate.min.js"],
   "ignore": [
     "examples",

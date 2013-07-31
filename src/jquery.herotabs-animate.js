@@ -1,6 +1,6 @@
 /** @cc_on
  * jquery.herotabs-animate
- * Enables fade effects via .animate() for older browsers
+ * Enables fade effect via .animate() for older browsers
  * https://github.com/simonsmith/jquery.herotabs
  */
 

@@ -1,6 +1,6 @@
 /** @cc_on
  * jquery.herotabs
- * version 1.1.7;
+ * version 1.2.0;
  * Requires jQuery 1.7.0 or higher
  * https://github.com/simonsmith/jquery.herotabs
  */
