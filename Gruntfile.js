@@ -9,7 +9,8 @@ module.exports = function(grunt) {
                     preserveComments: 'some'
                 },
                 files: {
-                    'src/jquery.herotabs.min.js': 'src/jquery.herotabs.js'
+                    'src/jquery.herotabs.min.js': 'src/jquery.herotabs.js',
+                    'src/jquery.herotabs-animate.min.js': 'src/jquery.herotabs-animate.js'
                 }
             }
         }
