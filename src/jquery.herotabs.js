@@ -412,4 +412,4 @@
     } else {
         wrap(global.jQuery);
     }
-}(this);
+}(window);
