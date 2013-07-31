@@ -224,7 +224,7 @@
                         'z-index': zIndex.top,
                         'position': 'relative'
                     })
-                    .prop('hidden', false)
+                    .attr('aria-hidden', false)
                     .find('a')
                     .andSelf() // Use .andSelf() to maintain compat with older jQuery
                     .attr('tabindex', '0');
@@ -235,7 +235,7 @@
                         'z-index': zIndex.bottom
                     })
                     .hide()
-                    .prop('hidden', true)
+                    .attr('aria-hidden', true)
                     .find('a')
                     .andSelf()
                     .attr('tabindex', '-1');
