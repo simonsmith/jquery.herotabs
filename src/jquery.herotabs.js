@@ -104,7 +104,7 @@
                 this._setTabVisibilty(currentTab, this.tab.not(currentTab));
 
                 // Prepare the next tab to be shown. This essentially ensures it is beneath the current one
-                // to ensure a smooth transition
+                // to enable a smooth transition
                 tabToShow
                     .show()
                     .css({
@@ -435,8 +435,9 @@
             });
         };
 
-        $.fn.herotabs.defaults   = defaults;
-        $.fn.herotabs.Herotabs   = Herotabs;
+        $.fn.herotabs.defaults = defaults;
+        $.fn.herotabs.Herotabs = Herotabs;
+        
     };
 
     if (typeof define == 'function' && define.amd) {
