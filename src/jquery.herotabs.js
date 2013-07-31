@@ -12,6 +12,7 @@
     var defaults = {
         delay: 0,
         duration: 0,
+        easing: 'ease-in-out',
         startOn: 0,
         reverse: false,
         interactEvent: 'click',
@@ -39,11 +40,12 @@
     var wrap = function($) {
 
         var Herotabs = function(container, options) {
-            this.container         = container;
-            this.options           = options;
-            this._currentTab       = null;
-            this._timer            = null;
-            this._instanceId       = ++instanceId;
+            this.container          = container;
+            this.options            = options;
+            this._currentTab        = null;
+            this._timer             = null;
+            this._instanceId        = ++instanceId;
+            this._opacityTransition = 'opacity ' + (parseInt(options.duration) / 1000) + 's ' + options.easing;
 
             typeof options.onSetup == 'function' && options.onSetup.call(this);
 
@@ -59,7 +61,7 @@
             this._attachKeyEvents();
 
             // Begin cycling through tabs if a delay has been set
-            if (options.delay > 0) {
+            if (parseInt(options.delay) > 0) {
                 this.start();
                 this._attachHoverEvents();
             }
@@ -79,8 +81,8 @@
             showTab: function(tabToShow) {
                 tabToShow = this._getTab(tabToShow);
 
-                var currentTab  = this._currentTab;
-                var opt         = this.options;
+                var currentTab      = this._currentTab;
+                var transitionProps = this._transitionProps;
 
                 // Exit if there is no tab to show or the same one
                 // is already showing
@@ -88,26 +90,48 @@
                     return this;
                 }
 
+                // Stop any running animations by removing properties. This
+                // also stops transitionend firing if animation is halfway through
                 this.tab
-                    .removeClass('fade');
+                    .css(transitionProps.css || '', '')
+                    .css('opacity', '');
 
+                // If animations have been stopped by the above then tab states need to
+                // be manually set to their finished states had the animation been allowed
+                // to complete originally.
+                // This is similar to jQuery's .finish() and means
+                // tabs can be cycled rapidly without overlapping animations
                 this._setTabVisibilty(currentTab, this.tab.not(currentTab));
 
+                // Prepare the next tab to be shown. This essentially ensures it is beneath the current one
+                // to ensure a smooth transition
                 tabToShow
                     .show()
                     .css({
                         'position': 'absolute'
                     });
 
-                currentTab
-                    .addClass('fade');
+                var self     = this;
+                var duration = parseInt(this.options.duration);
 
-                var self = this;
+                if (duration > 0) {
+                    // When the animation has finished, reset the states.
+                    // This is important because a tab pane has position: absolute set during animation
+                    // and it needs to be set back after to maintain heights etc.
+                    currentTab
+                        .one(transitionProps.js, function() {
+                            self._setTabVisibilty(tabToShow, currentTab);
+                        });
+                } else {
+                    // If duration is 0s, this needs to be called manually
+                    // as transitionend does not fire
+                    self._setTabVisibilty(tabToShow, currentTab);
+                }
+
+                // Trigger the animation
                 currentTab
-                    .one('webkitTransitionEnd transitionend', function() {
-                        self._setTabVisibilty(tabToShow, currentTab);
-                        console.log('hai');
-                    });
+                    .css(transitionProps.css || '', this._opacityTransition)
+                    .css('opacity', 0);
 
                 this.triggerEvent('herotabs.show', tabToShow);
 
@@ -222,7 +246,7 @@
                     .addClass(css.current)
                     .css({
                         'z-index': zIndex.top,
-                        'position': 'relative'
+                        position: 'relative'
                     })
                     .attr('aria-hidden', false)
                     .find('a')
@@ -259,30 +283,36 @@
                 });
             },
 
-            _getVendorPropertyName: function(prop) {
-                var div = document.createElement('div');
+            _transitionProps: (function() {
+                var prop = 'transition';
 
-                if (prop in div.style) {
-                    return prop;
+                if (prop in document.body.style) {
+                    return {
+                        css: prop,
+                        js: 'transitionend'
+                    };
                 }
 
-                var prefixes = ['Moz', 'Webkit', 'O', 'ms'];
+                var transitionend = {
+                    'transition': 'transitionend',
+                    'webkitTransition': 'webkitTransitionEnd',
+                    'MozTransition': 'transitionend',
+                    'OTransition': 'oTransitionEnd otransitionend'
+                };
+                var prefixes = ['Moz', 'webkit', 'O'];
                 var prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
+                var props = {};
 
-                if (prop in div.style) {
-                    return prop;
-                }
-
-                var matchedProp;
-                for (var i = 0; i < prefixes.length; ++i) {
+                for (var i = 0, len = prefixes.length; i < len; ++i) {
                     var vendorProp = prefixes[i] + prop_;
-                    if (vendorProp in div.style) {
-                        matchedProp = vendorProp;
+                    if (vendorProp in document.body.style) {
+                        props.js = transitionend[vendorProp];
+                        props.css = '-' + prefixes[i].toLowerCase() + '-' + prop
                     }
                 }
 
-                return matchedProp;
-            },
+                return props;
+            })(),
 
             _attachHoverEvents: function() {
                 var self = this;
@@ -394,6 +424,7 @@
             }
         };
 
+        // Create the jQuery plugin
         $.fn.herotabs = function(options) {
             options = $.extend(true, {}, defaults, options);
 

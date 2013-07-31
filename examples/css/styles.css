@@ -79,11 +79,6 @@ hr {
     overflow: visible;
 }
 
-.fade {
-    opacity: 0;
-    -moz-transition: opacity .4s ease;
-    transition: opacity .4s ease;
-}
 
 
 /*
