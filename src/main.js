@@ -38,7 +38,7 @@
             this._currentTab = null;
             this._timer = null;
             this._instanceId = ++instanceId;
-            this._opacityTransition = 'opacity ' + (parseInt(options.duration) / 1000) + 's ' + options.easing;
+            this._opacityTransition = 'opacity ' + (parseInt(options.duration, 10) / 1000) + 's ' + options.easing;
 
             typeof options.onSetup == 'function' && options.onSetup.call(this);
 
@@ -54,7 +54,7 @@
             this._attachKeyEvents();
 
             // Begin cycling through tabs if a delay has been set
-            if (parseInt(options.delay) > 0) {
+            if (parseInt(options.delay, 10) > 0) {
                 this.start();
                 this._attachHoverEvents();
             }
@@ -105,7 +105,7 @@
                     });
 
                 var self = this;
-                var duration = parseInt(this.options.duration);
+                var duration = parseInt(this.options.duration, 10);
 
                 if (duration > 0) {
                     // When the animation has finished, reset the states.
@@ -304,7 +304,7 @@
                     var vendorProp = prefixes[i] + prop_;
                     if (vendorProp in div.style) {
                         props.js = transitionend[vendorProp];
-                        props.css = '-' + prefixes[i].toLowerCase() + '-' + prop
+                        props.css = '-' + prefixes[i].toLowerCase() + '-' + prop;
                     }
                 }
 
@@ -465,7 +465,7 @@
                 this._currentTab = tabToShow;
 
                 return this;
-            }
+            };
         }
 
         // Create the jQuery plugin

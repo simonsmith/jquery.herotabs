@@ -22,6 +22,23 @@ module.exports = function(grunt) {
             }
         },
 
+        watch: {
+            copydist: {
+                files: 'src/main.js',
+                tasks: ['copy', 'usebanner']
+            }
+        },
+
+        jshint: {
+            options: {
+                '-W030': true,
+                '-W116': false,
+                '-W041': false,
+                browser: true
+            },
+            build: ['src/main.js']
+        },
+
         usebanner: {
             build: {
                 options: {
@@ -44,6 +61,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', [
+        'jshint',
         'copy',
         'usebanner',
         'uglify'
@@ -51,5 +69,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-banner');
 };
