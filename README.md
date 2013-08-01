@@ -1,6 +1,6 @@
 # jQuery Herotabs
 
-A tiny ( __1k__ gzipped ), fully accessible tab switcher for jQuery.
+A tiny (**1.2k** gzipped), fully accessible tab switcher for jQuery.
 
 Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.
 
@@ -11,7 +11,8 @@ http://jsfiddle.net/Blink/cWMY9/show (Easier to use)
 
 
 ## Features
-* Fade transition between tabs using CSS3
+* Fade between tabs using **CSS3 transitions** with .animate() fallback
+* Works with jQuery **1.7.0+**
 * Keyboard navigation
 * WAI-ARIA (via http://www.accessibleculture.org/articles/2010/08/aria-tabs/)
 * Focus on tab contents
@@ -25,7 +26,7 @@ Quickest way is to [grab it via Bower](http://bower.io)
 
 `bower install jquery.herotabs --save`
 
-Failing that, simply clone this repo or [grab the file itself](https://raw.github.com/simonsmith/jquery.herotabs/master/src/jquery.herotabs.js).
+Failing that, simply clone this repo or [grab the file itself](https://raw.github.com/simonsmith/jquery.herotabs/master/dist/jquery.herotabs.js).
 
 ## Usage
 ### JS
@@ -105,6 +106,7 @@ The only expectation it has is that your tab navigation will be contained by an 
 ## Options
 * **delay** - _(number)_ How long between each tab change. If set to 0 no timed change will happen _default_ `0` 
 * **duration** - _(number)_ If set to greater than zero, then this will decide how long it takes to fade transition between tabs otherwise it will be instant _default_ `0`
+* **easing** - _(string)_ Easing type, works only with CSS3 capable browsers _default_ `ease-in-out`
 * **startOn** - _(number)_ Index of the tab to show first _default_ `0`
 * **reverse** - _(boolean)_ Will reverse display order of tabs when on a timed delay _default_ `false`
 * **interactEvent** - _(string)_ Event to interact with the tab navigation. Possible values are `click` or `hover` _default_ `click`
