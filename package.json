@@ -19,13 +19,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/simonsmith/jquery-herotabs"
+    "url": "https://github.com/simonsmith/jquery.herotabs/"
   },
   "author": "Simon Smith",
   "license": "MIT",
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/simonsmith/jquery-herotabs/issues"
+    "url": "https://github.com/simonsmith/jquery.herotabs/issues"
   },
   "scripts": {
     "test": "jasmine-node tests/specs-node"
