@@ -3,6 +3,7 @@
  * version 1.2.0
  * Requires jQuery 1.7.0 or higher
  * http://github.com/simonsmith/jquery-herotabs
+ * @blinkdesign
  */
 
 !function(global) {

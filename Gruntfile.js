@@ -32,6 +32,7 @@ module.exports = function(grunt) {
                         ' * version <%= pkg.version %>',
                         ' * Requires jQuery 1.7.0 or higher',
                         ' * <%= pkg.repository.url %>',
+                        ' * @blinkdesign',
                         ' */\n'
                     ].join('\n')
                 },
