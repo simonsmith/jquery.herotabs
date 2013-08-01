@@ -1,6 +1,6 @@
 # jQuery Herotabs
 
-A tiny (**1.2k** gzipped), fully accessible tab switcher for jQuery.
+A tiny ( **1.2k gzipped** ), fully accessible tab switcher for jQuery.
 
 Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.
 
