@@ -3,29 +3,29 @@
 
     var instanceId = 0;
     var defaults = {
-        delay: 0,
-        duration: 0,
-        easing: 'ease-in-out',
-        startOn: 0,
-        reverse: false,
-        interactEvent: 'click',
-        useTouch: true,
-        onSetup: null,
-        onReady: null,
+        delay:          0,
+        duration:       0,
+        easing:         'ease-in-out',
+        startOn:        0,
+        reverse:        false,
+        interactEvent:  'click',
+        useTouch:       true,
+        onSetup:        null,
+        onReady:        null,
         css: {
-            active: 'is-active',
-            current: 'tab-current',
+            active:     'is-active',
+            current:    'tab-current',
             navCurrent: 'tab-nav-current',
-            navId: 'tabnav'
+            navId:      'tabnav'
         },
         selectors: {
-            tab: '.js-tab',
-            nav: '.js-nav',
-            navItem: '.js-nav-item'
+            tab:        '.js-tab',
+            nav:        '.js-nav',
+            navItem:    '.js-nav-item'
         },
         zIndex: {
-            bottom: 1,
-            top: 2
+            bottom:     1,
+            top:        2
         }
     };
 

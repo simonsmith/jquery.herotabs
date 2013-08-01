@@ -8,14 +8,14 @@
 !function(global) {
     'use strict';
 
-    var instanceId =    0;
+    var instanceId = 0;
     var defaults = {
         delay:          0,
         duration:       0,
         easing:         'ease-in-out',
         startOn:        0,
         reverse:        false,
-        interactEvent: 'click',
+        interactEvent:  'click',
         useTouch:       true,
         onSetup:        null,
         onReady:        null,
