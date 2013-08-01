@@ -93,7 +93,7 @@
                 // Stop any running animations by removing properties. This
                 // also stops transitionend firing if animation is halfway through
                 this.tab
-                    .css(transitionProps.css || '', '')
+                    .css(transitionProps.css, '')
                     .css('opacity', '');
 
                 // If animations have been stopped by the above then tab states need to
@@ -130,7 +130,7 @@
 
                 // Trigger the animation
                 currentTab
-                    .css(transitionProps.css || '', this._opacityTransition)
+                    .css(transitionProps.css, this._opacityTransition)
                     .css('opacity', 0);
 
                 this.triggerEvent('herotabs.show', tabToShow);
