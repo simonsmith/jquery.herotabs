@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         copy: {
             build: {
                 files: {
-                    'dist/jquery.herotabs.js': 'src/herotabs.js'
+                    'dist/jquery.herotabs.js': 'src/main.js'
                 }
             }
         },
