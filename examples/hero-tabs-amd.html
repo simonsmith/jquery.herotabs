@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" class="no-js">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.js"></script>
+        <script>
+            require.config({
+                paths: {
+                    'jquery': 'http://code.jquery.com/jquery-1.7'
+                }
+            });
+            require(['jquery', '../dist/jquery.herotabs'], function($) {
+                $(function() {
+                    $('.tabs-horiz').herotabs({
+                        duration: 400,
+                        delay: 3000
+                    });
+                    $('.tabs-vert').herotabs({
+                        interactEvent: 'hover'
+                    });
+                    $('.tabs-standard').herotabs();
+                });
+            });
+        </script>
+    </head>
+    <body>
+
+        <h1>jQuery Herotabs examples (using AMD)</h1>
+        <p>Check <a href="http://github.com/simonsmith/jquery.herotabs">the GitHub page</a> for documentation</p>
+
+        <hr>
+
+        <h2>Example 1</h2>
+        <p>Uses a delay and fade effect. Will pause tab cycling whilst hovered or focused.</p>
+        <div class="tabs tabs-horiz">
+            <ul class="tab-nav js-nav">
+                <li class="tab-nav-item js-nav-item"><a href="#ex1-tab1">First tab</a></li>
+                <li class="tab-nav-item js-nav-item"><a href="#ex1-tab2">Second tab</a></li>
+                <li class="tab-nav-item js-nav-item"><a href="#ex1-tab3">Third tab</a></li>
+                <li class="tab-nav-item js-nav-item"><a href="#ex1-tab4">Fourth tab</a></li>
+            </ul>
+            <div class="tab-container">
+                <div class="tab-pane js-tab" id="ex1-tab1">
+                    <img src="http://lorempixel.com/600/250/sports/2" alt="">
+
+                    <div class="tab-info">
+                        <p>Some info about this item. <a href="#">A link to focus</a></p>
+                    </div>
+                </div>
+                <div class="tab-pane js-tab" id="ex1-tab2">
+                    <img src="http://lorempixel.com/600/250/fashion/2" alt="">
+                </div>
+                <div class="tab-pane js-tab" id="ex1-tab3">
+                    <img src="http://lorempixel.com/600/250/transport/1" alt="">
+
+                    <div class="tab-info">
+                        <p>Some info about this item <a href="#">A link to focus</a></p>
+                    </div>
+                </div>
+                <div class="tab-pane js-tab" id="ex1-tab4">
+                    <img src="http://lorempixel.com/600/250/nature/2" alt="">
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h2>Example 2</h2>
+        <p>Uses hover to switch tabs</p>
+
+        <div class="tabs tabs-vert">
+            <ul class="tab-nav js-nav">
+                <li class="tab-nav-item js-nav-item"><a href="#ex2-tab1">First tab</a></li>
+                <li class="tab-nav-item js-nav-item"><a href="#ex2-tab2">Second tab</a></li>
+                <li class="tab-nav-item js-nav-item"><a href="#ex2-tab3">Third tab</a></li>
+                <li class="tab-nav-item js-nav-item"><a href="#ex2-tab4">Fourth tab</a></li>
+            </ul>
+            <div class="tab-container">
+                <div class="tab-pane js-tab" id="ex2-tab1">
+                    <img src="http://lorempixel.com/600/250/sports/2" alt="">
+
+                    <div class="tab-info">
+                        <p>Some info about this item. <a href="#">A link</a></p>
+                    </div>
+                </div>
+                <div class="tab-pane js-tab" id="ex2-tab2">
+                    <img src="http://lorempixel.com/600/250/fashion/2" alt="">
+
+                    <div class="tab-info">
+                        <p>Some info about this item <a href="#">A link</a></p>
+                    </div>
+                </div>
+                <div class="tab-pane js-tab" id="ex2-tab3">
+                    <img src="http://lorempixel.com/600/250/transport/1" alt="">
+
+                    <div class="tab-info">
+                        <p>Some info about this item</p>
+                    </div>
+                </div>
+                <div class="tab-pane js-tab" id="ex2-tab4">
+                    <img src="http://lorempixel.com/600/250/nature/2" alt="">
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <h2>Example 3</h2>
+        <p>A more traditional tabbed navigation between content items</p>
+
+        <div class="tabs tabs-standard">
+            <ul class="tab-nav js-nav">
+                <li class="tab-nav-item js-nav-item"><a href="#ex3-tab1">First tab</a></li>
+                <li class="tab-nav-item js-nav-item"><a href="#ex3-tab2">Second tab</a></li>
+                <li class="tab-nav-item js-nav-item"><a href="#ex3-tab3">Third tab</a></li>
+                <li class="tab-nav-item js-nav-item"><a href="#ex3-tab4">Fourth tab</a></li>
+            </ul>
+            <div>
+            <div class="tab-pane js-tab" id="ex3-tab1">
+                <p>Nullam faucibus rutrum nibh, nec lobortis ligula suscipit ac. <a href="#">Aliquam sagittis odio pharetra</a> dolor pulvinar varius. Nunc nisi justo, ornare non congue in, vulputate sed turpis.
+                Integer placerat bibendum libero vel varius. Aenean pellentesque blandit magna ut tempor. Sed eleifend viverra nunc. Vestibulum metus velit, gravida at feugiat eu,
+                pretium id mauris. Fusce ullamcorper nisi <a href="#">id purus laoreet nec consectetur leo</a> condimentum. Vestibulum tempor lobortis hendrerit. Nam porta tincidunt
+                nisi non fringilla. Aenean quis massa eu diam accumsan aliquet.</p>
+            </div>
+            </div>
+            <div class="tab-pane js-tab" id="ex3-tab2">
+                <p>Sed elit velit, pharetra vel sodales nec, <a href="#">vehicula sit amet arcu</a>. Vestibulum consequat consectetur tincidunt. Fusce eget erat sit amet odio rhoncus commodo a eu purus</p>
+            </div>
+            <div class="tab-pane js-tab" id="ex3-tab3">
+                <p>Vivamus consequat euismod ante ut semper. <a href="#">Pellentesque fringilla faucibus</a> ipsum ullamcorper dapibus. Aliquam tempor vulputate aliquet. Quisque sed commodo dolor. Curabitur ut orci at dolor lobortis faucibus
+                quis eu augue. Aenean laoreet <a href="#">suscipit erat ac vehicula.</a> Proin bibendum porttitor ante, ut accumsan turpis tempus nec.</p>
+            </div>
+            <div class="tab-pane js-tab" id="ex3-tab4">
+                <p>Vivamus consequat euismod ante ut semper. <a href="#">Pellentesque fringilla faucibus</a> ipsum ullamcorper dapibus. Aliquam tempor vulputate aliquet. Quisque sed commodo dolor. Curabitur ut orci at dolor lobortis faucibus
+                quis eu augue. Aenean laoreet <a href="#">suscipit erat ac vehicula.</a> Proin bibendum porttitor ante, ut accumsan turpis tempus nec.</p>
+                <p>Vivamus consequat euismod ante ut semper. <a href="#">Pellentesque fringilla faucibus</a> ipsum ullamcorper dapibus. Aliquam tempor vulputate aliquet. Quisque sed commodo dolor. Curabitur ut orci at dolor lobortis faucibus
+                quis eu augue. Aenean laoreet <a href="#">suscipit erat ac vehicula.</a> Proin bibendum porttitor ante, ut accumsan turpis tempus nec.</p>
+            </div>
+        </div>
+
+        <p>some content</p>
+
+
+    </body>
+</html>
