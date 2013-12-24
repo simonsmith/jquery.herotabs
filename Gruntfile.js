@@ -31,10 +31,7 @@ module.exports = function(grunt) {
 
         jshint: {
             options: {
-                '-W030': true,
-                '-W116': false,
-                '-W041': false,
-                browser: true
+                jshintrc: '.jshintrc'
             },
             build: ['src/main.js']
         },
