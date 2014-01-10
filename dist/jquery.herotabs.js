@@ -1,6 +1,6 @@
 /*!
  * jquery.herotabs
- * version 1.2.1
+ * version 1.2.2
  * Requires jQuery 1.7.0 or higher
  * https://github.com/simonsmith/jquery.herotabs/
  * @blinkdesign
@@ -9,6 +9,8 @@
 !function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        factory(require('jquery'));
     } else {
         factory(root.jQuery);
     }
