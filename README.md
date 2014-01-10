@@ -26,6 +26,10 @@ Quickest way is to [grab it via Bower](http://bower.io)
 
 `bower install jquery.herotabs --save`
 
+Or from NPM
+
+`npm install jquery.herotabs --save`
+
 Failing that, simply clone this repo or [grab the file itself](https://raw.github.com/simonsmith/jquery.herotabs/master/dist/jquery.herotabs.js).
 
 ## Usage
