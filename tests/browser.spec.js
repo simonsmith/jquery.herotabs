@@ -324,6 +324,12 @@ describe('Herotabs', function() {
                 expect('herotabs.show').toHaveBeenTriggeredOn(tabs);
             });
 
+            it('should fire an event when a tab is hidden', function() {
+                spyOnEvent(tabs, 'herotabs.hide');
+                instance.showTab(1);
+                expect('herotabs.hide').toHaveBeenTriggeredOn(tabs);
+            });
+
             it('should fire an event when the next tab is shown', function() {
                 spyOnEvent(tabs, 'herotabs.next');
                 instance.nextTab();
