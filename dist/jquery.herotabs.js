@@ -5,7 +5,6 @@
  * https://github.com/simonsmith/jquery.herotabs/
  * @blinkdesign
  */
-
 !function(root, factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
