@@ -126,11 +126,13 @@
                 currentTab
                     .one(transitionProps.js, function() {
                         self._setTabVisibilty(tabToShow, currentTab);
+                        self.triggerEvent('herotabs.hide', currentTab);
                     });
             } else {
                 // If duration is 0s, this needs to be called manually
                 // as transitionend does not fire
                 self._setTabVisibilty(tabToShow, currentTab);
+                self.triggerEvent('herotabs.hide', currentTab);
             }
 
             // Trigger the animation
