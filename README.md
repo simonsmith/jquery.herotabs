@@ -165,6 +165,9 @@ $tabs.on('herotabs.show', function(event, tab) {
 ### herotabs.show
 Fired when a tab is shown
 
+### herotabs.hide
+Fired when the current tab is hidden
+
 ### herotabs.next
 Fired when the next tab is shown
 
