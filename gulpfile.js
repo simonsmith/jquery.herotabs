@@ -3,6 +3,7 @@ var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var header = require('gulp-header');
+             require('gulp-grunt')(gulp);
 
 var pkg    = require('./package.json');
 var banner = [
@@ -31,4 +32,8 @@ gulp.task('watch', function() {
     gulp.watch('src/main.js', function() {
         gulp.run('default');
     });
+});
+
+gulp.task('test', function() {
+    gulp.run('grunt-jasmine');
 });
