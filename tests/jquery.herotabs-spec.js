@@ -1,3 +1,5 @@
+jasmine.getFixtures().fixturesPath = 'tests/fixtures';
+
 describe('Herotabs', function() {
 
     describe('Setup', function() {
@@ -16,7 +18,7 @@ describe('Herotabs', function() {
             });
 
             it('should expose the constructor', function() {
-                expect($.fn.herotabs.Herotabs).toBeOfType('function');
+                expect(typeof $.fn.herotabs.Herotabs).toBe('function');
             });
 
             it('should create an instance in data storage', function() {
@@ -24,7 +26,7 @@ describe('Herotabs', function() {
             });
 
             it('should expose default options', function() {
-                expect($.fn.herotabs.defaults).toBeOfType('object');
+                expect(typeof $.fn.herotabs.defaults).toBe('object');
             });
 
             it('should allow user to override default options', function() {
