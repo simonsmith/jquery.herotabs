@@ -93,11 +93,11 @@ describe('Herotabs', function() {
     });
 
     describe('Heavily nested HTML', function() {
-        testSuite('nesting.html');
+        //testSuite('nesting.html');
     });
 
     describe('Mixed HTML elements', function() {
-        testSuite('mixed-elements.html');
+        //testSuite('mixed-elements.html');
     });
 
     function testSuite(fixture) {
@@ -347,61 +347,61 @@ describe('Herotabs', function() {
 
         describe('Browser events', function() {
             it('should change tab when a nav item is clicked', function() {
-                var event = $.Event('click', {
+                nav.trigger($.Event('click', {
                     target: nav.find('a').get(1)
-                });
-                nav.trigger(event);
+                }));
 
                 expect(tabPanels.eq(1)).toBeVisible();
                 expect(tabPanels.eq(1)).toHaveClass($.fn.herotabs.defaults.css.current);
             });
 
-            xit('should change tab when a nav item is hovered', function() {
+            it('should change tab when a nav item is hovered', function() {
                 tabs = $('.tabs').herotabs({
                     interactEvent: 'hover'
                 });
-                var event = $.Event('mouseenter');
-                event.target = nav.find('a')[1];
-                nav.trigger(event);
+                nav.trigger($.Event('mouseenter', {
+                    target: nav.find('a')[1]
+                }));
 
                 expect(tabPanels.eq(1)).toBeVisible();
                 expect(tabPanels.eq(1)).toHaveClass($.fn.herotabs.defaults.css.current);
             });
 
-            xit('should show next tab when the right arrow is pressed', function() {
-                var event = $.Event('keydown');
-                event.target = nav.find('a')[1];
-                event.keyCode = 39;
-                nav.trigger(event);
+            it('should show next tab when the right arrow is pressed', function() {
+                nav.trigger($.Event('keydown', {
+                    target: nav.find('a')[1],
+                    keyCode: 39
+                }));
 
                 expect(tabPanels.eq(1)).toBeVisible();
                 expect(tabPanels.eq(1)).toHaveClass($.fn.herotabs.defaults.css.current);
             });
 
-            xit('should show next tab when the down arrow is pressed', function() {
-                var event = $.Event('keydown');
-                event.target = nav.find('a')[1];
-                event.keyCode = 40;
-                nav.trigger(event);
+            it('should show next tab when the down arrow is pressed', function() {
+                nav.trigger($.Event('keydown', {
+                    target: nav.find('a')[1],
+                    keyCode: 40
+                }));
 
                 expect(tabPanels.eq(1)).toBeVisible();
                 expect(tabPanels.eq(1)).toHaveClass($.fn.herotabs.defaults.css.current);
             });
 
-            xit('should show previous tab when the left arrow is pressed', function() {
-                var event = $.Event('keydown');
-                event.target = nav.find('a')[1];
-                event.keyCode = 37;
-                nav.trigger(event);
+            it('should show previous tab when the left arrow is pressed', function() {
+                nav.trigger($.Event('keydown', {
+                    target: nav.find('a')[1],
+                    keyCode: 37
+                }));
 
                 expect(tabPanels.eq(2)).toBeVisible();
                 expect(tabPanels.eq(2)).toHaveClass($.fn.herotabs.defaults.css.current);
             });
 
-            xit('should show previous tab when the up arrow is pressed', function() {
-                var event = $.Event('keydown');
-                event.target = nav.find('a')[1];
-                event.keyCode = 38;
+            it('should show previous tab when the up arrow is pressed', function() {
+                var event = $.Event('keydown', {
+                    target: nav.find('a')[1],
+                    keyCode: 38
+                });
                 nav.trigger(event);
 
                 expect(tabPanels.eq(2)).toBeVisible();
