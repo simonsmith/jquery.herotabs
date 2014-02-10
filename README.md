@@ -1,4 +1,4 @@
-# jQuery Herotabs
+# jQuery Herotabs [![Build Status](https://travis-ci.org/simonsmith/jquery.herotabs.png?branch=master)](https://travis-ci.org/simonsmith/jquery.herotabs)
 
 A tiny ( **1.2k gzipped** ), fully accessible tab switcher for jQuery.
 
