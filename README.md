@@ -285,23 +285,10 @@ Sites using Herotabs
 * [Gardener's World](http://gardenersworld.com) 
 * [Sinfini Music](http://sinfinimusic.com/uk/charts/)
 
-
-
 ## Contributing
 If you find a bug or need a feature added, please open an issue first.
 
 ### Running the tests
 
-Check out the repo into a directory
-
-`git clone git@github.com:simonsmith/jquery.herotabs.git`
-
-Install the test dependencies with [Bower](http://bower.io)
-
-`bower install --dev`
-
-This will create a `components` directory containing Jasmine and other assets. 
-
-Now run the `tests/index.html` page on a server. 
-
-**Tip** On mac you can use `python -m SimpleHTTPServer`
+    npm install
+    npm test
