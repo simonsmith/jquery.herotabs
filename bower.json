@@ -20,9 +20,7 @@
   ],
   "devDependencies": {
     "jquery": "~2.0.0",
-    "jasmine-jquery": "~2.0.2"
-  },
-  "resolutions": {
-    "jasmine-jquery": "~2.0.2"
+    "jasmine-jquery": "~2.0.2",
+    "modernizr": "~2.7.1"
   }
 }
