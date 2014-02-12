@@ -26,7 +26,7 @@ Quickest way is to [grab it via Bower](http://bower.io)
 
 `bower install jquery.herotabs --save`
 
-Or from NPM
+Or from npm
 
 `npm install jquery.herotabs --save`
 
