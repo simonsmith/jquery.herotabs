@@ -293,18 +293,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _ariafy: function() {
 	    var navId = this.options.css.navId + this._instanceId + '-';
 
-	    this.nav[0].setAttribute('role', 'tablist');
+	    this.nav.attr('role', 'tablist');
 	    this.navItem
 	      .attr('role', 'presentation')
 	      .find('a')
 	      .each(function(index) {
-	        this.id = navId + (index + 1);
-	        this.setAttribute('role', 'tab');
+	        $(this).attr({
+	          id: navId + (index + 1),
+	          role: 'tab'
+	        });
 	      });
 
 	    this.tab.each(function(index) {
-	      this.setAttribute('role', 'tabpanel');
-	      this.setAttribute('aria-labelledby', navId + (index + 1));
+	      $(this).attr({
+	        role: 'tabpanel',
+	        'aria-labelledby': navId + (index + 1)
+	      });
 	    });
 	  },
 
@@ -323,20 +327,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  _attachKeyEvents: function() {
-	    var self = this;
-
 	    this.nav.on('keydown', 'a', function(event) {
 	      switch (event.keyCode) {
 	        case 37: // Left
 	        case 38: // Up
-	          self.prevTab();
+	          this.prevTab();
 	          break;
 	        case 39: // Right
 	        case 40: // Down
-	          self.nextTab();
+	          this.nextTab();
 	          break;
 	      }
-	    });
+	    }.bind(this));
 	  },
 
 	  _isTouchEnabled: function() {
@@ -372,11 +374,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  },
 
-	  // Check if url is a hash anchor e.g #foo, #foo-123 etc
-	  _isAnchorRegex: /#[A-Za-z0-9-_]+$/,
-
 	  _checkUrlIsAnchor: function(url) {
-	    return this._isAnchorRegex.test(url);
+	    // Check if url is a hash anchor e.g #foo, #foo-123 etc
+	    return /#[A-Za-z0-9-_]+$/.test(url);
 	  },
 
 	  _navItemHasFocus: function() {
@@ -388,18 +388,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  _setCurrentNav: function() {
-	    var self = this;
-	    var opt = this.options;
-	    var current = opt.css.navCurrent;
+	    var current = this.options.css.navCurrent;
 	    var navItem = this.navItem;
-
-	    self.container.on('herotabs.show', function(event, tab) {
+	    this.container.on('herotabs.show', function(event, tab) {
 	      navItem
 	        .removeClass(current)
 	        .find('a')
 	        .each(function() {
-	          this.setAttribute('aria-selected', 'false');
-	          this.setAttribute('tabindex', '-1');
+	          $(this).attr({
+	            'aria-selected': 'false',
+	            tabindex: '-1'
+	          });
 	        });
 
 	      // Current nav item link
@@ -408,13 +407,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        .addClass(current)
 	        .find('a');
 
-	      navItemLink[0].setAttribute('aria-selected', 'true');
-	      navItemLink[0].setAttribute('tabindex', '0');
+	      navItemLink.attr({
+	        'aria-selected': 'true',
+	        tabindex: '0'
+	      });
 
-	      if (self._navItemHasFocus()) {
+	      if (this._navItemHasFocus()) {
 	        navItemLink.focus();
 	      }
-	    });
+	    }.bind(this));
 	  }
 	};
 
