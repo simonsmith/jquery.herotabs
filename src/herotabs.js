@@ -10,7 +10,8 @@ var Herotabs = function(container, options) {
   this._currentTab = null;
   this._timer = null;
   this._instanceId = ++instanceId;
-  this._opacityTransition = 'opacity ' + (parseInt(options.duration) / 1000) + 's ' + options.easing;
+  this._opacityTransition = 'opacity ' +
+    (parseInt(options.duration) / 1000) + 's ' + options.easing;
 
   if (typeof options.onSetup == 'function') {
     options.onSetup.call(this);
@@ -47,9 +48,6 @@ var Herotabs = function(container, options) {
 
 Herotabs.prototype = {
   constructor: Herotabs,
-
-  // Public Methods
-  // ---------------------------------------
 
   showTab: function(tabToShow) {
     tabToShow = this._getTab(tabToShow);
@@ -181,8 +179,9 @@ Herotabs.prototype = {
     });
   },
 
-  // Private Methods
-  // ---------------------------------------
+  /**
+   * Private
+   * */
 
   _getTab: function(tab) {
     return (typeof tab != 'number' ? tab : this.tab.eq(tab));
