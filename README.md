@@ -5,10 +5,7 @@ A tiny, fully accessible tab switcher for jQuery.
 Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.
 
 ## Demo
-http://jsfiddle.net/Blink/cWMY9/
-
-http://jsfiddle.net/Blink/cWMY9/show (Easier to use)
-
+http://jsbin.com/hofuma/1/
 
 ## Features
 * Fade between tabs using **CSS3 transitions** with .animate() fallback
