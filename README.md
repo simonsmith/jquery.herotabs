@@ -127,6 +127,20 @@ The only expectation it has is that your tab navigation will be contained by an 
 	* **bottom** (number) Applied to all tabs _default_ `1`
 	* **top** (number) Applied to the currently visible tab _default_ `2`
 
+### Overriding defaults for all instances
+
+If you have multiple instances of Herotabs on one page then defaults used by all of them can be accessed via `$.fn.herotabs.defaults`:
+
+```js
+$.fn.herotabs.defaults.css.current = 'this-is-the-current-class';
+
+// Create some instances
+$('.tabs').herotabs();
+$('.other-tabs').herotabs();
+
+// Both will use `this-is-the-current-class`
+```
+
 ## Events
 Herotabs fires various events that you can listen to. They are fired off the element that `herotabs` is instantiated  on.
 
