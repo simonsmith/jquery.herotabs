@@ -1,9 +1,9 @@
 'use strict';
 
 var $ = require('jquery');
-
+var transitionProps = require('./transition-props');
 var instanceId = 0;
- 
+
 var Herotabs = function(container, options) {
   this.container = container;
   this.options = options;
@@ -47,7 +47,6 @@ Herotabs.prototype = {
     tabToShow = this._getTab(tabToShow);
 
     var currentTab = this._currentTab;
-    var transitionProps = this._transitionProps;
 
     // Exit if there is no tab to show or the same one
     // is already showing
@@ -250,41 +249,6 @@ Herotabs.prototype = {
     });
   },
 
-  _transitionProps: (function() {
-    var prop = 'transition';
-    var div = document.createElement('div');
-
-    // Check for cool browsers first, then exit if compliant
-    if (prop in div.style) {
-      return {
-        css: prop,
-        js: 'transitionend'
-      };
-    }
-
-    // Map of transitionend types. Sucks that it's so manual
-    var transitionend = {
-      'transition': 'transitionend',
-      'webkitTransition': 'webkitTransitionEnd',
-      'MozTransition': 'transitionend',
-      'OTransition': 'oTransitionEnd otransitionend'
-    };
-    var prefixes = ['Moz', 'webkit', 'O'];
-    var prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
-    var props = {};
-
-    // Try and find a matching prefix
-    for (var i = 0, len = prefixes.length; i < len; ++i) {
-      var vendorProp = prefixes[i] + prop_;
-      if (vendorProp in div.style) {
-        props.js = transitionend[vendorProp];
-        props.css = '-' + prefixes[i].toLowerCase() + '-' + prop;
-      }
-    }
-
-    return props;
-  })(),
-
   _attachHoverEvents: function() {
     var self = this;
 
@@ -396,7 +360,7 @@ Herotabs.prototype = {
 };
 
 // Override showTab method if browser does not support transitions
-if (Herotabs.prototype._transitionProps.css == undefined) {
+if (transitionProps.css == undefined) {
   Herotabs.prototype.showTab = function(tabToShow) {
     tabToShow = this._getTab(tabToShow);
 

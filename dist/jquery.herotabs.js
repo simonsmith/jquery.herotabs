@@ -64,9 +64,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var $ = __webpack_require__(1);
-
+	var transitionProps = __webpack_require__(2);
 	var instanceId = 0;
-	 
+
 	var Herotabs = function(container, options) {
 	  this.container = container;
 	  this.options = options;
@@ -110,7 +110,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tabToShow = this._getTab(tabToShow);
 
 	    var currentTab = this._currentTab;
-	    var transitionProps = this._transitionProps;
 
 	    // Exit if there is no tab to show or the same one
 	    // is already showing
@@ -313,41 +312,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  },
 
-	  _transitionProps: (function() {
-	    var prop = 'transition';
-	    var div = document.createElement('div');
-
-	    // Check for cool browsers first, then exit if compliant
-	    if (prop in div.style) {
-	      return {
-	        css: prop,
-	        js: 'transitionend'
-	      };
-	    }
-
-	    // Map of transitionend types. Sucks that it's so manual
-	    var transitionend = {
-	      'transition': 'transitionend',
-	      'webkitTransition': 'webkitTransitionEnd',
-	      'MozTransition': 'transitionend',
-	      'OTransition': 'oTransitionEnd otransitionend'
-	    };
-	    var prefixes = ['Moz', 'webkit', 'O'];
-	    var prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
-	    var props = {};
-
-	    // Try and find a matching prefix
-	    for (var i = 0, len = prefixes.length; i < len; ++i) {
-	      var vendorProp = prefixes[i] + prop_;
-	      if (vendorProp in div.style) {
-	        props.js = transitionend[vendorProp];
-	        props.css = '-' + prefixes[i].toLowerCase() + '-' + prop;
-	      }
-	    }
-
-	    return props;
-	  })(),
-
 	  _attachHoverEvents: function() {
 	    var self = this;
 
@@ -459,7 +423,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	// Override showTab method if browser does not support transitions
-	if (Herotabs.prototype._transitionProps.css == undefined) {
+	if (transitionProps.css == undefined) {
 	  Herotabs.prototype.showTab = function(tabToShow) {
 	    tabToShow = this._getTab(tabToShow);
 
@@ -554,6 +518,49 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function transitionProps() {
+	  'use strict';
+
+	  var prop = 'transition';
+	  var div = document.createElement('div');
+
+	  // Check for cool browsers first, then exit if compliant
+	  if (prop in div.style) {
+	    return {
+	      css: prop,
+	      js: 'transitionend'
+	    };
+	  }
+
+	  // Map of transitionend types. Sucks that it's so manual
+	  var transitionend = {
+	    'transition': 'transitionend',
+	    'webkitTransition': 'webkitTransitionEnd',
+	    'MozTransition': 'transitionend',
+	    'OTransition': 'oTransitionEnd otransitionend'
+	  };
+	  var prefixes = ['Moz', 'webkit', 'O'];
+	  var prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
+	  var props = {};
+
+	  // Try and find a matching prefix
+	  for (var i = 0, len = prefixes.length; i < len; ++i) {
+	    var vendorProp = prefixes[i] + prop_;
+	    if (vendorProp in div.style) {
+	      props.js = transitionend[vendorProp];
+	      props.css = '-' + prefixes[i].toLowerCase() + '-' + prop;
+	    }
+	  }
+
+	  return props;
+	}
+
+	module.exports = transitionProps();
 
 /***/ }
 /******/ ])
