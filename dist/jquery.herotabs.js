@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this._currentTab = null;
 	  this._timer = null;
 	  this._instanceId = ++instanceId;
-	  this._opacityTransition = 'opacity ' + (parseInt(options.duration, 10) / 1000) + 's ' + options.easing;
+	  this._opacityTransition = 'opacity ' + (parseInt(options.duration) / 1000) + 's ' + options.easing;
 
 	  if (typeof options.onSetup == 'function') {
 	    options.onSetup.call(this);
@@ -95,7 +95,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this._attachKeyEvents();
 
 	  // Begin cycling through tabs if a delay has been set
-	  if (parseInt(options.delay, 10) > 0) {
+	  if (parseInt(options.delay) > 0) {
 	    this.start();
 	    this._attachHoverEvents();
 	  }
