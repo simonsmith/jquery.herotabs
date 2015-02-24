@@ -19,8 +19,11 @@
     "LICENSE"
   ],
   "devDependencies": {
-    "jquery": "~2.0.0",
-    "jasmine-jquery": "~2.0.2",
+    "jquery": "~2.1.0",
+    "jasmine-jquery": "~2.1.0",
     "modernizr": "~2.7.1"
+  },
+  "resolutions": {
+    "jquery": "~2.1.3"
   }
 }
