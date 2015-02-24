@@ -14,6 +14,7 @@
     "herotabs.jquery.json",
     "bower.json",
     "src",
+    "Gruntfile.js",
     "gulpfile.js",
     ".jshintrc",
     "LICENSE"
