@@ -3,33 +3,7 @@
 var $ = require('jquery');
 
 var instanceId = 0;
-var defaults = {
-  delay: 0,
-  duration: 0,
-  easing: 'ease-in-out',
-  startOn: 0,
-  reverse: false,
-  interactEvent: 'click',
-  useTouch: true,
-  onSetup: null,
-  onReady: null,
-  css: {
-    active: 'is-active',
-    current: 'tab-current',
-    navCurrent: 'tab-nav-current',
-    navId: 'tabnav'
-  },
-  selectors: {
-    tab: '.js-tab',
-    nav: '.js-nav',
-    navItem: '.js-nav-item'
-  },
-  zIndex: {
-    bottom: 1,
-    top: 2
-  }
-};
-
+ 
 var Herotabs = function(container, options) {
   this.container = container;
   this.options = options;
@@ -468,8 +442,38 @@ if (Herotabs.prototype._transitionProps.css == undefined) {
   };
 }
 
-// Create the jQuery plugin
-$.fn.herotabs = function(options) {
+/**
+ * Create the plugin
+ * */
+
+var defaults = {
+  delay: 0,
+  duration: 0,
+  easing: 'ease-in-out',
+  startOn: 0,
+  reverse: false,
+  interactEvent: 'click',
+  useTouch: true,
+  onSetup: null,
+  onReady: null,
+  css: {
+    active: 'is-active',
+    current: 'tab-current',
+    navCurrent: 'tab-nav-current',
+    navId: 'tabnav'
+  },
+  selectors: {
+    tab: '.js-tab',
+    nav: '.js-nav',
+    navItem: '.js-nav-item'
+  },
+  zIndex: {
+    bottom: 1,
+    top: 2
+  }
+};
+
+ $.fn.herotabs = function(options) {
   options = $.extend(true, {}, defaults, options);
 
   return this.each(function() {
