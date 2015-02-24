@@ -142,20 +142,17 @@ Herotabs.prototype = {
       return this;
     }
 
-    var self = this;
-    var reverse = opt.reverse;
-
     this._timer = setInterval(function() {
-      if (self._navItemHasFocus()) {
+      if (this._navItemHasFocus()) {
         return;
       }
 
-      if (!reverse) {
-        self.nextTab();
+      if (!opt.reverse) {
+        this.nextTab();
       } else {
-        self.prevTab();
+        this.prevTab();
       }
-    }, opt.delay);
+    }.bind(this), opt.delay);
 
     this.triggerEvent('herotabs.start', this._currentTab);
 
@@ -164,9 +161,7 @@ Herotabs.prototype = {
 
   stop: function() {
     clearInterval(this._timer);
-
     this.triggerEvent('herotabs.stop', this._currentTab);
-
     return this;
   },
 
@@ -252,17 +247,15 @@ Herotabs.prototype = {
   },
 
   _attachHoverEvents: function() {
-    var self = this;
-
     this.container.on('mouseenter', function() {
-      self.stop();
-      self.triggerEvent('herotabs.mouseenter', self._currentTab);
-    });
+      this.stop();
+      this.triggerEvent('herotabs.mouseenter', this._currentTab);
+    }.bind(this));
 
     this.container.on('mouseleave', function() {
-      self.start();
-      self.triggerEvent('herotabs.mouseleave', self._currentTab);
-    });
+      this.start();
+      this.triggerEvent('herotabs.mouseleave', this._currentTab);
+    }.bind(this));
   },
 
   _attachKeyEvents: function() {
