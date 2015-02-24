@@ -16,7 +16,11 @@ var Herotabs = function(container, options) {
     options.onSetup.call(this);
   }
 
-  this._getDOMElements();
+  // Get reference to the elements
+  var selectors = this.options.selectors;
+  this.tab = this.container.find(selectors.tab);
+  this.nav = this.container.find(selectors.nav);
+  this.navItem = this.container.find(selectors.navItem);
 
   if (this.nav.length > 0) {
     this._ariafy();
@@ -179,14 +183,6 @@ Herotabs.prototype = {
 
   // Private Methods
   // ---------------------------------------
-
-  _getDOMElements: function() {
-    var selectors = this.options.selectors;
-
-    for (var element in selectors) {
-      this[element] = this.container.find(selectors[element]);
-    }
-  },
 
   _getTab: function(tab) {
     return (typeof tab != 'number' ? tab : this.tab.eq(tab));
