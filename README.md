@@ -116,9 +116,9 @@ The only expectation it has is that your tab navigation will be contained by an 
 * **onSetup** - _(function)_ - Called before the plugin has begun grabbing elements, setting up events etc. _default_ `null`
 * **css** _(object)_  Classes applied to the HTML structure
 	*	**active** _(string)_ - Added to the container when the plugin has setup _default_ `is-active`
-	*	**current** _(string)_ - Added to the current visible tab panel _default_ `tab-current`
-	* **navCurrent** _(string)_ - Added to current visible nav item _default_ `tab-nav-current`
-	* **navId** _(string)_ - id to add to each nav link. Becomes `tabnav1`, `tabnav2` etc _default_ `tabnav`
+	*	**current** _(string)_ - Added to the current visible tab panel _default_ `is-current-pane`
+	* **navCurrent** _(string)_ - Added to current visible nav item _default_ `is-current-nav`
+	* **navId** _(string)_ - id to add to each nav link. Becomes `herotabs1`, `herotabs2` etc _default_ `herotabs`
 * **selectors** _(object)_ - CSS selectors to grab the HTML
 	* **tab** _(string)_ The tab panel containing the content _default_ `.js-herotabs-tab`
 	* **nav** _(string)_ The nav container _default_ `.js-herotabs-nav`
