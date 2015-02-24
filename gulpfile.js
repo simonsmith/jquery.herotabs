@@ -18,7 +18,7 @@ var banner = [
 ].join('\n');
 
 gulp.task('default', function() {
-  return gulp.src('src/main.js')
+  return gulp.src('src/herotabs.js')
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
@@ -45,7 +45,7 @@ gulp.task('default', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('src/main.js', function() {
+  gulp.watch('src/herotabs.js', function() {
     gulp.run('default');
   });
 });
