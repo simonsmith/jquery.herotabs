@@ -1,4 +1,7 @@
 {
-  "-W041": false,
-  "-W030": false
+  "indent": 2,
+  "expr": true,
+  "jquery": true,
+  "quotmark": "single",
+  "-W041": false
 }

@@ -18,7 +18,9 @@ var banner = [
 
 gulp.task('default', function() {
   return gulp.src('src/main.js')
-    .pipe(jshint('.jshintrc'))
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'))
     .pipe(rename('jquery.herotabs.js'))
     .pipe(header(banner, {pkg: pkg}))
     .pipe(gulp.dest('dist'))
