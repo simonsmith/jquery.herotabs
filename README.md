@@ -8,7 +8,7 @@ Useful for standard tabs and also 'hero' style tabs often found at the top of we
 http://jsbin.com/hofuma/2/
 
 ## Features
-* Fade between tabs using **CSS3 transitions** with .animate() fallback
+* Fade between tabs using **CSS3 transitions** with `.animate()` fallback
 * Works with jQuery **1.9.0+**
 * Keyboard navigation
 * WAI-ARIA (via http://www.accessibleculture.org/articles/2010/08/aria-tabs/)
