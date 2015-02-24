@@ -17,6 +17,7 @@
     "gulp-jshint": "~1.9.0",
     "gulp-rename": "~1.2.0",
     "gulp-uglify": "~1.1.0",
+    "gulp-webpack": "^1.2.0",
     "jshint-stylish": "^1.0.0"
   },
   "repository": {

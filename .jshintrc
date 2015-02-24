@@ -1,7 +1,12 @@
 {
   "indent": 2,
   "expr": true,
-  "jquery": true,
   "quotmark": "single",
-  "-W041": false
+  "-W041": false,
+  "browser": true,
+  "globalstrict": true,
+  "globals": {
+    "require": true,
+    "module": true
+  }
 }
