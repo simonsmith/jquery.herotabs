@@ -1,6 +1,6 @@
 {
   "name": "jquery.herotabs",
-  "version": "1.2.3",
+  "version": "2.0.0",
   "main": [
     "dist/jquery.herotabs.js",
     "dist/jquery.herotabs.min.js"
@@ -17,13 +17,5 @@
     "gulpfile.js",
     ".jshintrc",
     "LICENSE"
-  ],
-  "devDependencies": {
-    "jquery": "~2.1.0",
-    "jasmine-jquery": "~2.1.0",
-    "modernizr": "~2.7.1"
-  },
-  "resolutions": {
-    "jquery": "~2.1.3"
-  }
+  ]
 }

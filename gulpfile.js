@@ -11,7 +11,7 @@ var banner = [
   '/*!',
   ' * <%= pkg.name %>',
   ' * version <%= pkg.version %>',
-  ' * Requires jQuery 1.7.0 or higher',
+  ' * Requires jQuery 1.9.0 or higher',
   ' * <%= pkg.repository.url %>',
   ' * @blinkdesign',
   ' */\n'

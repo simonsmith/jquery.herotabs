@@ -1,7 +1,7 @@
 /*!
  * jquery.herotabs
- * version 1.2.3
- * Requires jQuery 1.7.0 or higher
+ * version 2.0.0
+ * Requires jQuery 1.9.0 or higher
  * https://github.com/simonsmith/jquery.herotabs/
  * @blinkdesign
  */
@@ -306,7 +306,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      })
 	      .attr('aria-hidden', false)
 	      .find('a')
-	      .andSelf() // Use .andSelf() to maintain compat with older jQuery
+	      .addBack()
 	      .attr('tabindex', '0');
 
 	    tabToHide
@@ -317,7 +317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      .hide()
 	      .attr('aria-hidden', true)
 	      .find('a')
-	      .andSelf()
+	      .addBack()
 	      .attr('tabindex', '-1');
 	  },
 
@@ -499,7 +499,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    // Quit any running animations first
-	    this.tab.stop(true, true);
+	    this.tab.finish();
 
 	    // The next tab to be shown needs position: absolute to allow
 	    // it to be under the current tab as it begins animation. Once the current tab

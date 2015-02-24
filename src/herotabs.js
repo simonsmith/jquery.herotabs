@@ -243,7 +243,7 @@ Herotabs.prototype = {
       })
       .attr('aria-hidden', false)
       .find('a')
-      .andSelf() // Use .andSelf() to maintain compat with older jQuery
+      .addBack()
       .attr('tabindex', '0');
 
     tabToHide
@@ -254,7 +254,7 @@ Herotabs.prototype = {
       .hide()
       .attr('aria-hidden', true)
       .find('a')
-      .andSelf()
+      .addBack()
       .attr('tabindex', '-1');
   },
 
@@ -436,7 +436,7 @@ if (Herotabs.prototype._transitionProps.css == undefined) {
     }
 
     // Quit any running animations first
-    this.tab.stop(true, true);
+    this.tab.finish();
 
     // The next tab to be shown needs position: absolute to allow
     // it to be under the current tab as it begins animation. Once the current tab

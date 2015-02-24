@@ -1,6 +1,6 @@
 # jQuery Herotabs [![Build Status](https://travis-ci.org/simonsmith/jquery.herotabs.png?branch=master)](https://travis-ci.org/simonsmith/jquery.herotabs)
 
-A tiny ( **1.2k gzipped** ), fully accessible tab switcher for jQuery.
+A tiny, fully accessible tab switcher for jQuery.
 
 Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.
 
@@ -46,7 +46,7 @@ Herotabs can be used as a normal script or with an AMD compatible loader like [R
     $('.tabs').herotabs({
 	    // options
     });
-</script>    
+</script>
 ```
 
 #### RequireJS
@@ -86,7 +86,7 @@ A simple example of markup.
     </div>
 </div>
 ```
-Herotabs depends on classnames rather than a specific structure so feel free to nest and shuffle your HTML as necessary. [JS prefixed classnames](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) are the default, but are not compulsory. 
+Herotabs depends on classnames rather than a specific structure so feel free to nest and shuffle your HTML as necessary. [JS prefixed classnames](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) are the default, but are not compulsory.
 
 The only expectation it has is that your tab navigation will be contained by an element structure like the following:
 
@@ -108,7 +108,7 @@ The only expectation it has is that your tab navigation will be contained by an 
 
 
 ## Options
-* **delay** - _(number)_ How long between each tab change. If set to 0 no timed change will happen _default_ `0` 
+* **delay** - _(number)_ How long between each tab change. If set to 0 no timed change will happen _default_ `0`
 * **duration** - _(number)_ If set to greater than zero, then this will decide how long it takes to fade transition between tabs otherwise it will be instant _default_ `0`
 * **easing** - _(string)_ Easing type, works only with CSS3 capable browsers _default_ `ease-in-out`
 * **startOn** - _(number)_ Index of the tab to show first _default_ `0`
@@ -129,7 +129,7 @@ The only expectation it has is that your tab navigation will be contained by an 
 * **zIndex** _(object)_ z-index values applied to the tabs
 	* **bottom** (number) Applied to all tabs _default_ `1`
 	* **top** (number) Applied to the currently visible tab _default_ `2`
-	
+
 ## Events
 Herotabs fires various events that you can listen to. They are fired off the element that `herotabs` is instantiated  on.
 
@@ -185,7 +185,7 @@ Fired when the mouse enters the container of the tabs
 
 ### herotabs.mouseleave
 Fired when the mouse leaves the container of the tabs
-	
+
 ## Methods
 You can get at the Herotabs instance by accessing it from the elements `.data` method
 
@@ -279,10 +279,10 @@ $tabContainer.on('herotabs.show', function(event, tab) {
 
 // The above can also be chained into one call if you're into that kind of thing
 ```
-	
+
 ## In the wild
 Sites using Herotabs
-* [Gardener's World](http://gardenersworld.com) 
+* [Gardener's World](http://gardenersworld.com)
 * [Sinfini Music](http://sinfinimusic.com/uk/charts/)
 
 ## Contributing
