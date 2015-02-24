@@ -17,14 +17,14 @@ var banner = [
 ].join('\n');
 
 gulp.task('default', function() {
-  gulp.src('src/main.js')
+  return gulp.src('src/main.js')
     .pipe(jshint('.jshintrc'))
     .pipe(rename('jquery.herotabs.js'))
     .pipe(header(banner, {pkg: pkg}))
     .pipe(gulp.dest('dist'))
     .pipe(uglify())
     .pipe(header(banner, {pkg: pkg}))
-    .pipe(rename({suffix: '.herotabs.min'}))
+    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('dist'));
 });
 
