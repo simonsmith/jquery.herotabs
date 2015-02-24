@@ -34,7 +34,7 @@ var Herotabs = function(container, options) {
   }
 
   container.addClass(options.css.active);
-  container[0].style.position = 'relative';
+  container.css('position', 'relative');
 
   if (typeof options.onReady == 'function') {
     options.onReady.call(this);
@@ -79,23 +79,20 @@ Herotabs.prototype = {
         'position': 'absolute'
       });
 
-    var self = this;
-    var duration = parseInt(this.options.duration, 10);
-
-    if (duration > 0) {
+    if (parseInt(this.options.duration) > 0) {
       // When the animation has finished, reset the states.
       // This is important because a tab pane has position: absolute set during animation
       // and it needs to be set back after to maintain heights etc.
       currentTab
         .one(transitionProps.js, function() {
-          self._setTabVisibilty(tabToShow, currentTab);
-          self.triggerEvent('herotabs.hide', currentTab);
-        });
+          this._setTabVisibilty(tabToShow, currentTab);
+          this.triggerEvent('herotabs.hide', currentTab);
+        }.bind(this));
     } else {
       // If duration is 0s, this needs to be called manually
       // as transitionend does not fire
-      self._setTabVisibilty(tabToShow, currentTab);
-      self.triggerEvent('herotabs.hide', currentTab);
+      this._setTabVisibilty(tabToShow, currentTab);
+      this.triggerEvent('herotabs.hide', currentTab);
     }
 
     // Trigger the animation
@@ -393,10 +390,9 @@ if (transitionProps.css === undefined) {
 
     // Animate the current tab and set visibility when
     // the animation has completed
-    var self = this;
     currentTab.animate({opacity: 0}, opt.duration, function() {
-      self._setTabVisibilty(tabToShow, currentTab);
-    });
+      this._setTabVisibilty(tabToShow, currentTab);
+    }.bind(this));
 
     // Trigger event outside of .animate()
     // Allows user to use keyboard navigation and skip a tab
