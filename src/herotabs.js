@@ -425,14 +425,14 @@ $.fn.herotabs.defaults = {
   onReady: null,
   css: {
     active: 'is-active',
-    current: 'tab-current',
-    navCurrent: 'tab-nav-current',
-    navId: 'tabnav'
+    current: 'is-current-pane',
+    navCurrent: 'is-current-nav',
+    navId: 'herotabs'
   },
   selectors: {
-    tab: '.js-tab',
-    nav: '.js-nav',
-    navItem: '.js-nav-item'
+    tab: '.js-herotabs-tab',
+    nav: '.js-herotabs-nav',
+    navItem: '.js-herotabs-nav-item'
   },
   zIndex: {
     bottom: 1,

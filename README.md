@@ -67,18 +67,18 @@ A simple example of markup.
 
 ```html
 <div class="tabs">
-    <ul class="js-nav">
-        <li class="js-nav-item"><a href="#tab1">Item 1</a></li>
-        <li class="js-nav-item"><a href="#tab2">Item 2</a></li>
-        <li class="js-nav-item"><a href="#tab3">Item 3</a></li>
+    <ul class="js-herotabs-nav">
+        <li class="js-herotabs-nav-item"><a href="#tab1">Item 1</a></li>
+        <li class="js-herotabs-nav-item"><a href="#tab2">Item 2</a></li>
+        <li class="js-herotabs-nav-item"><a href="#tab3">Item 3</a></li>
     </ul>
-    <div class="js-tab" id="tab1">
+    <div class="js-herotabs-tab" id="tab1">
         <p>content 1</p>
     </div>
-    <div class="js-tab" id="tab2">
+    <div class="js-herotabs-tab" id="tab2">
         <p>content 2</p>
     </div>
-    <div class="js-tab" id="tab3">
+    <div class="js-herotabs-tab" id="tab3">
         <p>content 3</p>
     </div>
 </div>
@@ -88,16 +88,16 @@ Herotabs depends on classnames rather than a specific structure so feel free to 
 The only expectation it has is that your tab navigation will be contained by an element structure like the following:
 
 ```html
-<ul class="js-nav">
-	<li class="js-nav-item"><a href="#tab1">Item 1</a></li>
-	<li class="js-nav-item"><a href="#tab2">Item 2</a></li>
-	<li class="js-nav-item"><a href="#tab3">Item 3</a></li>
+<ul class="js-herotabs-nav">
+	<li class="js-herotabs-nav-item"><a href="#tab1">Item 1</a></li>
+	<li class="js-herotabs-nav-item"><a href="#tab2">Item 2</a></li>
+	<li class="js-herotabs-nav-item"><a href="#tab3">Item 3</a></li>
 </ul>
 
-<div class="js-nav">
-	<span class="js-nav-item"><a href="#tab1">Item 1</a></span>
-	<span class="js-nav-item"><a href="#tab2">Item 2</a></span>
-	<span class="js-nav-item"><a href="#tab3">Item 3</a></span>
+<div class="js-herotabs-nav">
+	<span class="js-herotabs-nav-item"><a href="#tab1">Item 1</a></span>
+	<span class="js-herotabs-nav-item"><a href="#tab2">Item 2</a></span>
+	<span class="js-herotabs-nav-item"><a href="#tab3">Item 3</a></span>
 </div>
 ```
 
@@ -120,9 +120,9 @@ The only expectation it has is that your tab navigation will be contained by an 
 	* **navCurrent** _(string)_ - Added to current visible nav item _default_ `tab-nav-current`
 	* **navId** _(string)_ - id to add to each nav link. Becomes `tabnav1`, `tabnav2` etc _default_ `tabnav`
 * **selectors** _(object)_ - CSS selectors to grab the HTML
-	* **tab** _(string)_ The tab panel containing the content _default_ `.js-tab`
-	* **nav** _(string)_ The nav container _default_ `.js-nav`
-	* **navItem** _(string)_ Each navigation item _default_ `.js-nav-item`
+	* **tab** _(string)_ The tab panel containing the content _default_ `.js-herotabs-tab`
+	* **nav** _(string)_ The nav container _default_ `.js-herotabs-nav`
+	* **navItem** _(string)_ Each navigation item _default_ `.js-herotabs-nav-item`
 * **zIndex** _(object)_ z-index values applied to the tabs
 	* **bottom** (number) Applied to all tabs _default_ `1`
 	* **top** (number) Applied to the currently visible tab _default_ `2`
@@ -210,7 +210,7 @@ Shows a tab. Accepts a zero based index or a jQuery element
 
 ```js
 instance.showTab(2) // Index
-instance.showTab($('.js-tab').eq(1)) // jQuery element
+instance.showTab($('.js-herotabs-tab').eq(1)) // jQuery element
 ```
 
 ### nextTab

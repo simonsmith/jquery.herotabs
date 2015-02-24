@@ -109,7 +109,7 @@ hr {
   display: block;
 }
 
-.tabs-horiz.is-active .tab-nav-current a {
+.tabs-horiz.is-active .is-current-nav a {
   background-color: #ff6d3a;
 }
 
@@ -145,7 +145,7 @@ hr {
   display: block;
 }
 
-.tabs-vert.is-active .tab-nav-current a {
+.tabs-vert.is-active .is-current-nav a {
   background-color: #ff1d40;
 }
 
@@ -174,7 +174,7 @@ hr {
   padding: 5px 10px;
 }
 
-.tabs-standard.is-active .tab-current,
-.tabs-standard.is-active .tab-nav-current a {
+.tabs-standard.is-active .is-current-pane,
+.tabs-standard.is-active .is-current-nav a {
   background-color: #aaa;
 }

@@ -32,7 +32,7 @@ describe('Herotabs', function() {
       it('should allow user to override default options', function() {
         expect(instance.options.interactEvent).toBe('hover');
         expect(instance.options.css.navId).toBe('test');
-        expect(instance.options.css.current).toBe('tab-current');
+        expect(instance.options.css.current).toBe('is-current-pane');
       });
 
       it('should set an active class', function() {
@@ -106,16 +106,16 @@ describe('Herotabs', function() {
     beforeEach(function() {
       loadFixtures(fixture);
       tabs = $('.tabs').herotabs();
-      nav = $('.js-nav');
-      tabPanels = $('.js-tab');
+      nav = $('.js-herotabs-nav');
+      tabPanels = $('.js-herotabs-tab');
       instance = tabs.data('herotabs');
     });
 
     describe('Initial nav state', function() {
       it('should set roles on the navigation', function() {
         expect(nav).toHaveAttr('role', 'tablist');
-        expect(nav.find('.js-nav-item')).toHaveAttr('role', 'presentation');
-        expect(nav.find('.js-nav-item a')).toHaveAttr('role', 'tab');
+        expect(nav.find('.js-herotabs-nav-item')).toHaveAttr('role', 'presentation');
+        expect(nav.find('.js-herotabs-nav-item a')).toHaveAttr('role', 'tab');
       });
 
       it('should generate ids on the nav links', function() {
@@ -125,11 +125,11 @@ describe('Herotabs', function() {
       });
 
       it('should set the first nav item to current by default', function() {
-        expect(nav.find('.js-nav-item').eq(0)).toHaveClass($.fn.herotabs.defaults.css.navCurrent);
+        expect(nav.find('.js-herotabs-nav-item').eq(0)).toHaveClass($.fn.herotabs.defaults.css.navCurrent);
         expect(nav.find('a').eq(0)).toHaveAttr('aria-selected', 'true');
         expect(nav.find('a').eq(0)).toHaveAttr('tabindex', '0');
 
-        expect(nav.find('.js-nav-item').slice(1)).not.toHaveClass($.fn.herotabs.defaults.css.navCurrent);
+        expect(nav.find('.js-herotabs-nav-item').slice(1)).not.toHaveClass($.fn.herotabs.defaults.css.navCurrent);
         expect(nav.find('a').slice(1)).toHaveAttr('tabindex', '-1');
         expect(nav.find('a').slice(1)).toHaveAttr('aria-selected', 'false');
       });
