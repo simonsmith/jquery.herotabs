@@ -406,7 +406,17 @@ if (transitionProps.css === undefined) {
  * Create the plugin
  * */
 
-var defaults = {
+ $.fn.herotabs = function(options) {
+  options = $.extend(true, {}, $.fn.herotabs.defaults, options);
+
+  return this.each(function() {
+    var $this = $(this);
+    $this.data('herotabs', new Herotabs($this, options));
+  });
+};
+
+$.fn.herotabs.Herotabs = Herotabs;
+$.fn.herotabs.defaults = {
   delay: 0,
   duration: 0,
   easing: 'ease-in-out',
@@ -432,15 +442,3 @@ var defaults = {
     top: 2
   }
 };
-
- $.fn.herotabs = function(options) {
-  options = $.extend(true, {}, defaults, options);
-
-  return this.each(function() {
-    var $this = $(this);
-    $this.data('herotabs', new Herotabs($this, options));
-  });
-};
-
-$.fn.herotabs.defaults = defaults;
-$.fn.herotabs.Herotabs = Herotabs;
