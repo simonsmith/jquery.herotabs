@@ -75,7 +75,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this._instanceId = ++instanceId;
 	  this._opacityTransition = 'opacity ' + (parseInt(options.duration, 10) / 1000) + 's ' + options.easing;
 
-	  typeof options.onSetup == 'function' && options.onSetup.call(this);
+	  if (typeof options.onSetup == 'function') {
+	    options.onSetup.call(this);
+	  }
 
 	  this._getDOMElements();
 
@@ -97,7 +99,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  container.addClass(options.css.active);
 	  container[0].style.position = 'relative';
 
-	  typeof options.onReady == 'function' && options.onReady.call(this);
+	  if (typeof options.onReady == 'function') {
+	    options.onReady.call(this);
+	  }
 	};
 
 	Herotabs.prototype = {
@@ -113,7 +117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // Exit if there is no tab to show or the same one
 	    // is already showing
-	    if (tabToShow.length == 0 || currentTab.is(tabToShow)) {
+	    if (tabToShow.length === 0 || currentTab.is(tabToShow)) {
 	      return this;
 	    }
 
@@ -186,7 +190,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // Assume that if currentIndex is 0 the first tab is currently
 	    // selected so grab the last one.
-	    var prevTab = this.tab.eq(currentIndex == 0 ? -1 : currentIndex - 1);
+	    var prevTab = this.tab.eq(currentIndex === 0 ? -1 : currentIndex - 1);
 
 	    this.showTab(prevTab);
 	    this.triggerEvent('herotabs.prev', prevTab);
@@ -257,7 +261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _showInitialTab: function(startOn) {
 	    // Check whether there is a tab selected by the URL hash
 	    var tabFromHash = location.hash && this.tab.filter(location.hash);
-	    var initialTab = tabFromHash.length == 0 ? this.tab.eq(startOn) : tabFromHash;
+	    var initialTab = tabFromHash.length === 0 ? this.tab.eq(startOn) : tabFromHash;
 
 	    this.tab.css('top', 0);
 	    this._setTabVisibilty(initialTab, this.tab.not(initialTab));
@@ -423,7 +427,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	// Override showTab method if browser does not support transitions
-	if (transitionProps.css == undefined) {
+	if (transitionProps.css === undefined) {
 	  Herotabs.prototype.showTab = function(tabToShow) {
 	    tabToShow = this._getTab(tabToShow);
 
@@ -432,7 +436,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // Exit if there is no tab to show or the same one
 	    // is already showing
-	    if (tabToShow.length == 0 || currentTab.is(tabToShow)) {
+	    if (tabToShow.length === 0 || currentTab.is(tabToShow)) {
 	      return this;
 	    }
 
@@ -523,6 +527,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = transitionProps();
+
 	function transitionProps() {
 	  'use strict';
 
@@ -537,7 +543,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  }
 
-	  // Map of transitionend types. Sucks that it's so manual
+	  // Map of transitionend types.
 	  var transitionend = {
 	    'transition': 'transitionend',
 	    'webkitTransition': 'webkitTransitionEnd',
@@ -559,8 +565,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  return props;
 	}
-
-	module.exports = transitionProps();
 
 /***/ }
 /******/ ])

@@ -12,7 +12,9 @@ var Herotabs = function(container, options) {
   this._instanceId = ++instanceId;
   this._opacityTransition = 'opacity ' + (parseInt(options.duration, 10) / 1000) + 's ' + options.easing;
 
-  typeof options.onSetup == 'function' && options.onSetup.call(this);
+  if (typeof options.onSetup == 'function') {
+    options.onSetup.call(this);
+  }
 
   this._getDOMElements();
 
@@ -34,7 +36,9 @@ var Herotabs = function(container, options) {
   container.addClass(options.css.active);
   container[0].style.position = 'relative';
 
-  typeof options.onReady == 'function' && options.onReady.call(this);
+  if (typeof options.onReady == 'function') {
+    options.onReady.call(this);
+  }
 };
 
 Herotabs.prototype = {
@@ -50,7 +54,7 @@ Herotabs.prototype = {
 
     // Exit if there is no tab to show or the same one
     // is already showing
-    if (tabToShow.length == 0 || currentTab.is(tabToShow)) {
+    if (tabToShow.length === 0 || currentTab.is(tabToShow)) {
       return this;
     }
 
@@ -123,7 +127,7 @@ Herotabs.prototype = {
 
     // Assume that if currentIndex is 0 the first tab is currently
     // selected so grab the last one.
-    var prevTab = this.tab.eq(currentIndex == 0 ? -1 : currentIndex - 1);
+    var prevTab = this.tab.eq(currentIndex === 0 ? -1 : currentIndex - 1);
 
     this.showTab(prevTab);
     this.triggerEvent('herotabs.prev', prevTab);
@@ -194,7 +198,7 @@ Herotabs.prototype = {
   _showInitialTab: function(startOn) {
     // Check whether there is a tab selected by the URL hash
     var tabFromHash = location.hash && this.tab.filter(location.hash);
-    var initialTab = tabFromHash.length == 0 ? this.tab.eq(startOn) : tabFromHash;
+    var initialTab = tabFromHash.length === 0 ? this.tab.eq(startOn) : tabFromHash;
 
     this.tab.css('top', 0);
     this._setTabVisibilty(initialTab, this.tab.not(initialTab));
@@ -360,7 +364,7 @@ Herotabs.prototype = {
 };
 
 // Override showTab method if browser does not support transitions
-if (transitionProps.css == undefined) {
+if (transitionProps.css === undefined) {
   Herotabs.prototype.showTab = function(tabToShow) {
     tabToShow = this._getTab(tabToShow);
 
@@ -369,7 +373,7 @@ if (transitionProps.css == undefined) {
 
     // Exit if there is no tab to show or the same one
     // is already showing
-    if (tabToShow.length == 0 || currentTab.is(tabToShow)) {
+    if (tabToShow.length === 0 || currentTab.is(tabToShow)) {
       return this;
     }
 

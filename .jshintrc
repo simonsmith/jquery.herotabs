@@ -1,8 +1,6 @@
 {
   "indent": 2,
-  "expr": true,
   "quotmark": "single",
-  "-W041": false,
   "browser": true,
   "globalstrict": true,
   "globals": {
