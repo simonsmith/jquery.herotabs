@@ -73,8 +73,9 @@ Herotabs.prototype = {
     // tabs can be cycled rapidly without overlapping animations
     this._setTabVisibilty(currentTab, this.tab.not(currentTab));
 
-    // Prepare the next tab to be shown. This essentially ensures it is beneath the current one
-    // to enable a smooth transition
+    // Prepare the next tab to be shown. T
+    // his essentially ensures it is beneath the current
+    // one to enable a smooth transition
     tabToShow
       .show()
       .css({
@@ -83,8 +84,9 @@ Herotabs.prototype = {
 
     if (parseInt(this.options.duration) > 0) {
       // When the animation has finished, reset the states.
-      // This is important because a tab pane has position: absolute set during animation
-      // and it needs to be set back after to maintain heights etc.
+      // This is important because a tab pane has position: absolute
+      // set during animation and it needs to be set back
+      // after to maintain heights etc.
       currentTab
         .one(transitionProps.js, function() {
           this._setTabVisibilty(tabToShow, currentTab);
@@ -319,8 +321,9 @@ Herotabs.prototype = {
   _navItemHasFocus: function() {
     // Only change focus if the user is focused inside the container already.
     // This stops the tabs stealing focus if the user is somewhere else
-    // For example if the tabs are on a delay and the user is focused elsewhere it would be
-    // annoying to have focus snap back to the tabs every time an item changed
+    // For example if the tabs are on a delay and the user is focused
+    // elsewhere it would be annoying to have focus snap back
+    // to the tabs every time an item changed
     return $(document.activeElement).closest(this.container).is(this.container);
   },
 
@@ -374,9 +377,10 @@ if (transitionProps.css === undefined) {
     this.tab.finish();
 
     // The next tab to be shown needs position: absolute to allow
-    // it to be under the current tab as it begins animation. Once the current tab
-    // has finished animating the next tab will have position: relative reapplied
-    // so it maintains the height of the herotabs in the DOM.
+    // it to be under the current tab as it begins animation. Once the
+    // current tab has finished animating the next tab will
+    // have position: relative reapplied so it maintains the
+    // height of the herotabs in the DOM.
     tabToShow
       .show()
       .css({
