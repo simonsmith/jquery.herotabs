@@ -1,6 +1,6 @@
 {
   "name": "jquery.herotabs",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "main": [
     "dist/jquery.herotabs.js",
     "dist/jquery.herotabs.min.js"

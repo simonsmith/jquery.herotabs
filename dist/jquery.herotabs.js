@@ -1,6 +1,6 @@
 /*!
  * jquery.herotabs
- * version 3.0.2
+ * version 3.0.4
  * Requires jQuery 1.9.0 or higher
  * https://github.com/simonsmith/jquery.herotabs/
  * @blinkdesign
