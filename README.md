@@ -46,7 +46,7 @@ Herotabs can be used as a normal script or with an AMD compatible loader like [R
 </script>
 ```
 
-#### RequireJS
+#### AMD
 Herotabs will work with RequireJS without any need for shims. Just ensure that `jquery` is set as a path.
 
 ```js
