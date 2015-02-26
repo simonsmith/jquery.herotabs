@@ -44,11 +44,7 @@ gulp.task('default', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('src/herotabs.js', function() {
-    gulp.run('default');
-  });
+  gulp.watch('src/herotabs.js', ['default']);
 });
 
-gulp.task('test', function() {
-  gulp.run('grunt-jasmine');
-});
+gulp.task('test', ['grunt-jasmine']);
