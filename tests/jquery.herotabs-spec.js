@@ -25,13 +25,6 @@ describe('Herotabs', function() {
         expect(instance.constructor).toEqual($.fn.herotabs.Herotabs);
       });
 
-      /*it('should only create one instance if called multiple times', function() {
-        tabs.herotabs();
-        tabs.herotabs();
-
-        expect(instance._instanceId).toBe(1);
-      });*/
-
       it('should expose default options', function() {
         expect(typeof $.fn.herotabs.defaults).toBe('object');
       });
@@ -68,25 +61,19 @@ describe('Herotabs', function() {
     });
 
     it('should allow a setup callback before any plugin init is done', function() {
-      var context;
+      var spy = jasmine.createSpy('onSetup');
       var tabs = $('.tabs').herotabs({
-        onSetup: function() {
-          expect(true).toBeTruthy();
-          context = this;
-        }
+        onSetup: spy
       });
-      expect(context).toEqual(tabs.data('herotabs'));
+      expect(spy).toHaveBeenCalled();
     });
 
     it('should allow a ready callback when the plugin has instantiated', function() {
-      var context;
+      var spy = jasmine.createSpy('onReady');
       var tabs = $('.tabs').herotabs({
-        onReady: function() {
-          expect(true).toBeTruthy();
-          context = this;
-        }
+        onReady: spy
       });
-      expect(context).toEqual(tabs.data('herotabs'));
+      expect(spy).toHaveBeenCalled();
     });
   });
 

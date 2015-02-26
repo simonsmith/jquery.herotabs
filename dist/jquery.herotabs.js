@@ -76,9 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this._opacityTransition = 'opacity ' +
 	    (parseInt(options.duration) / 1000) + 's ' + options.easing;
 
-	  if (typeof options.onSetup == 'function') {
-	    options.onSetup.call(this);
-	  }
+	  options.onSetup.call(this);
 
 	  // Get reference to the elements
 	  var selectors = this.options.selectors;
@@ -104,9 +102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  container.addClass(options.css.active);
 	  container.css('position', 'relative');
 
-	  if (typeof options.onReady == 'function') {
-	    options.onReady.call(this);
-	  }
+	  options.onReady.call(this);
 	};
 
 	Herotabs.prototype = {
@@ -486,8 +482,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  reverse: false,
 	  interactEvent: 'click',
 	  useTouch: true,
-	  onSetup: null,
-	  onReady: null,
+	  onSetup: $.noop,
+	  onReady: $.noop,
 	  css: {
 	    active: 'is-active',
 	    current: 'is-current-pane',
