@@ -408,7 +408,9 @@ if (transitionProps.css === undefined) {
 
   return this.each(function() {
     var $this = $(this);
-    $this.data('herotabs', new Herotabs($this, options));
+    if (!$this.data('herotabs')) {
+      $this.data('herotabs', new Herotabs($this, options));
+    }
   });
 };
 

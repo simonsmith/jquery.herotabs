@@ -25,6 +25,13 @@ describe('Herotabs', function() {
         expect(instance.constructor).toEqual($.fn.herotabs.Herotabs);
       });
 
+      /*it('should only create one instance if called multiple times', function() {
+        tabs.herotabs();
+        tabs.herotabs();
+
+        expect(instance._instanceId).toBe(1);
+      });*/
+
       it('should expose default options', function() {
         expect(typeof $.fn.herotabs.defaults).toBe('object');
       });
@@ -109,6 +116,10 @@ describe('Herotabs', function() {
       nav = $('.js-herotabs-nav');
       tabPanels = $('.js-herotabs-tab');
       instance = tabs.data('herotabs');
+    });
+
+    afterEach(function() {
+      tabs.removeData('herotabs');
     });
 
     describe('Initial nav state', function() {
@@ -244,6 +255,7 @@ describe('Herotabs', function() {
 
     describe('Timer', function() {
       beforeEach(function() {
+        tabs.removeData('herotabs');
         jasmine.clock().install();
       });
 

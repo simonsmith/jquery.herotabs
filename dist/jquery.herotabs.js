@@ -1,6 +1,6 @@
 /*!
  * jquery.herotabs
- * version 3.0.1
+ * version 3.0.2
  * Requires jQuery 1.9.0 or higher
  * https://github.com/simonsmith/jquery.herotabs/
  * @blinkdesign
@@ -471,7 +471,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  return this.each(function() {
 	    var $this = $(this);
-	    $this.data('herotabs', new Herotabs($this, options));
+	    if (!$this.data('herotabs')) {
+	      $this.data('herotabs', new Herotabs($this, options));
+	    }
 	  });
 	};
 
