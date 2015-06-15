@@ -18,12 +18,21 @@ var banner = [
 ].join('\n');
 
 gulp.task('default', function() {
-  return gulp.src('src/herotabs.js')
+  return gulp.src('src/index.js')
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(webpack({
       output: {
         libraryTarget: 'umd'
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.js$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: 'babel'
+          }
+        ],
       },
       externals: {
         'jquery': {
@@ -44,9 +53,7 @@ gulp.task('default', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('src/herotabs.js', ['default']);
+  gulp.watch('src/*.js', ['default']);
 });
 
-gulp.task('test', function() {
-  gulp.run('grunt-jasmine');
-});
+gulp.task('test', ['grunt-jasmine']);

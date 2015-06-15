@@ -2,6 +2,7 @@
   "indent": 2,
   "quotmark": "single",
   "browser": true,
+  "esnext": true,
   "globalstrict": true,
   "globals": {
     "require": true,
