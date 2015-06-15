@@ -1,54 +1,53 @@
 'use strict';
 
-var $ = require('jquery');
-var transitionProps = require('./transition-props');
-var instanceId = 0;
+import $ from 'jquery';
+import transitionProps from './transition-props';
 
-var Herotabs = function(container, options) {
-  this.container = container;
-  this.options = options;
-  this._currentTab = null;
-  this._timer = null;
-  this._instanceId = ++instanceId;
-  this._opacityTransition = 'opacity ' +
-    (parseInt(options.duration) / 1000) + 's ' + options.easing;
+let instanceId = 0;
 
-  options.onSetup.call(this);
+class Herotabs {
+  constructor(container, options) {
+    this.container = container;
+    this.options = options;
+    this._currentTab = null;
+    this._timer = null;
+    this._instanceId = ++instanceId;
+    this._opacityTransition = `opacity ${(parseInt(options.duration) / 1000)}s ${options.easing}`;
 
-  // Get reference to the elements
-  var selectors = this.options.selectors;
-  this.tab = this.container.find(selectors.tab);
-  this.nav = this.container.find(selectors.nav);
-  this.navItem = this.container.find(selectors.navItem);
+    options.onSetup.call(this);
 
-  if (this.nav.length > 0) {
-    this._ariafy();
-    this._setCurrentNav();
-    this._attachNavEvents();
+    // Get reference to the elements
+    const selectors = this.options.selectors;
+    this.tab = this.container.find(selectors.tab);
+    this.nav = this.container.find(selectors.nav);
+    this.navItem = this.container.find(selectors.navItem);
+
+    if (this.nav.length > 0) {
+      this._ariafy();
+      this._setCurrentNav();
+      this._attachNavEvents();
+    }
+
+    this._showInitialTab(options.startOn);
+    this._attachKeyEvents();
+
+    // Begin cycling through tabs if a delay has been set
+    if (parseInt(options.delay) > 0) {
+      this.start();
+      this._attachHoverEvents();
+    }
+
+    container
+      .addClass(options.css.active)
+      .css('position', 'relative');
+
+    options.onReady.call(this);
   }
 
-  this._showInitialTab(options.startOn);
-  this._attachKeyEvents();
-
-  // Begin cycling through tabs if a delay has been set
-  if (parseInt(options.delay) > 0) {
-    this.start();
-    this._attachHoverEvents();
-  }
-
-  container.addClass(options.css.active);
-  container.css('position', 'relative');
-
-  options.onReady.call(this);
-};
-
-Herotabs.prototype = {
-  constructor: Herotabs,
-
-  showTab: function(tabToShow) {
+  showTab(tabToShow) {
     tabToShow = this._getTab(tabToShow);
 
-    var currentTab = this._currentTab;
+    const currentTab = this._currentTab;
 
     // Exit if there is no tab to show or the same one
     // is already showing
@@ -84,10 +83,10 @@ Herotabs.prototype = {
       // set during animation and it needs to be set back
       // after to maintain heights etc.
       currentTab
-        .one(transitionProps.js, function() {
+        .one(transitionProps.js, () => {
           this._setTabVisibilty(tabToShow, currentTab);
           this.triggerEvent('herotabs.hide', currentTab);
-        }.bind(this));
+        });
     } else {
       // If duration is 0s, this needs to be called manually
       // as transitionend does not fire
@@ -106,39 +105,40 @@ Herotabs.prototype = {
     this._currentTab = tabToShow;
 
     return this;
-  },
+  }
 
-  nextTab: function() {
-    var currentIndex = this.tab.index(this._currentTab);
-    var nextTab = this.tab.eq(currentIndex + 1);
+  nextTab() {
+    const currentIndex = this.tab.index(this._currentTab);
+    let nextTab = this.tab.eq(currentIndex + 1);
     nextTab = (nextTab.length > 0 ? nextTab : this.tab.eq(0));
 
     this.showTab(nextTab);
     this.triggerEvent('herotabs.next', nextTab);
 
     return this;
-  },
+  }
 
-  prevTab: function() {
-    var currentIndex = this.tab.index(this._currentTab);
+  prevTab() {
+    const currentIndex = this.tab.index(this._currentTab);
 
     // Assume that if currentIndex is 0 the first tab is currently
     // selected so grab the last one.
-    var prevTab = this.tab.eq(currentIndex === 0 ? -1 : currentIndex - 1);
+    const prevTab = this.tab.eq(currentIndex === 0 ? -1 : currentIndex - 1);
 
     this.showTab(prevTab);
     this.triggerEvent('herotabs.prev', prevTab);
 
     return this;
-  },
+  }
 
-  start: function() {
-    var opt = this.options;
+  start() {
+    const opt = this.options;
+
     if (!opt.delay) {
       return this;
     }
 
-    this._timer = setInterval(function() {
+    this._timer = setInterval(() => {
       if (this._navItemHasFocus()) {
         return;
       }
@@ -148,54 +148,49 @@ Herotabs.prototype = {
       } else {
         this.prevTab();
       }
-    }.bind(this), opt.delay);
+    }, opt.delay);
 
     this.triggerEvent('herotabs.start', this._currentTab);
 
     return this;
-  },
+  }
 
-  stop: function() {
+  stop() {
     clearInterval(this._timer);
     this.triggerEvent('herotabs.stop', this._currentTab);
-    return this;
-  },
 
-  triggerEvent: function(eventName, tabToShow) {
+    return this;
+  }
+
+  triggerEvent(eventName, tabToShow) {
     tabToShow = this._getTab(tabToShow);
-    var index = this.tab.index(tabToShow);
+    const index = this.tab.index(tabToShow);
 
     this.container.trigger(eventName, {
       currentTab: tabToShow,
       currentTabIndex: index,
       currentNavItem: this.navItem.eq(index)
     });
-  },
+  }
 
-  /**
-   * Private
-   * */
-
-  _getTab: function(tab) {
+  _getTab(tab) {
     return (typeof tab != 'number' ? tab : this.tab.eq(tab));
-  },
+  }
 
-  _showInitialTab: function(startOn) {
+  _showInitialTab(startOn) {
     // Check whether there is a tab selected by the URL hash
-    var tabFromHash = location.hash && this.tab.filter(location.hash);
-    var initialTab = tabFromHash.length === 0 ? this.tab.eq(startOn) : tabFromHash;
+    const tabFromHash = location.hash && this.tab.filter(location.hash);
+    const initialTab = tabFromHash.length === 0 ? this.tab.eq(startOn) : tabFromHash;
 
     this.tab.css('top', 0);
     this._setTabVisibilty(initialTab, this.tab.not(initialTab));
 
     this.triggerEvent('herotabs.show', initialTab);
     this._currentTab = initialTab;
-  },
+  }
 
-  _setTabVisibilty: function(tabToShow, tabToHide) {
-    var opt = this.options;
-    var css = opt.css;
-    var zIndex = opt.zIndex;
+  _setTabVisibilty(tabToShow, tabToHide) {
+    const { css, zIndex } = this.options;
 
     tabToShow
       .addClass(css.current)
@@ -218,10 +213,10 @@ Herotabs.prototype = {
       .find('a')
       .addBack()
       .attr('tabindex', '-1');
-  },
+  }
 
-  _ariafy: function() {
-    var navId = this.options.css.navId + this._instanceId + '-';
+  _ariafy() {
+    const navId = `${this.options.css.navId}${this._instanceId}-`;
 
     this.nav.attr('role', 'tablist');
     this.navItem
@@ -240,22 +235,22 @@ Herotabs.prototype = {
         'aria-labelledby': navId + (index + 1)
       });
     });
-  },
+  }
 
-  _attachHoverEvents: function() {
-    this.container.on('mouseenter', function() {
+  _attachHoverEvents() {
+    this.container.on('mouseenter', () => {
       this.stop();
       this.triggerEvent('herotabs.mouseenter', this._currentTab);
-    }.bind(this));
+    });
 
-    this.container.on('mouseleave', function() {
+    this.container.on('mouseleave', () => {
       this.start();
       this.triggerEvent('herotabs.mouseleave', this._currentTab);
-    }.bind(this));
-  },
+    });
+  }
 
-  _attachKeyEvents: function() {
-    this.nav.on('keydown', 'a', function(event) {
+  _attachKeyEvents() {
+    this.nav.on('keydown', 'a', (event) => {
       switch (event.keyCode) {
         case 37: // Left
         case 38: // Up
@@ -266,15 +261,15 @@ Herotabs.prototype = {
           this.nextTab();
           break;
       }
-    }.bind(this));
-  },
+    });
+  }
 
-  _isTouchEnabled: function() {
+  _isTouchEnabled() {
     return ('ontouchstart' in document.documentElement) && this.options.useTouch;
-  },
+  }
 
-  _getEventType: function() {
-    var eventMap = {
+  _getEventType() {
+    const eventMap = {
       hover: 'mouseenter',
       touch: 'touchstart',
       click: 'click'
@@ -282,16 +277,14 @@ Herotabs.prototype = {
 
     // If touch is supported then override the event in options
     return (this._isTouchEnabled() ? eventMap.touch : eventMap[this.options.interactEvent]);
-  },
+  }
 
-  _attachNavEvents: function() {
-    var nav = this.nav;
-    var eventType = this._getEventType();
-    var opt = this.options;
-    var self = this;
+  _attachNavEvents() {
+    const eventType = this._getEventType();
+    const self = this;
 
-    nav.on(eventType, 'a', function(event) {
-      self.showTab($(this).parents(opt.selectors.navItem).index());
+    this.nav.on(eventType, 'a', function(event) {
+      self.showTab($(this).parents(self.options.selectors.navItem).index());
 
       // Only preventDefault if link is an anchor.
       // Allows nav links to use external urls
@@ -300,27 +293,27 @@ Herotabs.prototype = {
         event.stopPropagation();
       }
     });
-  },
+  }
 
-  _checkUrlIsAnchor: function(url) {
+  _checkUrlIsAnchor(url) {
     // Check if url is a hash anchor e.g #foo, #foo-123 etc
     return /#[A-Za-z0-9-_]+$/.test(url);
-  },
+  }
 
-  _navItemHasFocus: function() {
+  _navItemHasFocus() {
     // Only change focus if the user is focused inside the container already.
     // This stops the tabs stealing focus if the user is somewhere else
     // For example if the tabs are on a delay and the user is focused
     // elsewhere it would be annoying to have focus snap back
     // to the tabs every time an item changed
     return $(document.activeElement).closest(this.container).is(this.container);
-  },
+  }
 
-  _setCurrentNav: function() {
-    var current = this.options.css.navCurrent;
-    var navItem = this.navItem;
-    this.container.on('herotabs.show', function(event, tab) {
-      navItem
+  _setCurrentNav() {
+    const current = this.options.css.navCurrent;
+
+    this.container.on('herotabs.show', (event, tab) => {
+      this.navItem
         .removeClass(current)
         .find('a')
         .each(function() {
@@ -331,7 +324,7 @@ Herotabs.prototype = {
         });
 
       // Current nav item link
-      var navItemLink = navItem
+      var navItemLink = this.navItem
         .eq(tab.currentTabIndex)
         .addClass(current)
         .find('a');
@@ -344,17 +337,17 @@ Herotabs.prototype = {
       if (this._navItemHasFocus()) {
         navItemLink.focus();
       }
-    }.bind(this));
+    });
   }
-};
+}
+
 
 // Override showTab method if browser does not support transitions
 if (transitionProps.css === undefined) {
   Herotabs.prototype.showTab = function(tabToShow) {
     tabToShow = this._getTab(tabToShow);
 
-    var currentTab = this._currentTab;
-    var opt = this.options;
+    const currentTab = this._currentTab;
 
     // Exit if there is no tab to show or the same one
     // is already showing
@@ -379,9 +372,9 @@ if (transitionProps.css === undefined) {
 
     // Animate the current tab and set visibility when
     // the animation has completed
-    currentTab.animate({opacity: 0}, opt.duration, function() {
+    currentTab.animate({opacity: 0}, this.options.duration, () => {
       this._setTabVisibilty(tabToShow, currentTab);
-    }.bind(this));
+    });
 
     // Trigger event outside of .animate()
     // Allows user to use keyboard navigation and skip a tab
@@ -403,7 +396,8 @@ if (transitionProps.css === undefined) {
   options = $.extend(true, {}, $.fn.herotabs.defaults, options);
 
   return this.each(function() {
-    var $this = $(this);
+    const $this = $(this);
+
     if (!$this.data('herotabs')) {
       $this.data('herotabs', new Herotabs($this, options));
     }

@@ -1,10 +1,10 @@
-module.exports = transitionProps();
+export default transitionProps();
 
 function transitionProps() {
   'use strict';
 
-  var prop = 'transition';
-  var div = document.createElement('div');
+  const prop = 'transition';
+  const div = document.createElement('div');
 
   // Check for cool browsers first, then exit if compliant
   if (prop in div.style) {
@@ -15,22 +15,22 @@ function transitionProps() {
   }
 
   // Map of transitionend types.
-  var transitionend = {
+  const transitionend = {
     'transition': 'transitionend',
     'webkitTransition': 'webkitTransitionEnd',
     'MozTransition': 'transitionend',
     'OTransition': 'oTransitionEnd otransitionend'
   };
-  var prefixes = ['Moz', 'webkit', 'O'];
-  var prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
-  var props = {};
+  const prefixes = ['Moz', 'webkit', 'O'];
+  const prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
+  let props = {};
 
   // Try and find a matching prefix
-  for (var i = 0, len = prefixes.length; i < len; ++i) {
-    var vendorProp = prefixes[i] + prop_;
+  for (let i = 0, len = prefixes.length; i < len; ++i) {
+    const vendorProp = prefixes[i] + prop_;
     if (vendorProp in div.style) {
       props.js = transitionend[vendorProp];
-      props.css = '-' + prefixes[i].toLowerCase() + '-' + prop;
+      props.css = `-${prefixes[i].toLowerCase()}-${prop}`;
     }
   }
 
