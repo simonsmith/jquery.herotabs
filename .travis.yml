@@ -3,6 +3,7 @@
    - "0.10"
  before_script:
    - npm install -g bower
+   - npm install grunt-cli -g
    - bower install
 branches:
   only:

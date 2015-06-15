@@ -47,4 +47,6 @@ gulp.task('watch', function() {
   gulp.watch('src/herotabs.js', ['default']);
 });
 
-gulp.task('test', ['grunt-jasmine']);
+gulp.task('test', function() {
+  gulp.run('grunt-jasmine');
+});
