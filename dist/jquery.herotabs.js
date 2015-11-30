@@ -63,11 +63,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	var _jquery = __webpack_require__(1);
 
@@ -76,6 +72,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _transitionProps = __webpack_require__(2);
 
 	var _transitionProps2 = _interopRequireDefault(_transitionProps);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var instanceId = 0;
 
@@ -135,7 +135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      // Stop any running animations by removing properties. This
 	      // also stops transitionend firing if animation is halfway through
-	      this.tab.css(_transitionProps2['default'].css, '').css('opacity', '');
+	      this.tab.css(_transitionProps2.default.css, '').css('opacity', '');
 
 	      // If animations have been stopped by the above then tab states need to
 	      // be manually set to their finished states had the animation been allowed
@@ -156,7 +156,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // This is important because a tab pane has position: absolute
 	        // set during animation and it needs to be set back
 	        // after to maintain heights etc.
-	        currentTab.one(_transitionProps2['default'].js, function () {
+	        currentTab.one(_transitionProps2.default.js, function () {
 	          _this._setTabVisibilty(tabToShow, currentTab);
 	          _this.triggerEvent('herotabs.hide', currentTab);
 	        });
@@ -168,7 +168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      // Trigger the animation
-	      currentTab.css(_transitionProps2['default'].css, this._opacityTransition).css('opacity', 0);
+	      currentTab.css(_transitionProps2.default.css, this._opacityTransition).css('opacity', 0);
 
 	      this.triggerEvent('herotabs.show', tabToShow);
 
@@ -181,11 +181,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'nextTab',
 	    value: function nextTab() {
 	      var currentIndex = this.tab.index(this._currentTab);
-	      var nextTab = this.tab.eq(currentIndex + 1);
-	      nextTab = nextTab.length > 0 ? nextTab : this.tab.eq(0);
+	      var nextTabElement = this.tab.eq(currentIndex + 1);
+	      nextTabElement = nextTabElement.length > 0 ? nextTabElement : this.tab.eq(0);
 
-	      this.showTab(nextTab);
-	      this.triggerEvent('herotabs.next', nextTab);
+	      this.showTab(nextTabElement);
+	      this.triggerEvent('herotabs.next', nextTabElement);
 
 	      return this;
 	    }
@@ -196,10 +196,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      // Assume that if currentIndex is 0 the first tab is currently
 	      // selected so grab the last one.
-	      var prevTab = this.tab.eq(currentIndex === 0 ? -1 : currentIndex - 1);
+	      var prevTabElement = this.tab.eq(currentIndex === 0 ? -1 : currentIndex - 1);
 
-	      this.showTab(prevTab);
-	      this.triggerEvent('herotabs.prev', prevTab);
+	      this.showTab(prevTabElement);
+	      this.triggerEvent('herotabs.prev', prevTabElement);
 
 	      return this;
 	    }
@@ -287,18 +287,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '_ariafy',
 	    value: function _ariafy() {
-	      var navId = '' + this.options.css.navId + '' + this._instanceId + '-';
+	      var navId = '' + this.options.css.navId + this._instanceId + '-';
 
 	      this.nav.attr('role', 'tablist');
 	      this.navItem.attr('role', 'presentation').find('a').each(function (index) {
-	        (0, _jquery2['default'])(this).attr({
+	        (0, _jquery2.default)(this).attr({
 	          id: navId + (index + 1),
 	          role: 'tab'
 	        });
 	      });
 
 	      this.tab.each(function (index) {
-	        (0, _jquery2['default'])(this).attr({
+	        (0, _jquery2.default)(this).attr({
 	          role: 'tabpanel',
 	          'aria-labelledby': navId + (index + 1)
 	        });
@@ -363,7 +363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var self = this;
 
 	      this.nav.on(eventType, 'a', function (event) {
-	        self.showTab((0, _jquery2['default'])(this).parents(self.options.selectors.navItem).index());
+	        self.showTab((0, _jquery2.default)(this).parents(self.options.selectors.navItem).index());
 
 	        // Only preventDefault if link is an anchor.
 	        // Allows nav links to use external urls
@@ -377,7 +377,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: '_checkUrlIsAnchor',
 	    value: function _checkUrlIsAnchor(url) {
 	      // Check if url is a hash anchor e.g #foo, #foo-123 etc
-	      return /#[A-Za-z0-9-_]+$/.test(url);
+	      return (/#[A-Za-z0-9-_]+$/.test(url)
+	      );
 	    }
 	  }, {
 	    key: '_navItemHasFocus',
@@ -387,7 +388,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // For example if the tabs are on a delay and the user is focused
 	      // elsewhere it would be annoying to have focus snap back
 	      // to the tabs every time an item changed
-	      return (0, _jquery2['default'])(document.activeElement).closest(this.container).is(this.container);
+	      return (0, _jquery2.default)(document.activeElement).closest(this.container).is(this.container);
 	    }
 	  }, {
 	    key: '_setCurrentNav',
@@ -398,7 +399,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this.container.on('herotabs.show', function (event, tab) {
 	        _this5.navItem.removeClass(current).find('a').each(function () {
-	          (0, _jquery2['default'])(this).attr({
+	          (0, _jquery2.default)(this).attr({
 	            'aria-selected': 'false',
 	            tabindex: '-1'
 	          });
@@ -423,7 +424,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	})();
 
 	// Override showTab method if browser does not support transitions
-	if (_transitionProps2['default'].css === undefined) {
+
+	if (_transitionProps2.default.css === undefined) {
 	  Herotabs.prototype.showTab = function (tabToShow) {
 	    var _this6 = this;
 
@@ -472,11 +474,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Create the plugin
 	 * */
 
-	_jquery2['default'].fn.herotabs = function (options) {
-	  options = _jquery2['default'].extend(true, {}, _jquery2['default'].fn.herotabs.defaults, options);
+	_jquery2.default.fn.herotabs = function (options) {
+	  options = _jquery2.default.extend(true, {}, _jquery2.default.fn.herotabs.defaults, options);
 
 	  return this.each(function () {
-	    var $this = (0, _jquery2['default'])(this);
+	    var $this = (0, _jquery2.default)(this);
 
 	    if (!$this.data('herotabs')) {
 	      $this.data('herotabs', new Herotabs($this, options));
@@ -484,8 +486,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	};
 
-	_jquery2['default'].fn.herotabs.Herotabs = Herotabs;
-	_jquery2['default'].fn.herotabs.defaults = {
+	_jquery2.default.fn.herotabs.Herotabs = Herotabs;
+	_jquery2.default.fn.herotabs.defaults = {
 	  delay: 0,
 	  duration: 0,
 	  easing: 'ease-in-out',
@@ -493,8 +495,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  reverse: false,
 	  interactEvent: 'click',
 	  useTouch: true,
-	  onSetup: _jquery2['default'].noop,
-	  onReady: _jquery2['default'].noop,
+	  onSetup: _jquery2.default.noop,
+	  onReady: _jquery2.default.noop,
 	  css: {
 	    active: 'is-active',
 	    current: 'is-current-pane',
@@ -524,10 +526,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
+	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports['default'] = transitionProps();
+	exports.default = transitionProps();
 
 	function transitionProps() {
 	  'use strict';
@@ -565,7 +567,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  return props;
 	}
-	module.exports = exports['default'];
 
 /***/ }
 /******/ ])

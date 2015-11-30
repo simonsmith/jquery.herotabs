@@ -1,5 +1,3 @@
-'use strict';
-
 import $ from 'jquery';
 import transitionProps from './transition-props';
 
@@ -109,11 +107,11 @@ class Herotabs {
 
   nextTab() {
     const currentIndex = this.tab.index(this._currentTab);
-    let nextTab = this.tab.eq(currentIndex + 1);
-    nextTab = (nextTab.length > 0 ? nextTab : this.tab.eq(0));
+    let nextTabElement = this.tab.eq(currentIndex + 1);
+    nextTabElement = (nextTabElement.length > 0 ? nextTabElement : this.tab.eq(0));
 
-    this.showTab(nextTab);
-    this.triggerEvent('herotabs.next', nextTab);
+    this.showTab(nextTabElement);
+    this.triggerEvent('herotabs.next', nextTabElement);
 
     return this;
   }
@@ -123,10 +121,10 @@ class Herotabs {
 
     // Assume that if currentIndex is 0 the first tab is currently
     // selected so grab the last one.
-    const prevTab = this.tab.eq(currentIndex === 0 ? -1 : currentIndex - 1);
+    const prevTabElement = this.tab.eq(currentIndex === 0 ? -1 : currentIndex - 1);
 
-    this.showTab(prevTab);
-    this.triggerEvent('herotabs.prev', prevTab);
+    this.showTab(prevTabElement);
+    this.triggerEvent('herotabs.prev', prevTabElement);
 
     return this;
   }
