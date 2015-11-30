@@ -1,6 +1,5 @@
 var gulp =       require('gulp');
 var uglify =     require('gulp-uglify');
-var jshint =     require('gulp-jshint');
 var webpack =    require('gulp-webpack');
 var rename =     require('gulp-rename');
 var header =     require('gulp-header');
@@ -19,8 +18,6 @@ var banner = [
 
 gulp.task('default', function() {
   return gulp.src('src/index.js')
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
     .pipe(webpack({
       output: {
         libraryTarget: 'umd'
