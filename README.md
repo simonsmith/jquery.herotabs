@@ -9,7 +9,7 @@ http://jsbin.com/hofuma/
 
 ## Features
 * Fade between tabs using **CSS3 transitions** with `.animate()` fallback
-* Works with jQuery **1.9.0+**
+* Works with jQuery **1.9.1+**
 * Keyboard navigation
 * WAI-ARIA (via http://www.accessibleculture.org/articles/2010/08/aria-tabs/)
 * Focus on tab contents
