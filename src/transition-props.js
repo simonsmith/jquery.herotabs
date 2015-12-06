@@ -1,8 +1,6 @@
 export default transitionProps();
 
 function transitionProps() {
-  'use strict';
-
   const prop = 'transition';
   const div = document.createElement('div');
 
@@ -23,7 +21,7 @@ function transitionProps() {
   };
   const prefixes = ['Moz', 'webkit', 'O'];
   const prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
-  let props = {};
+  const props = {};
 
   // Try and find a matching prefix
   for (let i = 0, len = prefixes.length; i < len; ++i) {
