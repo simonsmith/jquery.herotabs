@@ -1,12 +1,12 @@
-var gulp =       require('gulp');
-var uglify =     require('gulp-uglify');
-var webpack =    require('gulp-webpack');
-var rename =     require('gulp-rename');
-var header =     require('gulp-header');
-                 require('gulp-grunt')(gulp);
+const gulp = require('gulp');
+const uglify = require('gulp-uglify');
+const webpack = require('gulp-webpack');
+const rename = require('gulp-rename');
+const header = require('gulp-header');
+require('gulp-grunt')(gulp);
 
-var pkg = require('./package.json');
-var banner = [
+const pkg = require('./package.json');
+const banner = [
   '/*!',
   ' * <%= pkg.name %>',
   ' * version <%= pkg.version %>',
@@ -16,7 +16,7 @@ var banner = [
   ' */\n'
 ].join('\n');
 
-gulp.task('default', function() {
+gulp.task('default', () => {
   return gulp.src('src/index.js')
     .pipe(webpack({
       output: {
@@ -29,7 +29,7 @@ gulp.task('default', function() {
             exclude: /(node_modules|bower_components)/,
             loader: 'babel'
           }
-        ],
+        ]
       },
       externals: {
         'jquery': {
@@ -49,8 +49,6 @@ gulp.task('default', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', () => {
   gulp.watch('src/*.js', ['default']);
 });
-
-gulp.task('test', ['grunt-jasmine']);
