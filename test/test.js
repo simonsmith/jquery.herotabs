@@ -8,7 +8,9 @@ import fs from 'fs';
 chai.use(chaijQ);
 chai.use(sinonChai);
 
-const testHTML = fs.readFileSync('test/fixtures/basic.html', 'utf-8');
+const basicHTML = fs.readFileSync('test/fixtures/basic.html', 'utf-8');
+const nestedHTML = fs.readFileSync('test/fixtures/nesting.html', 'utf-8');
+const mixedHTML = fs.readFileSync('test/fixtures/mixed-elements.html', 'utf-8');
 
 describe('Herotabs', () => {
   let $;
@@ -20,14 +22,15 @@ describe('Herotabs', () => {
     require('../src/');
   });
 
-  beforeEach(() => {
-    document.body.innerHTML = testHTML;
-  });
-
   describe('initialise', () => {
     let $tabs, instance;
 
     beforeEach(() => {
+    });
+
+    beforeEach(() => {
+      document.body.innerHTML = basicHTML;
+
       $tabs = $('.tabs').herotabs({
         interactEvent: 'hover',
         css: {
@@ -57,6 +60,10 @@ describe('Herotabs', () => {
   });
 
   describe('ready and setup callbacks', () => {
+    beforeEach(() => {
+      document.body.innerHTML = basicHTML;
+    });
+
     it('should call the onSetup callback before the plugin initialises', () => {
       const spy = sinon.spy();
       $('.tabs').herotabs({
@@ -96,413 +103,421 @@ describe('Herotabs', () => {
     });
   });
 
-  describe('plugin usage', () => {
-    let $tabs, instance, $nav, $tabPanels;
+  runDOMTests('basic', basicHTML);
+  runDOMTests('nested', nestedHTML);
+  runDOMTests('mixed elements', mixedHTML);
 
-    beforeEach(() => {
-      $tabs = $('.tabs').herotabs();
-      $nav = $('.js-herotabs-nav');
-      $tabPanels = $('.js-herotabs-tab');
-      instance = $tabs.data('herotabs');
-    });
+  function runDOMTests(name, template) {
+    describe(`plugin usage with ${name} html template`, () => {
+      let $tabs, instance, $nav, $tabPanels;
 
-    afterEach(() => {
-      $tabs.removeData('herotabs');
-    });
+      beforeEach(() => {
+        document.body.innerHTML = template;
 
-    describe('initial state', () => {
-      describe('nav', () => {
-        it('should set roles on the navigation', function() {
-          expect($nav).to.have.$attr('role', 'tablist');
-          expect($nav.find('.js-herotabs-nav-item')).to.have.$attr('role', 'presentation');
-          expect($nav.find('.js-herotabs-nav-item a')).to.have.$attr('role', 'tab');
-        });
-
-        it('should generate ids on the nav links', function() {
-          $nav.find('a').each(function(index) {
-            expect($(this)).to.have.$attr('id', 'herotabs' + instance._instanceId + '-' + (index + 1));
-          });
-        });
-
-        it('should set the first nav item to current', () => {
-          expect($nav.find('.js-herotabs-nav-item').eq(0)).to.have.$class('is-current-nav');
-          expect($nav.find('a').eq(0))
-            .to.have.$attr('aria-selected', 'true')
-            .and.to.have.$attr('tabindex', '0');
-        });
-
-        it('should not set the other nav items to current', () => {
-          $nav.find('a').slice(1).each(function() {
-            expect($(this)).to.not.have.$class('is-current-nav');
-            expect($(this))
-              .to.have.$attr('aria-selected', 'false')
-              .and.to.have.$attr('tabindex', '-1');
-          });
-        });
+        $tabs = $('.tabs').herotabs();
+        $nav = $('.js-herotabs-nav');
+        $tabPanels = $('.js-herotabs-tab');
+        instance = $tabs.data('herotabs');
       });
 
-      describe('tab panels', () => {
-        it('should set roles on the tab panels', () => {
-          expect($tabPanels).to.have.$attr('role', 'tabpanel');
-        });
+      afterEach(() => {
+        $tabs.removeData('herotabs');
+      });
 
-        it('should link tab panels to their nav item ids', () => {
-          $tabPanels.each(function(index) {
-            expect($(this)).to.have.$attr('aria-labelledby', 'herotabs' + instance._instanceId + '-' + (index + 1));
+      describe('initial state', () => {
+        describe('nav', () => {
+          it('should set roles on the navigation', function() {
+            expect($nav).to.have.$attr('role', 'tablist');
+            expect($nav.find('.js-herotabs-nav-item')).to.have.$attr('role', 'presentation');
+            expect($nav.find('.js-herotabs-nav-item a')).to.have.$attr('role', 'tab');
+          });
+
+          it('should generate ids on the nav links', function() {
+            $nav.find('a').each(function(index) {
+              expect($(this)).to.have.$attr('id', 'herotabs' + instance._instanceId + '-' + (index + 1));
+            });
+          });
+
+          it('should set the first nav item to current', () => {
+            expect($nav.find('.js-herotabs-nav-item').eq(0)).to.have.$class('is-current-nav');
+            expect($nav.find('a').eq(0))
+            .to.have.$attr('aria-selected', 'true')
+            .and.to.have.$attr('tabindex', '0');
+          });
+
+          it('should not set the other nav items to current', () => {
+            $nav.find('a').slice(1).each(function() {
+              expect($(this)).to.not.have.$class('is-current-nav');
+              expect($(this))
+              .to.have.$attr('aria-selected', 'false')
+              .and.to.have.$attr('tabindex', '-1');
+            });
           });
         });
 
-        it('should set the first tab panel to current and visible', function() {
-          expect($tabPanels.eq(0))
+        describe('tab panels', () => {
+          it('should set roles on the tab panels', () => {
+            expect($tabPanels).to.have.$attr('role', 'tabpanel');
+          });
+
+          it('should link tab panels to their nav item ids', () => {
+            $tabPanels.each(function(index) {
+              expect($(this)).to.have.$attr('aria-labelledby', 'herotabs' + instance._instanceId + '-' + (index + 1));
+            });
+          });
+
+          it('should set the first tab panel to current and visible', function() {
+            expect($tabPanels.eq(0))
             .to.have.$class('is-current-pane')
             .and.to.have.$attr('aria-hidden', 'false')
             .and.to.have.$attr('tabindex', '0')
             .and.be.$visible;
-        });
+          });
 
-        it('should hide the remaining tab panels', () => {
-          $tabPanels.slice(1).each(function() {
-            expect($(this)).to.not.have.$class('is-current-pane');
-            expect($(this))
+          it('should hide the remaining tab panels', () => {
+            $tabPanels.slice(1).each(function() {
+              expect($(this)).to.not.have.$class('is-current-pane');
+              expect($(this))
               .and.to.have.$attr('aria-hidden', 'true')
               .and.to.have.$attr('tabindex', '-1')
               .and.to.have.$css('display', 'none');
+            });
+          });
+
+          it('should set correct tabindex to links within the tab panels', () => {
+            expect($tabPanels.eq(0).find('a')).to.have.$attr('tabindex', '0');
+            $tabPanels.slice(1).each(function() {
+              expect($(this)).to.have.$attr('tabindex', '-1');
+            });
+          });
+        });
+      });
+
+      describe('instance methods', () => {
+        describe('showTab()', () => {
+          it('should show the second tab panel by using an index', () => {
+            instance.showTab(1);
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'block');
+
+            expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'none');
+          });
+
+          it('should show the third tab panel by using a jQuery element', function() {
+            instance.showTab($tabPanels.eq(2));
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(2)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'block');
+          });
+
+          it('should do nothing if an index is greater than the total elements', () => {
+            instance.showTab(5);
+
+            expect($tabPanels.eq(0)).to.have.$class('is-current-pane');
+
+            expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'none');
+          });
+
+          it('should return the instance', () => {
+            expect(instance.showTab(1)).to.be.instanceOf($.fn.herotabs.Herotabs);
           });
         });
 
-        it('should set correct tabindex to links within the tab panels', () => {
-          expect($tabPanels.eq(0).find('a')).to.have.$attr('tabindex', '0');
-          $tabPanels.slice(1).each(function() {
-            expect($(this)).to.have.$attr('tabindex', '-1');
+        describe('nextTab()', () => {
+          it('should show the next tab', () => {
+            instance.nextTab();
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'block');
+
+            expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'none');
+          });
+
+          it('should show the first tab if the last one is currently visible', () => {
+            instance.showTab(2);
+            instance.nextTab();
+
+            expect($tabPanels.eq(0)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'block');
+
+            expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'none');
+          });
+
+          it('should return the instance', () => {
+            expect(instance.nextTab()).to.be.instanceOf($.fn.herotabs.Herotabs);
+          });
+        });
+
+        describe('prevTab()', () => {
+          it('should show the previous tab', () => {
+            instance.prevTab();
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(2)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'block');
+          });
+
+          it('should return the instance', () => {
+            expect(instance.prevTab()).to.be.instanceOf($.fn.herotabs.Herotabs);
+          });
+        });
+
+        describe('start() and stop()', () => {
+          let clock;
+
+          beforeEach(() => {
+            document.body.innerHTML = template;
+            clock = sinon.useFakeTimers();
+          });
+
+          afterEach(() => {
+            clock.restore();
+          });
+
+          it('should show the next tab after the delay', () => {
+            $tabs = $('.tabs').herotabs({delay: 300});
+            $tabPanels = $('.js-herotabs-tab');
+
+            clock.tick(301);
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'block');
+
+            expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'none');
+          });
+
+          it('should allow the timer to be stopped', () => {
+            $tabs = $('.tabs').herotabs({delay: 500});
+            $tabPanels = $('.js-herotabs-tab');
+            instance = $tabs.data('herotabs');
+
+            clock.tick(300);
+            const ret = instance.stop();
+            expect(ret).to.be.instanceOf($.fn.herotabs.Herotabs);
+
+            expect($tabPanels.eq(0)).to.have.$class('is-current-pane');
+
+            expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'none');
+          });
+
+          it('should allow the timer to be started', () => {
+            $tabs = $('.tabs').herotabs({delay: 200});
+            $tabPanels = $('.js-herotabs-tab');
+            instance = $tabs.data('herotabs');
+
+            clock.tick(300);
+            instance.stop();
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'block');
+
+            expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'none');
+
+            const ret = instance.start();
+            clock.tick(300);
+
+            expect(ret).to.be.instanceOf($.fn.herotabs.Herotabs);
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(2)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'block');
+          });
+
+          it('should return the instance on `.start()`', () => {
+            $tabs = $('.tabs').herotabs({delay: 200});
+            instance = $tabs.data('herotabs');
+
+            expect(instance.start()).to.be.instanceOf($.fn.herotabs.Herotabs);
+          });
+
+          it('should return the instance on `.stop()`', () => {
+            $tabs = $('.tabs').herotabs({delay: 200});
+            instance = $tabs.data('herotabs');
+
+            clock.tick(300);
+
+            expect(instance.stop()).to.be.instanceOf($.fn.herotabs.Herotabs);
+          });
+        });
+
+        describe('custom events', () => {
+          it('should fire a `show` event with reference to the element that is visible', () => {
+            const spy = sinon.spy();
+            $tabs.on('herotabs.show', spy);
+            instance.showTab(1);
+            const arg = spy.getCall(0).args[1];
+
+            expect(arg.currentTab).to.have.$class('tabpane2');
+            expect(arg.currentTabIndex).to.equal(1);
+            expect(arg.currentNavItem).to.have.$class('navitem2');
+          });
+
+          it('should fire a `hide` event with reference to the element that was just hidden', () => {
+            const spy = sinon.spy();
+            $tabs.on('herotabs.hide', spy);
+            instance.showTab(1);
+            const arg = spy.getCall(0).args[1];
+
+            expect(arg.currentTab).to.have.$class('tabpane1');
+            expect(arg.currentTabIndex).to.equal(0);
+            expect(arg.currentNavItem).to.have.$class('navitem1');
+          });
+
+          it('should fire a `next` event', () => {
+            const spy = sinon.spy();
+            $tabs.on('herotabs.next', spy);
+            instance.nextTab();
+            const arg = spy.getCall(0).args[1];
+
+            expect(arg.currentTab).to.have.$class('tabpane2');
+            expect(arg.currentTabIndex).to.equal(1);
+            expect(arg.currentNavItem).to.have.$class('navitem2');
+          });
+
+          it('should fire a `prev` event', () => {
+            const spy = sinon.spy();
+            $tabs.on('herotabs.prev', spy);
+            instance.prevTab();
+            const arg = spy.getCall(0).args[1];
+
+            expect(arg.currentTab).to.have.$class('tabpane3');
+            expect(arg.currentTabIndex).to.equal(2);
+            expect(arg.currentNavItem).to.have.$class('navitem3');
+          });
+
+          it('should fire a `start` event', () => {
+            const spy = sinon.spy();
+            $tabs.on('herotabs.start', spy);
+            instance.options.delay = 200;
+
+            instance.start();
+
+            const arg = spy.getCall(0).args[1];
+
+            expect(arg.currentTab).to.have.$class('tabpane1');
+            expect(arg.currentTabIndex).to.equal(0);
+            expect(arg.currentNavItem).to.have.$class('navitem1');
+          });
+
+          it('should fire a `stop` event', () => {
+            const spy = sinon.spy();
+            $tabs.on('herotabs.stop', spy);
+            instance.options.delay = 200;
+
+            instance.start();
+            instance.stop();
+
+            const arg = spy.getCall(0).args[1];
+
+            expect(arg.currentTab).to.have.$class('tabpane1');
+            expect(arg.currentTabIndex).to.equal(0);
+            expect(arg.currentNavItem).to.have.$class('navitem1');
+          });
+
+          it('should allow events to be fired manually', () => {
+            const spy = sinon.spy();
+            $tabs.on('herotabs.show', spy);
+            instance.triggerEvent('herotabs.show', 1);
+
+            const arg = spy.getCall(0).args[1];
+
+            expect(arg.currentTab).to.have.$class('tabpane2');
+            expect(arg.currentTabIndex).to.equal(1);
+            expect(arg.currentNavItem).to.have.$class('navitem2');
+          });
+        });
+
+        describe('DOM events', () => {
+          it('should change tab when second nav item is clicked', () => {
+            $nav.trigger($.Event('click', {
+              target: $nav.find('a').get(1)
+            }));
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'block');
+
+            expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'none');
+          });
+
+          it('should change tab when the down arrow is pressed', () => {
+            $nav.trigger($.Event('keydown', {
+              target: $nav.find('a')[1],
+              keyCode: 40
+            }));
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'block');
+
+            expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'none');
+          });
+
+          it('should show last tab when the up arrow is pressed', () => {
+            $nav.trigger($.Event('keydown', {
+              target: $nav.find('a')[1],
+              keyCode: 38
+            }));
+
+            expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(0)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
+            expect($tabPanels.eq(1)).to.have.$css('display', 'none');
+
+            expect($tabPanels.eq(2)).to.have.$class('is-current-pane');
+            expect($tabPanels.eq(2)).to.have.$css('display', 'block');
           });
         });
       });
     });
-
-    describe('instance methods', () => {
-      describe('showTab()', () => {
-        it('should show the second tab panel by using an index', () => {
-          instance.showTab(1);
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'block');
-
-          expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'none');
-        });
-
-        it('should show the third tab panel by using a jQuery element', function() {
-          instance.showTab($tabPanels.eq(2));
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(2)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'block');
-        });
-
-        it('should do nothing if an index is greater than the total elements', () => {
-          instance.showTab(5);
-
-          expect($tabPanels.eq(0)).to.have.$class('is-current-pane');
-
-          expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'none');
-        });
-
-        it('should return the instance', () => {
-          expect(instance.showTab(1)).to.be.instanceOf($.fn.herotabs.Herotabs);
-        });
-      });
-
-      describe('nextTab()', () => {
-        it('should show the next tab', () => {
-          instance.nextTab();
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'block');
-
-          expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'none');
-        });
-
-        it('should show the first tab if the last one is currently visible', () => {
-          instance.showTab(2);
-          instance.nextTab();
-
-          expect($tabPanels.eq(0)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'block');
-
-          expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'none');
-        });
-
-        it('should return the instance', () => {
-          expect(instance.nextTab()).to.be.instanceOf($.fn.herotabs.Herotabs);
-        });
-      });
-
-      describe('prevTab()', () => {
-        it('should show the previous tab', () => {
-          instance.prevTab();
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(2)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'block');
-        });
-
-        it('should return the instance', () => {
-          expect(instance.prevTab()).to.be.instanceOf($.fn.herotabs.Herotabs);
-        });
-      });
-
-      describe('start() and stop()', () => {
-        let clock;
-
-        beforeEach(() => {
-          document.body.innerHTML = testHTML;
-          clock = sinon.useFakeTimers();
-        });
-
-        afterEach(() => {
-          clock.restore();
-        });
-
-        it('should show the next tab after the delay', () => {
-          $tabs = $('.tabs').herotabs({delay: 300});
-          $tabPanels = $('.js-herotabs-tab');
-
-          clock.tick(301);
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'block');
-
-          expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'none');
-        });
-
-        it('should allow the timer to be stopped', () => {
-          $tabs = $('.tabs').herotabs({delay: 500});
-          $tabPanels = $('.js-herotabs-tab');
-          instance = $tabs.data('herotabs');
-
-          clock.tick(300);
-          const ret = instance.stop();
-          expect(ret).to.be.instanceOf($.fn.herotabs.Herotabs);
-
-          expect($tabPanels.eq(0)).to.have.$class('is-current-pane');
-
-          expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'none');
-        });
-
-        it('should allow the timer to be started', () => {
-          $tabs = $('.tabs').herotabs({delay: 200});
-          $tabPanels = $('.js-herotabs-tab');
-          instance = $tabs.data('herotabs');
-
-          clock.tick(300);
-          instance.stop();
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'block');
-
-          expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'none');
-
-          const ret = instance.start();
-          clock.tick(300);
-
-          expect(ret).to.be.instanceOf($.fn.herotabs.Herotabs);
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(2)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'block');
-        });
-
-        it('should return the instance on `.start()`', () => {
-          $tabs = $('.tabs').herotabs({delay: 200});
-          instance = $tabs.data('herotabs');
-
-          expect(instance.start()).to.be.instanceOf($.fn.herotabs.Herotabs);
-        });
-
-        it('should return the instance on `.stop()`', () => {
-          $tabs = $('.tabs').herotabs({delay: 200});
-          instance = $tabs.data('herotabs');
-
-          clock.tick(300);
-
-          expect(instance.stop()).to.be.instanceOf($.fn.herotabs.Herotabs);
-        });
-      });
-
-      describe('custom events', () => {
-        it('should fire a `show` event with reference to the element that is visible', () => {
-          const spy = sinon.spy();
-          $tabs.on('herotabs.show', spy);
-          instance.showTab(1);
-          const arg = spy.getCall(0).args[1];
-
-          expect(arg.currentTab).to.have.$class('tabpane2');
-          expect(arg.currentTabIndex).to.equal(1);
-          expect(arg.currentNavItem).to.have.$class('navitem2');
-        });
-
-        it('should fire a `hide` event with reference to the element that was just hidden', () => {
-          const spy = sinon.spy();
-          $tabs.on('herotabs.hide', spy);
-          instance.showTab(1);
-          const arg = spy.getCall(0).args[1];
-
-          expect(arg.currentTab).to.have.$class('tabpane1');
-          expect(arg.currentTabIndex).to.equal(0);
-          expect(arg.currentNavItem).to.have.$class('navitem1');
-        });
-
-        it('should fire a `next` event', () => {
-          const spy = sinon.spy();
-          $tabs.on('herotabs.next', spy);
-          instance.nextTab();
-          const arg = spy.getCall(0).args[1];
-
-          expect(arg.currentTab).to.have.$class('tabpane2');
-          expect(arg.currentTabIndex).to.equal(1);
-          expect(arg.currentNavItem).to.have.$class('navitem2');
-        });
-
-        it('should fire a `prev` event', () => {
-          const spy = sinon.spy();
-          $tabs.on('herotabs.prev', spy);
-          instance.prevTab();
-          const arg = spy.getCall(0).args[1];
-
-          expect(arg.currentTab).to.have.$class('tabpane3');
-          expect(arg.currentTabIndex).to.equal(2);
-          expect(arg.currentNavItem).to.have.$class('navitem3');
-        });
-
-        it('should fire a `start` event', () => {
-          const spy = sinon.spy();
-          $tabs.on('herotabs.start', spy);
-          instance.options.delay = 200;
-
-          instance.start();
-
-          const arg = spy.getCall(0).args[1];
-
-          expect(arg.currentTab).to.have.$class('tabpane1');
-          expect(arg.currentTabIndex).to.equal(0);
-          expect(arg.currentNavItem).to.have.$class('navitem1');
-        });
-
-        it('should fire a `stop` event', () => {
-          const spy = sinon.spy();
-          $tabs.on('herotabs.stop', spy);
-          instance.options.delay = 200;
-
-          instance.start();
-          instance.stop();
-
-          const arg = spy.getCall(0).args[1];
-
-          expect(arg.currentTab).to.have.$class('tabpane1');
-          expect(arg.currentTabIndex).to.equal(0);
-          expect(arg.currentNavItem).to.have.$class('navitem1');
-        });
-
-        it('should allow events to be fired manually', () => {
-          const spy = sinon.spy();
-          $tabs.on('herotabs.show', spy);
-          instance.triggerEvent('herotabs.show', 1);
-
-          const arg = spy.getCall(0).args[1];
-
-          expect(arg.currentTab).to.have.$class('tabpane2');
-          expect(arg.currentTabIndex).to.equal(1);
-          expect(arg.currentNavItem).to.have.$class('navitem2');
-        });
-      });
-
-      describe('DOM events', () => {
-        it('should change tab when second nav item is clicked', () => {
-          $nav.trigger($.Event('click', {
-            target: $nav.find('a').get(1)
-          }));
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'block');
-
-          expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'none');
-        });
-
-        it('should change tab when the down arrow is pressed', () => {
-          $nav.trigger($.Event('keydown', {
-            target: $nav.find('a')[1],
-            keyCode: 40
-          }));
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(1)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'block');
-
-          expect($tabPanels.eq(2)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'none');
-        });
-
-        it('should show last tab when the up arrow is pressed', () => {
-          $nav.trigger($.Event('keydown', {
-            target: $nav.find('a')[1],
-            keyCode: 38
-          }));
-
-          expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(0)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(1)).to.not.have.$class('is-current-pane');
-          expect($tabPanels.eq(1)).to.have.$css('display', 'none');
-
-          expect($tabPanels.eq(2)).to.have.$class('is-current-pane');
-          expect($tabPanels.eq(2)).to.have.$css('display', 'block');
-        });
-      });
-    });
-  });
+  }
 });
