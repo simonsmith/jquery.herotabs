@@ -3,7 +3,6 @@ const uglify = require('gulp-uglify');
 const webpack = require('gulp-webpack');
 const rename = require('gulp-rename');
 const header = require('gulp-header');
-require('gulp-grunt')(gulp);
 
 const pkg = require('./package.json');
 const banner = [
