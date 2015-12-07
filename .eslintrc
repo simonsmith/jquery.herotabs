@@ -5,6 +5,8 @@
     "comma-dangle": [2, "never"],
     "func-names": 0,
     "one-var": [2, { uninitialized: "always", initialized: "never" }],
-    "no-use-before-define": [2, "nofunc"]
+    "no-use-before-define": [2, "nofunc"],
+    "no-param-reassign": 0,
+    "default-case": 0
   }
 }

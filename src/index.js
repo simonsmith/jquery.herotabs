@@ -10,7 +10,7 @@ class Herotabs {
     this._currentTab = null;
     this._timer = null;
     this._instanceId = ++instanceId;
-    this._opacityTransition = `opacity ${(parseInt(options.duration) / 1000)}s ${options.easing}`;
+    this._opacityTransition = `opacity ${(parseInt(options.duration, 10) / 1000)}s ${options.easing}`;
 
     options.onSetup.call(this);
 
@@ -30,7 +30,7 @@ class Herotabs {
     this._attachKeyEvents();
 
     // Begin cycling through tabs if a delay has been set
-    if (parseInt(options.delay) > 0) {
+    if (parseInt(options.delay, 10) > 0) {
       this.start();
       this._attachHoverEvents();
     }
@@ -75,7 +75,7 @@ class Herotabs {
         'position': 'absolute'
       });
 
-    if (parseInt(this.options.duration) > 0) {
+    if (parseInt(this.options.duration, 10) > 0) {
       // When the animation has finished, reset the states.
       // This is important because a tab pane has position: absolute
       // set during animation and it needs to be set back
@@ -172,7 +172,7 @@ class Herotabs {
   }
 
   _getTab(tab) {
-    return (typeof tab != 'number' ? tab : this.tab.eq(tab));
+    return (typeof tab !== 'number' ? tab : this.tab.eq(tab));
   }
 
   _showInitialTab(startOn) {
@@ -250,14 +250,14 @@ class Herotabs {
   _attachKeyEvents() {
     this.nav.on('keydown', 'a', (event) => {
       switch (event.keyCode) {
-        case 37: // Left
-        case 38: // Up
-          this.prevTab();
-          break;
-        case 39: // Right
-        case 40: // Down
-          this.nextTab();
-          break;
+      case 37: // Left
+      case 38: // Up
+        this.prevTab();
+        break;
+      case 39: // Right
+      case 40: // Down
+        this.nextTab();
+        break;
       }
     });
   }
@@ -322,7 +322,7 @@ class Herotabs {
         });
 
       // Current nav item link
-      var navItemLink = this.navItem
+      const navItemLink = this.navItem
         .eq(tab.currentTabIndex)
         .addClass(current)
         .find('a');
@@ -390,14 +390,14 @@ if (transitionProps.css === undefined) {
  * Create the plugin
  * */
 
- $.fn.herotabs = function(options) {
-  options = $.extend(true, {}, $.fn.herotabs.defaults, options);
+$.fn.herotabs = function(options) {
+  const mergedOpts = $.extend(true, {}, $.fn.herotabs.defaults, options);
 
   return this.each(function() {
     const $this = $(this);
 
     if (!$this.data('herotabs')) {
-      $this.data('herotabs', new Herotabs($this, options));
+      $this.data('herotabs', new Herotabs($this, mergedOpts));
     }
   });
 };

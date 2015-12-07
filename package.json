@@ -40,6 +40,7 @@
     "url": "https://github.com/simonsmith/jquery.herotabs/issues"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register"
+    "lint": "eslint src/*.js test/*.js",
+    "test": "npm run lint && mocha --compilers js:babel-core/register"
   }
 }
