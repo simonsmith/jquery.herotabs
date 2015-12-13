@@ -178,7 +178,7 @@ class Herotabs {
    */
 
   getTab(tab) {
-    return (typeof tab !== 'number' ? tab : this.$tab.eq(tab));
+    return typeof tab !== 'number' ? tab : this.$tab.eq(tab);
   }
 
   showInitialTab(startOn) {
@@ -269,7 +269,7 @@ class Herotabs {
   }
 
   isTouchEnabled() {
-    return ('ontouchstart' in document.documentElement) && this.options.useTouch;
+    return 'ontouchstart' in document.documentElement && this.options.useTouch;
   }
 
   getEventType() {
@@ -280,7 +280,7 @@ class Herotabs {
     };
 
     // If touch is supported then override the event in options
-    return (this.isTouchEnabled() ? eventMap.touch : eventMap[this.options.interactEvent]);
+    return this.isTouchEnabled() ? eventMap.touch : eventMap[this.options.interactEvent];
   }
 
   attachNavEvents() {
@@ -308,7 +308,9 @@ class Herotabs {
     // For example if the tabs are on a delay and the user is focused
     // elsewhere it would be annoying to have focus snap back
     // to the tabs every time an item changed
-    return $(document.activeElement).closest(this.$container).is(this.$container);
+    return $(document.activeElement)
+      .closest(this.$container)
+      .is(this.$container);
   }
 
   setCurrentNav() {
