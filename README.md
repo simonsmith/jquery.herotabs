@@ -167,10 +167,10 @@ visible tab, the index and the current selected nav item.
 ```js
 var $tabs = $('.tabs').herotabs();
 
-$tabs.on('herotabs.show', function(event, tab, index, nav) {
-    tab.addClass('currently-visible-tab');
-    $('body').text('The current tab index is ' + index);
-    nav.text('I am the current nav element');
+$tabs.on('herotabs.show', function(event, $tab, $index, $nav) {
+    $tab.addClass('currently-visible-tab');
+    $('body').text('The current tab index is ' + $index);
+    $nav.text('I am the current nav element');
 });
 ```
 
