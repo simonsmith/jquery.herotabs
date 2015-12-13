@@ -111,7 +111,11 @@ class Herotabs {
   nextTab() {
     const currentIndex = this.tab.index(this.currentTab);
     let nextTabElement = this.tab.eq(currentIndex + 1);
-    nextTabElement = (nextTabElement.length > 0 ? nextTabElement : this.tab.eq(0));
+
+    // Go back to the start if no next tab exists
+    if (!nextTabElement.length) {
+      nextTabElement = this.tab.eq(0);
+    }
 
     this.showTab(nextTabElement);
     this.triggerEvent('herotabs.next', nextTabElement);
