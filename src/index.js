@@ -184,7 +184,7 @@ class Herotabs {
   showInitialTab(startOn) {
     // Check whether there is a tab selected by the URL hash
     const tabFromHash = location.hash && this.$tab.filter(location.hash);
-    const $initialTab = tabFromHash.length === 0 ? this.$tab.eq(startOn) : tabFromHash;
+    const $initialTab = !tabFromHash.length ? this.$tab.eq(startOn) : tabFromHash;
 
     this.$tab.css('top', 0);
     this.setTabVisibilty($initialTab, this.$tab.not($initialTab));
