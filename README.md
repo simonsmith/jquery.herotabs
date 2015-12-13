@@ -5,9 +5,11 @@ A tiny, fully accessible tab switcher for jQuery.
 Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.
 
 ## Demo
+
 http://jsbin.com/hofuma/
 
 ## Features
+
 * Fade between tabs using **CSS3 transitions** with `.animate()` fallback
 * Works with jQuery **1.9.1+**
 * Keyboard navigation
@@ -30,6 +32,7 @@ Or from npm
 Failing that, simply clone this repo or [grab the file itself](https://raw.github.com/simonsmith/jquery.herotabs/master/dist/jquery.herotabs.js).
 
 ## Usage
+
 ### JS
 
 Herotabs can be used as a normal script or with an AMD compatible loader like [RequireJS](http://requirejs.org)
@@ -47,6 +50,7 @@ Herotabs can be used as a normal script or with an AMD compatible loader like [R
 ```
 
 #### AMD
+
 Herotabs will work with RequireJS without any need for shims. Just ensure that `jquery` is set as a path.
 
 ```js
@@ -63,6 +67,7 @@ require(['jquery', 'jquery.herotabs'], function($) {
 
 
 ### HTML
+
 A simple example of markup.
 
 ```html
@@ -103,8 +108,8 @@ The only expectation it has is that your tab navigation will be contained by an 
 
 **Note** Your navigation anchors must link to the tab content IDs (tab behaviour), or be fully-qualified URLs (follow link behaviour).
 
-
 ## Options
+
 * **delay** - _(number)_ How long between each tab change. If set to 0 no timed change will happen _default_ `0`
 * **duration** - _(number)_ If set to greater than zero, then this will decide how long it takes to fade transition between tabs otherwise it will be instant _default_ `0`
 * **easing** - _(string)_ Easing type, works only with CSS3 capable browsers _default_ `ease-in-out`
@@ -142,6 +147,7 @@ $('.other-tabs').herotabs();
 ```
 
 ## Events
+
 Herotabs fires various events that you can listen to. They are fired off the element that `herotabs` is instantiated  on.
 
 ```js
@@ -155,6 +161,7 @@ $tabs.on('herotabs.show', function() {
     // Do something else when the tab has shown!
 });
 ```
+
 ### Event parameters
 
 Every event handler receives the jQuery event object and also the current
@@ -175,30 +182,39 @@ $tabs.on('herotabs.show', function(event, $tab, $index, $nav) {
 ```
 
 ### herotabs.show
+
 Fired when a tab is shown
 
 ### herotabs.hide
+
 Fired when the current tab is hidden
 
 ### herotabs.next
+
 Fired when the next tab is shown
 
 ### herotabs.prev
+
 Fired when the previous tab is shown
 
 ### herotabs.start
+
 Fired after the tabs have begun cycling on a timed delay
 
 ### herotabs.stop
+
 Fired after the tabs have stopped cycling
 
 ### herotabs.mouseenter
+
 Fired when the mouse enters the container of the tabs
 
 ### herotabs.mouseleave
+
 Fired when the mouse leaves the container of the tabs
 
 ## Methods
+
 You can get at the Herotabs instance by accessing it from the elements `.data` method
 
 ```js
@@ -207,6 +223,7 @@ instance.nextTab();
 ```
 
 ### showTab
+
 Shows a tab. Accepts a zero based index or a jQuery element
 
 ```js
@@ -215,6 +232,7 @@ instance.showTab($('.js-herotabs-tab').eq(1)) // jQuery element
 ```
 
 ### nextTab
+
 Shows the next tab. If the current tab is the last in the set it will show the first.
 
 ```js
@@ -222,6 +240,7 @@ instance.nextTab()
 ```
 
 ### prevTab
+
 Shows the previous tab. If the current tab is the first in the set it will show the last.
 
 ```js
@@ -229,6 +248,7 @@ instance.prevTab()
 ```
 
 ### start
+
 If a delay is set in the options, then it will begin cycling through the tabs.
 
 ```js
@@ -236,6 +256,7 @@ instance.start()
 ```
 
 ### stop
+
 If the tabs are currently cycling, it will stop them
 
 ```js
@@ -243,6 +264,7 @@ instance.stop()
 ```
 
 ### triggerEvent
+
 Manually invoke a Herotabs event. Accepts an event name and jQuery object/index
 
 ```js
@@ -252,12 +274,15 @@ instance.triggerEvent('herotabs.show', $('.a-single-tab')); // Or a jQuery objec
 Due to the events being attached after the plugin has initialised, this method might be useful if you have events that need to fire immediately or from somewhere else.
 
 ### Chaining
+
 All methods return the instance so you can chain as many calls as you wish
+
 ```js
 instance.showTab(2).nextTab().nextTab();
 ```
 
 ### Accessing the constructor
+
 If for any reason you need to override or add your own methods then you can access the Herotabs prototype before initialising it:
 
 ```js
@@ -286,7 +311,6 @@ instance.newMethod();
 #### AMD
 
 ```js
-
 require(['jquery', '../dist/jquery.herotabs'], function($, Herotabs) {
   Herotabs.prototype.newMethod = function() {
       // Something new!
@@ -300,9 +324,8 @@ require(['jquery', '../dist/jquery.herotabs'], function($, Herotabs) {
 ## Example
 
 ```js
-var $tabContainer = $('.tabs');
-
-$tabContainer.herotabs({
+$('.tabs')
+  .herotabs({
     useTouch: false,
     duration: 400,
     interactEvent: 'hover',
@@ -312,16 +335,13 @@ $tabContainer.herotabs({
         nav: '.tab-nav-container'
     },
     onSetup: function() {
-    	// Do some setup work here
-    	// e.g. generate some markup dynamically for Herotabs to attach to
+      // Do some setup work here
+      // e.g. generate some markup dynamically for Herotabs to attach to
     }
-});
-
-$tabContainer.on('herotabs.show', function(event, tab) {
-    tab.currentTab.text('You are looking at a tab!');
-});
-
-// The above can also be chained into one call if you're into that kind of thing
+  })
+  .on('herotabs.show', function(event, $tab) {
+      $tab.text('You are looking at a tab!');
+  });
 ```
 
 ## Contributing
