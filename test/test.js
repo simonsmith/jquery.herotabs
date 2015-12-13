@@ -190,7 +190,7 @@ describe('Herotabs', () => {
         });
       });
 
-      describe('instance methods', () => {
+      describe('public API', () => {
         describe('showTab()', () => {
           it('should show the second tab panel by using an index', () => {
             instance.showTab(1);
