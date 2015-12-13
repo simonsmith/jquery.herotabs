@@ -168,11 +168,7 @@ class Herotabs {
     tabToShow = this.getTab(tabToShow);
     const index = this.tab.index(tabToShow);
 
-    this.container.trigger(eventName, {
-      currentTab: tabToShow,
-      currentTabIndex: index,
-      currentNavItem: this.navItem.eq(index)
-    });
+    this.container.trigger(eventName, [tabToShow, index, this.navItem.eq(index)]);
   }
 
   /**
@@ -318,7 +314,7 @@ class Herotabs {
   setCurrentNav() {
     const current = this.options.css.navCurrent;
 
-    this.container.on('herotabs.show', (event, tab) => {
+    this.container.on('herotabs.show', (event, tab, index) => {
       this.navItem
         .removeClass(current)
         .find('a')
@@ -331,7 +327,7 @@ class Herotabs {
 
       // Current nav item link
       const navItemLink = this.navItem
-        .eq(tab.currentTabIndex)
+        .eq(index)
         .addClass(current)
         .find('a');
 

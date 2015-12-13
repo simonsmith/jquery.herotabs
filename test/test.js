@@ -384,44 +384,44 @@ describe('Herotabs', () => {
             const spy = sinon.spy();
             $tabs.on('herotabs.show', spy);
             instance.showTab(1);
-            const arg = spy.getCall(0).args[1];
+            const args = spy.getCall(0).args;
 
-            expect(arg.currentTab).to.have.$class('tabpane2');
-            expect(arg.currentTabIndex).to.equal(1);
-            expect(arg.currentNavItem).to.have.$class('navitem2');
+            expect(args[1]).to.have.$class('tabpane2');
+            expect(args[2]).to.equal(1);
+            expect(args[3]).to.have.$class('navitem2');
           });
 
           it('should fire a `hide` event with reference to the element that was just hidden', () => {
             const spy = sinon.spy();
             $tabs.on('herotabs.hide', spy);
             instance.showTab(1);
-            const arg = spy.getCall(0).args[1];
+            const args = spy.getCall(0).args;
 
-            expect(arg.currentTab).to.have.$class('tabpane1');
-            expect(arg.currentTabIndex).to.equal(0);
-            expect(arg.currentNavItem).to.have.$class('navitem1');
+            expect(args[1]).to.have.$class('tabpane1');
+            expect(args[2]).to.equal(0);
+            expect(args[3]).to.have.$class('navitem1');
           });
 
           it('should fire a `next` event', () => {
             const spy = sinon.spy();
             $tabs.on('herotabs.next', spy);
             instance.nextTab();
-            const arg = spy.getCall(0).args[1];
+            const args = spy.getCall(0).args;
 
-            expect(arg.currentTab).to.have.$class('tabpane2');
-            expect(arg.currentTabIndex).to.equal(1);
-            expect(arg.currentNavItem).to.have.$class('navitem2');
+            expect(args[1]).to.have.$class('tabpane2');
+            expect(args[2]).to.equal(1);
+            expect(args[3]).to.have.$class('navitem2');
           });
 
           it('should fire a `prev` event', () => {
             const spy = sinon.spy();
             $tabs.on('herotabs.prev', spy);
             instance.prevTab();
-            const arg = spy.getCall(0).args[1];
+            const args = spy.getCall(0).args;
 
-            expect(arg.currentTab).to.have.$class('tabpane3');
-            expect(arg.currentTabIndex).to.equal(2);
-            expect(arg.currentNavItem).to.have.$class('navitem3');
+            expect(args[1]).to.have.$class('tabpane3');
+            expect(args[2]).to.equal(2);
+            expect(args[3]).to.have.$class('navitem3');
           });
 
           it('should fire a `start` event', () => {
@@ -431,11 +431,11 @@ describe('Herotabs', () => {
 
             instance.start();
 
-            const arg = spy.getCall(0).args[1];
+            const args = spy.getCall(0).args;
 
-            expect(arg.currentTab).to.have.$class('tabpane1');
-            expect(arg.currentTabIndex).to.equal(0);
-            expect(arg.currentNavItem).to.have.$class('navitem1');
+            expect(args[1]).to.have.$class('tabpane1');
+            expect(args[2]).to.equal(0);
+            expect(args[3]).to.have.$class('navitem1');
           });
 
           it('should fire a `stop` event', () => {
@@ -446,11 +446,11 @@ describe('Herotabs', () => {
             instance.start();
             instance.stop();
 
-            const arg = spy.getCall(0).args[1];
+            const args = spy.getCall(0).args;
 
-            expect(arg.currentTab).to.have.$class('tabpane1');
-            expect(arg.currentTabIndex).to.equal(0);
-            expect(arg.currentNavItem).to.have.$class('navitem1');
+            expect(args[1]).to.have.$class('tabpane1');
+            expect(args[2]).to.equal(0);
+            expect(args[3]).to.have.$class('navitem1');
           });
 
           it('should allow events to be fired manually', () => {
@@ -458,11 +458,11 @@ describe('Herotabs', () => {
             $tabs.on('herotabs.show', spy);
             instance.triggerEvent('herotabs.show', 1);
 
-            const arg = spy.getCall(0).args[1];
+            const args = spy.getCall(0).args;
 
-            expect(arg.currentTab).to.have.$class('tabpane2');
-            expect(arg.currentTabIndex).to.equal(1);
-            expect(arg.currentNavItem).to.have.$class('navitem2');
+            expect(args[1]).to.have.$class('tabpane2');
+            expect(args[2]).to.equal(1);
+            expect(args[3]).to.have.$class('navitem2');
           });
         });
 

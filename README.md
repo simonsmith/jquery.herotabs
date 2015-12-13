@@ -157,19 +157,20 @@ $tabs.on('herotabs.show', function() {
 ```
 ### Event parameters
 
-Every event handler receives the jQuery event object and also an object containing some useful properties:
+Every event handler receives the jQuery event object and also the current
+visible tab, the index and the current selected nav item.
 
-* **currentTab** - _(jQuery object)_ The currently visible tab
-* **currentTabIndex** - _(number)_ The index of the currently visible tab
-* **currentNavItem** - _(jQuery object)_ The current selected nav item
+* **tab** - _(jQuery object)_ The currently visible tab
+* **index** - _(number)_ The index of the currently visible tab
+* **nav** - _(jQuery object)_ The current selected nav item
 
 ```js
 var $tabs = $('.tabs').herotabs();
 
-$tabs.on('herotabs.show', function(event, tab) {
-    tab.currentTab.addClass('currently-visible-tab');
-    $('body').text('The current tab index is ' + tab.currentTabIndex);
-    tab.currentNavItem.text('I am the current nav element');
+$tabs.on('herotabs.show', function(event, tab, index, nav) {
+    tab.addClass('currently-visible-tab');
+    $('body').text('The current tab index is ' + index);
+    nav.text('I am the current nav element');
 });
 ```
 
