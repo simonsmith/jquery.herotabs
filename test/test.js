@@ -84,7 +84,7 @@ describe('Herotabs', () => {
     let checkUrlIsAnchor;
 
     before(() => {
-      checkUrlIsAnchor = $.fn.herotabs.Herotabs.prototype._checkUrlIsAnchor;
+      checkUrlIsAnchor = $.fn.herotabs.Herotabs.prototype.checkUrlIsAnchor;
     });
 
     it('should match hrefs that are anchor links', function() {
@@ -131,7 +131,7 @@ describe('Herotabs', () => {
 
           it('should generate ids on the nav links', function() {
             $nav.find('a').each(function(index) {
-              expect($(this)).to.have.$attr('id', 'herotabs' + instance._instanceId + '-' + (index + 1));
+              expect($(this)).to.have.$attr('id', 'herotabs' + instance.instanceId + '-' + (index + 1));
             });
           });
 
@@ -159,7 +159,7 @@ describe('Herotabs', () => {
 
           it('should link tab panels to their nav item ids', () => {
             $tabPanels.each(function(index) {
-              expect($(this)).to.have.$attr('aria-labelledby', 'herotabs' + instance._instanceId + '-' + (index + 1));
+              expect($(this)).to.have.$attr('aria-labelledby', 'herotabs' + instance.instanceId + '-' + (index + 1));
             });
           });
 

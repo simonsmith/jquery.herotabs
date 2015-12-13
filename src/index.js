@@ -7,10 +7,10 @@ class Herotabs {
   constructor(container, options) {
     this.container = container;
     this.options = options;
-    this._currentTab = null;
-    this._timer = null;
-    this._instanceId = ++instanceId;
-    this._opacityTransition = `opacity ${(parseInt(options.duration, 10) / 1000)}s ${options.easing}`;
+    this.currentTab = null;
+    this.timer = null;
+    this.instanceId = ++instanceId;
+    this.opacityTransition = `opacity ${(parseInt(options.duration, 10) / 1000)}s ${options.easing}`;
 
     options.onSetup.call(this);
 
@@ -21,18 +21,18 @@ class Herotabs {
     this.navItem = this.container.find(selectors.navItem);
 
     if (this.nav.length > 0) {
-      this._ariafy();
-      this._setCurrentNav();
-      this._attachNavEvents();
+      this.ariafy();
+      this.setCurrentNav();
+      this.attachNavEvents();
     }
 
-    this._showInitialTab(options.startOn);
-    this._attachKeyEvents();
+    this.showInitialTab(options.startOn);
+    this.attachKeyEvents();
 
     // Begin cycling through tabs if a delay has been set
     if (parseInt(options.delay, 10) > 0) {
       this.start();
-      this._attachHoverEvents();
+      this.attachHoverEvents();
     }
 
     container
@@ -42,10 +42,14 @@ class Herotabs {
     options.onReady.call(this);
   }
 
-  showTab(tabToShow) {
-    tabToShow = this._getTab(tabToShow);
+  /**
+   * Public API
+   */
 
-    const currentTab = this._currentTab;
+  showTab(tabToShow) {
+    tabToShow = this.getTab(tabToShow);
+
+    const currentTab = this.currentTab;
 
     // Exit if there is no tab to show or the same one
     // is already showing
@@ -64,7 +68,7 @@ class Herotabs {
     // to complete originally.
     // This is similar to jQuery's .finish() and means
     // tabs can be cycled rapidly without overlapping animations
-    this._setTabVisibilty(currentTab, this.tab.not(currentTab));
+    this.setTabVisibilty(currentTab, this.tab.not(currentTab));
 
     // Prepare the next tab to be shown. T
     // his essentially ensures it is beneath the current
@@ -82,31 +86,31 @@ class Herotabs {
       // after to maintain heights etc.
       currentTab
         .one(transitionProps.js, () => {
-          this._setTabVisibilty(tabToShow, currentTab);
+          this.setTabVisibilty(tabToShow, currentTab);
           this.triggerEvent('herotabs.hide', currentTab);
         });
     } else {
       // If duration is 0s, this needs to be called manually
       // as transitionend does not fire
-      this._setTabVisibilty(tabToShow, currentTab);
+      this.setTabVisibilty(tabToShow, currentTab);
       this.triggerEvent('herotabs.hide', currentTab);
     }
 
     // Trigger the animation
     currentTab
-      .css(transitionProps.css, this._opacityTransition)
+      .css(transitionProps.css, this.opacityTransition)
       .css('opacity', 0);
 
     this.triggerEvent('herotabs.show', tabToShow);
 
     // Update reference to the current tab
-    this._currentTab = tabToShow;
+    this.currentTab = tabToShow;
 
     return this;
   }
 
   nextTab() {
-    const currentIndex = this.tab.index(this._currentTab);
+    const currentIndex = this.tab.index(this.currentTab);
     let nextTabElement = this.tab.eq(currentIndex + 1);
     nextTabElement = (nextTabElement.length > 0 ? nextTabElement : this.tab.eq(0));
 
@@ -117,7 +121,7 @@ class Herotabs {
   }
 
   prevTab() {
-    const currentIndex = this.tab.index(this._currentTab);
+    const currentIndex = this.tab.index(this.currentTab);
 
     // Assume that if currentIndex is 0 the first tab is currently
     // selected so grab the last one.
@@ -136,8 +140,8 @@ class Herotabs {
       return this;
     }
 
-    this._timer = setInterval(() => {
-      if (this._navItemHasFocus()) {
+    this.timer = setInterval(() => {
+      if (this.navItemHasFocus()) {
         return;
       }
 
@@ -148,20 +152,20 @@ class Herotabs {
       }
     }, opt.delay);
 
-    this.triggerEvent('herotabs.start', this._currentTab);
+    this.triggerEvent('herotabs.start', this.currentTab);
 
     return this;
   }
 
   stop() {
-    clearInterval(this._timer);
-    this.triggerEvent('herotabs.stop', this._currentTab);
+    clearInterval(this.timer);
+    this.triggerEvent('herotabs.stop', this.currentTab);
 
     return this;
   }
 
   triggerEvent(eventName, tabToShow) {
-    tabToShow = this._getTab(tabToShow);
+    tabToShow = this.getTab(tabToShow);
     const index = this.tab.index(tabToShow);
 
     this.container.trigger(eventName, {
@@ -171,23 +175,27 @@ class Herotabs {
     });
   }
 
-  _getTab(tab) {
+  /**
+   * Private methods
+   */
+
+  getTab(tab) {
     return (typeof tab !== 'number' ? tab : this.tab.eq(tab));
   }
 
-  _showInitialTab(startOn) {
+  showInitialTab(startOn) {
     // Check whether there is a tab selected by the URL hash
     const tabFromHash = location.hash && this.tab.filter(location.hash);
     const initialTab = tabFromHash.length === 0 ? this.tab.eq(startOn) : tabFromHash;
 
     this.tab.css('top', 0);
-    this._setTabVisibilty(initialTab, this.tab.not(initialTab));
+    this.setTabVisibilty(initialTab, this.tab.not(initialTab));
 
     this.triggerEvent('herotabs.show', initialTab);
-    this._currentTab = initialTab;
+    this.currentTab = initialTab;
   }
 
-  _setTabVisibilty(tabToShow, tabToHide) {
+  setTabVisibilty(tabToShow, tabToHide) {
     const { css, zIndex } = this.options;
 
     tabToShow
@@ -213,8 +221,8 @@ class Herotabs {
       .attr('tabindex', '-1');
   }
 
-  _ariafy() {
-    const navId = `${this.options.css.navId}${this._instanceId}-`;
+  ariafy() {
+    const navId = `${this.options.css.navId}${this.instanceId}-`;
 
     this.nav.attr('role', 'tablist');
     this.navItem
@@ -235,19 +243,19 @@ class Herotabs {
     });
   }
 
-  _attachHoverEvents() {
+  attachHoverEvents() {
     this.container.on('mouseenter', () => {
       this.stop();
-      this.triggerEvent('herotabs.mouseenter', this._currentTab);
+      this.triggerEvent('herotabs.mouseenter', this.currentTab);
     });
 
     this.container.on('mouseleave', () => {
       this.start();
-      this.triggerEvent('herotabs.mouseleave', this._currentTab);
+      this.triggerEvent('herotabs.mouseleave', this.currentTab);
     });
   }
 
-  _attachKeyEvents() {
+  attachKeyEvents() {
     this.nav.on('keydown', 'a', (event) => {
       switch (event.keyCode) {
         case 37: // Left
@@ -262,11 +270,11 @@ class Herotabs {
     });
   }
 
-  _isTouchEnabled() {
+  isTouchEnabled() {
     return ('ontouchstart' in document.documentElement) && this.options.useTouch;
   }
 
-  _getEventType() {
+  getEventType() {
     const eventMap = {
       hover: 'mouseenter',
       touch: 'touchstart',
@@ -274,11 +282,11 @@ class Herotabs {
     };
 
     // If touch is supported then override the event in options
-    return (this._isTouchEnabled() ? eventMap.touch : eventMap[this.options.interactEvent]);
+    return (this.isTouchEnabled() ? eventMap.touch : eventMap[this.options.interactEvent]);
   }
 
-  _attachNavEvents() {
-    const eventType = this._getEventType();
+  attachNavEvents() {
+    const eventType = this.getEventType();
     const self = this;
 
     this.nav.on(eventType, 'a', function(event) {
@@ -286,19 +294,19 @@ class Herotabs {
 
       // Only preventDefault if link is an anchor.
       // Allows nav links to use external urls
-      if (self._checkUrlIsAnchor(this.href)) {
+      if (self.checkUrlIsAnchor(this.href)) {
         event.preventDefault();
         event.stopPropagation();
       }
     });
   }
 
-  _checkUrlIsAnchor(url) {
+  checkUrlIsAnchor(url) {
     // Check if url is a hash anchor e.g #foo, #foo-123 etc
     return /#[A-Za-z0-9-_]+$/.test(url);
   }
 
-  _navItemHasFocus() {
+  navItemHasFocus() {
     // Only change focus if the user is focused inside the container already.
     // This stops the tabs stealing focus if the user is somewhere else
     // For example if the tabs are on a delay and the user is focused
@@ -307,7 +315,7 @@ class Herotabs {
     return $(document.activeElement).closest(this.container).is(this.container);
   }
 
-  _setCurrentNav() {
+  setCurrentNav() {
     const current = this.options.css.navCurrent;
 
     this.container.on('herotabs.show', (event, tab) => {
@@ -332,7 +340,7 @@ class Herotabs {
         tabindex: '0'
       });
 
-      if (this._navItemHasFocus()) {
+      if (this.navItemHasFocus()) {
         navItemLink.focus();
       }
     });
@@ -343,9 +351,9 @@ class Herotabs {
 // Override showTab method if browser does not support transitions
 if (transitionProps.css === undefined) {
   Herotabs.prototype.showTab = function(tabToShow) {
-    tabToShow = this._getTab(tabToShow);
+    tabToShow = this.getTab(tabToShow);
 
-    const currentTab = this._currentTab;
+    const currentTab = this.currentTab;
 
     // Exit if there is no tab to show or the same one
     // is already showing
@@ -371,7 +379,7 @@ if (transitionProps.css === undefined) {
     // Animate the current tab and set visibility when
     // the animation has completed
     currentTab.animate({opacity: 0}, this.options.duration, () => {
-      this._setTabVisibilty(tabToShow, currentTab);
+      this.setTabVisibilty(tabToShow, currentTab);
     });
 
     // Trigger event outside of .animate()
@@ -380,7 +388,7 @@ if (transitionProps.css === undefined) {
     this.triggerEvent('herotabs.show', tabToShow);
 
     // Update reference to the current tab
-    this._currentTab = tabToShow;
+    this.currentTab = tabToShow;
 
     return this;
   };
