@@ -26,9 +26,6 @@ describe('Herotabs', () => {
     let $tabs, instance;
 
     beforeEach(() => {
-    });
-
-    beforeEach(() => {
       document.body.innerHTML = basicHTML;
 
       $tabs = $('.tabs').herotabs({

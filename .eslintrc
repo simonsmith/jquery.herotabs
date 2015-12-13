@@ -7,6 +7,8 @@
     "one-var": [2, { uninitialized: "always", initialized: "never" }],
     "no-use-before-define": [2, "nofunc"],
     "no-param-reassign": 0,
+    "space-before-function-paren": 0,
+    "object-curly-spacing": 0,
     "default-case": 0
   }
 }

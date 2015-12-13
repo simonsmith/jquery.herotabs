@@ -250,14 +250,14 @@ class Herotabs {
   _attachKeyEvents() {
     this.nav.on('keydown', 'a', (event) => {
       switch (event.keyCode) {
-      case 37: // Left
-      case 38: // Up
-        this.prevTab();
-        break;
-      case 39: // Right
-      case 40: // Down
-        this.nextTab();
-        break;
+        case 37: // Left
+        case 38: // Up
+          this.prevTab();
+          break;
+        case 39: // Right
+        case 40: // Down
+          this.nextTab();
+          break;
       }
     });
   }
