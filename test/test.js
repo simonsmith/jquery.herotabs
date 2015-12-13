@@ -13,13 +13,13 @@ const nestedHTML = fs.readFileSync('test/fixtures/nesting.html', 'utf-8');
 const mixedHTML = fs.readFileSync('test/fixtures/mixed-elements.html', 'utf-8');
 
 describe('Herotabs', () => {
-  let $;
+  let $, Herotabs;
 
   jsdom();
 
   before(() => {
     $ = require('jquery');
-    require('../src/');
+    Herotabs = require('../src/');
   });
 
   describe('initialise', () => {
@@ -38,7 +38,7 @@ describe('Herotabs', () => {
     });
 
     it('should create an instance in data storage', () => {
-      expect(instance).to.be.an.instanceOf($.fn.herotabs.Herotabs);
+      expect(instance).to.be.an.instanceOf(Herotabs);
     });
 
     it('should expose default options', () => {
@@ -84,7 +84,7 @@ describe('Herotabs', () => {
     let checkUrlIsAnchor;
 
     before(() => {
-      checkUrlIsAnchor = $.fn.herotabs.Herotabs.prototype.checkUrlIsAnchor;
+      checkUrlIsAnchor = Herotabs.prototype.checkUrlIsAnchor;
     });
 
     it('should match hrefs that are anchor links', function() {

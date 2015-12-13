@@ -258,7 +258,7 @@ instance.showTab(2).nextTab().nextTab();
 ```
 
 ### Accessing the constructor
-If for any reason you need to override or add your own methods then you can access the Herotabs prototype before initialising it.
+If for any reason you need to override or add your own methods then you can access the Herotabs prototype before initialising it:
 
 ```js
 var Herotabs = $.fn.herotabs.Herotabs;
@@ -269,6 +269,34 @@ Herotabs.prototype.newMethod = function() {
 var instance = $('.tabs').herotabs().data('herotabs');
 instance.newMethod();
 ```
+
+#### CommonJS
+
+```js
+const $ = require('jquery');
+const Herotabs = require('./dist/jquery.herotabs');
+Herotabs.prototype.newMethod = function() {
+    // Something new!
+};
+
+var instance = $('.tabs').herotabs().data('herotabs');
+instance.newMethod();
+```
+
+#### AMD
+
+```js
+
+require(['jquery', '../dist/jquery.herotabs'], function($, Herotabs) {
+  Herotabs.prototype.newMethod = function() {
+      // Something new!
+  };
+
+  var instance = $('.tabs').herotabs().data('herotabs');
+  instance.newMethod();
+});
+```
+
 ## Example
 
 ```js

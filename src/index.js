@@ -435,3 +435,5 @@ $.fn.herotabs.defaults = {
     top: 2
   }
 };
+
+module.exports = Herotabs;
