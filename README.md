@@ -216,24 +216,28 @@ instance.showTab($('.js-herotabs-tab').eq(1)) // jQuery element
 
 ### nextTab
 Shows the next tab. If the current tab is the last in the set it will show the first.
+
 ```js
 instance.nextTab()
 ```
 
 ### prevTab
 Shows the previous tab. If the current tab is the first in the set it will show the last.
+
 ```js
 instance.prevTab()
 ```
 
 ### start
 If a delay is set in the options, then it will begin cycling through the tabs.
+
 ```js
 instance.start()
 ```
 
 ### stop
 If the tabs are currently cycling, it will stop them
+
 ```js
 instance.stop()
 ```
