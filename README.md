@@ -291,11 +291,6 @@ $tabContainer.on('herotabs.show', function(event, tab) {
 // The above can also be chained into one call if you're into that kind of thing
 ```
 
-## In the wild
-Sites using Herotabs
-* [Gardener's World](http://gardenersworld.com)
-* [Sinfini Music](http://sinfinimusic.com/uk/charts/)
-
 ## Contributing
 If you find a bug or need a feature added, please open an issue first.
 
