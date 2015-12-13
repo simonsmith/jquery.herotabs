@@ -20,7 +20,7 @@ class Herotabs {
     this.nav = this.container.find(selectors.nav);
     this.navItem = this.container.find(selectors.navItem);
 
-    if (this.nav.length > 0) {
+    if (this.nav.length) {
       this.ariafy();
       this.setCurrentNav();
       this.attachNavEvents();
@@ -30,7 +30,7 @@ class Herotabs {
     this.attachKeyEvents();
 
     // Begin cycling through tabs if a delay has been set
-    if (parseInt(options.delay, 10) > 0) {
+    if (parseInt(options.delay, 10)) {
       this.start();
       this.attachHoverEvents();
     }
@@ -53,7 +53,7 @@ class Herotabs {
 
     // Exit if there is no tab to show or the same one
     // is already showing
-    if (tabToShow.length === 0 || currentTab.is(tabToShow)) {
+    if (!tabToShow.length || currentTab.is(tabToShow)) {
       return this;
     }
 
@@ -70,16 +70,15 @@ class Herotabs {
     // tabs can be cycled rapidly without overlapping animations
     this.setTabVisibilty(currentTab, this.tab.not(currentTab));
 
-    // Prepare the next tab to be shown. T
-    // his essentially ensures it is beneath the current
-    // one to enable a smooth transition
+    // Prepare the next tab to be shown. This ensures it is beneath the
+    // current one to enable a smooth transition
     tabToShow
       .show()
       .css({
         'position': 'absolute'
       });
 
-    if (parseInt(this.options.duration, 10) > 0) {
+    if (parseInt(this.options.duration, 10)) {
       // When the animation has finished, reset the states.
       // This is important because a tab pane has position: absolute
       // set during animation and it needs to be set back
