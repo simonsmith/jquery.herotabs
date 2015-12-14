@@ -17,28 +17,7 @@ const banner = [
 
 gulp.task('default', () => {
   return gulp.src('src/index.js')
-    .pipe(webpack({
-      output: {
-        libraryTarget: 'umd'
-      },
-      module: {
-        loaders: [
-          {
-            test: /\.js$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel'
-          }
-        ]
-      },
-      externals: {
-        'jquery': {
-          commonjs: 'jquery',
-          commonjs2: 'jquery',
-          amd: 'jquery',
-          root: 'jQuery'
-        }
-      }
-    }))
+    .pipe(webpack(require('./webpack.config')))
     .pipe(rename('jquery.herotabs.js'))
     .pipe(header(banner, {pkg: pkg}))
     .pipe(gulp.dest('dist'))
