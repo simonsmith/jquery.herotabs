@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const uglify = require('gulp-uglify');
-const webpack = require('gulp-webpack');
+const webpack = require('webpack-stream');
 const rename = require('gulp-rename');
 const header = require('gulp-header');
 
