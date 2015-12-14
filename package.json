@@ -40,6 +40,7 @@
     "url": "https://github.com/simonsmith/jquery.herotabs/issues"
   },
   "scripts": {
+    "build": "npm i && gulp",
     "lint": "eslint src/*.js test/*.js",
     "test": "npm run lint && mocha --compilers js:babel-core/register"
   }

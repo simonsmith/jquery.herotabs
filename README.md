@@ -21,15 +21,17 @@ http://jsbin.com/hofuma/
 
 ## Installation
 
-Quickest way is to [grab it via Bower](http://bower.io)
-
-`bower install jquery.herotabs --save`
-
-Or from npm
+### npm
 
 `npm install jquery.herotabs --save`
 
-Failing that, simply clone this repo or [grab the file itself](https://raw.github.com/simonsmith/jquery.herotabs/master/dist/jquery.herotabs.js).
+### Bower
+
+`bower install jquery.herotabs --save`
+
+### Manual
+
+Clone the repository and run `npm run build`
 
 ## Usage
 
@@ -345,6 +347,7 @@ $('.tabs')
 ```
 
 ## Contributing
+
 If you find a bug or need a feature added, please open an issue first.
 
 ### Running the tests
