@@ -7,16 +7,9 @@
   ],
   "ignore": [
     "examples",
-    "tests",
+    "test",
     ".gitignore",
-    "package.json",
-    "README.md",
     "herotabs.jquery.json",
-    "bower.json",
-    "src",
-    "Gruntfile.js",
-    "gulpfile.js",
-    ".jshintrc",
-    "LICENSE"
+    "bower.json"
   ]
 }
