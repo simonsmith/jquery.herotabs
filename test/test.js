@@ -176,9 +176,9 @@ describe('Herotabs', () => {
             $tabPanels.slice(1).each(function() {
               expect($(this)).to.not.have.$class('is-current-pane');
               expect($(this))
-                .and.to.have.$attr('aria-hidden', 'true')
-                .and.to.have.$attr('tabindex', '-1')
-                .and.to.have.$css('display', 'none');
+                .to.have.$attr('aria-hidden', 'true')
+                  .and.to.have.$attr('tabindex', '-1')
+                  .and.to.have.$css('display', 'none');
             });
           });
 
