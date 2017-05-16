@@ -1,5 +1,5 @@
-import $ from 'jquery';
-import transitionProps from './transition-props';
+const $ = require('jquery');
+const transitionProps = require('./transition-props');
 
 let instanceId = 0;
 
