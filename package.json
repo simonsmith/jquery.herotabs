@@ -2,7 +2,7 @@
   "name": "jquery.herotabs",
   "version": "3.0.5",
   "description": "A tiny, fully accessible tab switcher for jQuery. Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.",
-  "main": "dist/jquery.herotabs.js",
+  "main": "src/index.js",
   "directories": {
     "example": "examples",
     "test": "test"
@@ -10,6 +10,7 @@
   "dependencies": {},
   "devDependencies": {
     "babel-jest": "^20.0.1",
+    "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
     "chai": "^3.4.1",
     "chai-jq": "0.0.9",
@@ -20,7 +21,8 @@
     "jest": "^20.0.1",
     "jquery": "^3.2.1",
     "sinon": "^2.2.0",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "webpack": "^2.5.1"
   },
   "repository": {
     "type": "git",
@@ -36,7 +38,7 @@
     "testRegex": "test/*.js$"
   },
   "scripts": {
-    "build": "npm i && gulp",
+    "build": "webpack",
     "lint": "eslint src/*.js test/*.js",
     "test": "jest"
   }

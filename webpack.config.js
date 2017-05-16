@@ -1,22 +1,30 @@
+const path = require('path');
+
 module.exports = {
+  entry: './src/index.js',
+
   output: {
-    libraryTarget: 'umd'
+    path: path.join(__dirname, 'build'),
+    filename: 'jquery.herotabs.js',
+    libraryTarget: 'umd',
   },
+
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel'
-      }
-    ]
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+    ],
   },
+
   externals: {
-    'jquery': {
+    jquery: {
       commonjs: 'jquery',
       commonjs2: 'jquery',
       amd: 'jquery',
-      root: 'jQuery'
-    }
-  }
+      root: 'jQuery',
+    },
+  },
 };
