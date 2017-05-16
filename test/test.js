@@ -140,16 +140,16 @@ describe('Herotabs', () => {
           it('should set the first nav item to current', () => {
             expect($nav.find('.js-herotabs-nav-item').eq(0)).to.have.$class('is-current-nav');
             expect($nav.find('a').eq(0))
-            .to.have.$attr('aria-selected', 'true')
-            .and.to.have.$attr('tabindex', '0');
+              .to.have.$attr('aria-selected', 'true')
+              .and.to.have.$attr('tabindex', '0');
           });
 
           it('should not set the other nav items to current', () => {
             $nav.find('a').slice(1).each(function() {
               expect($(this)).to.not.have.$class('is-current-nav');
               expect($(this))
-              .to.have.$attr('aria-selected', 'false')
-              .and.to.have.$attr('tabindex', '-1');
+                .to.have.$attr('aria-selected', 'false')
+                .and.to.have.$attr('tabindex', '-1');
             });
           });
         });
@@ -168,18 +168,18 @@ describe('Herotabs', () => {
           it('should set the first tab panel to current and visible', () => {
             expect($tabPanels.eq(0))
             .to.have.$class('is-current-pane')
-            .and.to.have.$attr('aria-hidden', 'false')
-            .and.to.have.$attr('tabindex', '0')
-            .and.to.have.$css('display', 'block');
+              .and.to.have.$attr('aria-hidden', 'false')
+              .and.to.have.$attr('tabindex', '0')
+              .and.to.have.$css('display', 'block');
           });
 
           it('should hide the remaining tab panels', () => {
             $tabPanels.slice(1).each(function() {
               expect($(this)).to.not.have.$class('is-current-pane');
               expect($(this))
-              .and.to.have.$attr('aria-hidden', 'true')
-              .and.to.have.$attr('tabindex', '-1')
-              .and.to.have.$css('display', 'none');
+                .and.to.have.$attr('aria-hidden', 'true')
+                .and.to.have.$attr('tabindex', '-1')
+                .and.to.have.$css('display', 'none');
             });
           });
 
