@@ -27,7 +27,8 @@ http://jsbin.com/hofuma/
 
 ### Manual
 
-Clone the repository and run `npm run build`
+Clone the repository and run `npm install && npm run build`. This will generate
+a UMD version of the plugin in `./build`.
 
 ## Usage
 
@@ -282,26 +283,13 @@ instance.newMethod();
 
 ```js
 const $ = require('jquery');
-const Herotabs = require('./dist/jquery.herotabs');
+const Herotabs = require('jquery.herotabs');
 Herotabs.prototype.newMethod = function() {
     // Something new!
 };
 
 var instance = $('.tabs').herotabs().data('herotabs');
 instance.newMethod();
-```
-
-#### AMD
-
-```js
-require(['jquery', '../dist/jquery.herotabs'], function($, Herotabs) {
-  Herotabs.prototype.newMethod = function() {
-      // Something new!
-  };
-
-  var instance = $('.tabs').herotabs().data('herotabs');
-  instance.newMethod();
-});
 ```
 
 ## Example
