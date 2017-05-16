@@ -101,6 +101,7 @@ The only expectation it has is that your tab navigation will be contained by an 
 * **reverse** - _(boolean)_ Will reverse display order of tabs when on a timed delay _default_ `false`
 * **interactEvent** - _(string)_ Event to interact with the tab navigation. Possible values are `click` or `hover` _default_ `click`
 * **useTouch** - _(boolean)_ - If the browser supports touch then Herotabs will try to use it instead of the `interactEvent` above _default_ `true`
+* **useKeys** - _(boolean)_ - Attach key events _default_ `true`
 * **onReady** - _(function)_ - Called when the plugin has successfully instantiated. _default_ `null`
 * **onSetup** - _(function)_ - Called before the plugin has begun grabbing elements, setting up events etc. _default_ `null`
 * **css** _(object)_  Classes applied to the HTML structure

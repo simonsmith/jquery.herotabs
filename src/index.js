@@ -27,7 +27,10 @@ class Herotabs {
     }
 
     this.showInitialTab(options.startOn);
-    this.attachKeyEvents();
+
+    if (this.options.useKeys) {
+      this.attachKeyEvents();
+    }
 
     // Begin cycling through tabs if a delay has been set
     if (parseInt(options.delay, 10)) {
@@ -419,6 +422,7 @@ $.fn.herotabs.defaults = {
   reverse: false,
   interactEvent: 'click',
   useTouch: true,
+  useKeys: true,
   onSetup: $.noop,
   onReady: $.noop,
   css: {
