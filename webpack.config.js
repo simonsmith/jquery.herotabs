@@ -24,7 +24,7 @@ module.exports = {
 
   plugins: [
     new webpack.BannerPlugin({
-      banner: `${pkg.name}\n${pkg.version}\nTested with jQuery 1.10+\n${pkg.repository.url}`,
+      banner: `${pkg.name}\n${pkg.version}\nTested with jQuery 1.10+\n${pkg.repository.url}\nLicense: ${pkg.license}`,
     }),
     new UglifyJsPlugin({
       sourceMap: false,
