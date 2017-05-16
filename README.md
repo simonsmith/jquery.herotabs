@@ -25,21 +25,19 @@ http://jsbin.com/hofuma/
 
 `npm install jquery.herotabs --save`
 
-### Bower
-
-`bower install jquery.herotabs --save`
-
 ### Manual
 
 Clone the repository and run `npm run build`
 
 ## Usage
 
-### JS
+It's recommended to `require`/`import` the plugin as part of an existing setup:
 
-Herotabs can be used as a normal script or with an AMD compatible loader like [RequireJS](http://requirejs.org)
+```js
+require('jquery.herotabs');
+```
 
-#### Standard way
+Herotabs can also be used as a normal script once the build step has been run
 
 ```html
 <script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -50,23 +48,6 @@ Herotabs can be used as a normal script or with an AMD compatible loader like [R
     });
 </script>
 ```
-
-#### AMD
-
-Herotabs will work with RequireJS without any need for shims. Just ensure that `jquery` is set as a path.
-
-```js
-require.config({
-	paths: {
-		jquery: 'http://code.jquery.com/jquery-latest',
-	}
-});
-
-require(['jquery', 'jquery.herotabs'], function($) {
-	$('.tabs').herotabs();
-});
-```
-
 
 ### HTML
 
