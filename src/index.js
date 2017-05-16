@@ -4,6 +4,7 @@ import transitionProps from './transition-props';
 let instanceId = 0;
 
 class Herotabs {
+
   constructor($container, options) {
     this.$container = $container;
     this.options = options;
@@ -343,6 +344,7 @@ class Herotabs {
       }
     });
   }
+
 }
 
 
