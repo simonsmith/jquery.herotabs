@@ -389,6 +389,7 @@ if (transitionProps.css === undefined) {
     // Allows user to use keyboard navigation and skip a tab
     // without waiting for animations to finish
     this.triggerEvent('herotabs.show', $tabToShow);
+    this.triggerEvent('herotabs.hide', $currentTab);
 
     // Update reference to the current tab
     this.$currentTab = $tabToShow;
