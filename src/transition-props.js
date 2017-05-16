@@ -1,4 +1,4 @@
-export default transitionProps();
+module.exports = transitionProps();
 
 function transitionProps() {
   const prop = 'transition';

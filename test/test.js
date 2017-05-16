@@ -12,8 +12,7 @@ const nestedHTML = fs.readFileSync('test/fixtures/nesting.html', 'utf-8');
 const mixedHTML = fs.readFileSync('test/fixtures/mixed-elements.html', 'utf-8');
 
 describe('Herotabs', () => {
-  let $,
-    Herotabs;
+  let $, Herotabs;
 
   beforeAll(() => {
     $ = require('jquery');

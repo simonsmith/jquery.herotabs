@@ -381,7 +381,7 @@ if (transitionProps.css === undefined) {
 
     // Animate the current tab and set visibility when
     // the animation has completed
-    $currentTab.animate({opacity: 0 }, this.options.duration, () => {
+    $currentTab.animate({opacity: 0}, this.options.duration, () => {
       this.setTabVisibilty($tabToShow, $currentTab);
     });
 
