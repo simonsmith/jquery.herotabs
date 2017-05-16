@@ -1,5 +1,4 @@
-import jsdom from 'mocha-jsdom';
-import chai, {expect } from 'chai';
+import chai, {expect} from 'chai';
 import chaijQ from 'chai-jq';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -16,9 +15,7 @@ describe('Herotabs', () => {
   let $,
     Herotabs;
 
-  jsdom();
-
-  before(() => {
+  beforeAll(() => {
     $ = require('jquery');
     Herotabs = require('../src/');
   });
@@ -85,7 +82,7 @@ describe('Herotabs', () => {
   describe('checkUrlIsAnchor regex', () => {
     let checkUrlIsAnchor;
 
-    before(() => {
+    beforeAll(() => {
       checkUrlIsAnchor = Herotabs.prototype.checkUrlIsAnchor;
     });
 
@@ -173,7 +170,7 @@ describe('Herotabs', () => {
             .to.have.$class('is-current-pane')
             .and.to.have.$attr('aria-hidden', 'false')
             .and.to.have.$attr('tabindex', '0')
-            .and.be.$visible;
+            .and.to.have.$css('display', 'block');
           });
 
           it('should hide the remaining tab panels', () => {
