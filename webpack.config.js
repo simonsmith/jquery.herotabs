@@ -1,4 +1,7 @@
 const path = require('path');
+const webpack = require('webpack');
+const pkg = require('./package.json');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -18,6 +21,16 @@ module.exports = {
       },
     ],
   },
+
+  plugins: [
+    new webpack.BannerPlugin({
+      banner: `${pkg.name}\n${pkg.version}\nTested with jQuery 1.10+\n${pkg.repository.url}`,
+    }),
+    new UglifyJsPlugin({
+      sourceMap: false,
+      compress: true,
+    }),
+  ],
 
   externals: {
     jquery: {
