@@ -1,5 +1,5 @@
 import jsdom from 'mocha-jsdom';
-import chai, {expect} from 'chai';
+import chai, {expect } from 'chai';
 import chaijQ from 'chai-jq';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -13,7 +13,8 @@ const nestedHTML = fs.readFileSync('test/fixtures/nesting.html', 'utf-8');
 const mixedHTML = fs.readFileSync('test/fixtures/mixed-elements.html', 'utf-8');
 
 describe('Herotabs', () => {
-  let $, Herotabs;
+  let $,
+    Herotabs;
 
   jsdom();
 
@@ -23,7 +24,8 @@ describe('Herotabs', () => {
   });
 
   describe('initialise', () => {
-    let $tabs, instance;
+    let $tabs,
+      instance;
 
     beforeEach(() => {
       document.body.innerHTML = basicHTML;
@@ -31,8 +33,8 @@ describe('Herotabs', () => {
       $tabs = $('.tabs').herotabs({
         interactEvent: 'hover',
         css: {
-          navId: 'test'
-        }
+          navId: 'test',
+        },
       });
       instance = $tabs.data('herotabs');
     });
@@ -51,7 +53,7 @@ describe('Herotabs', () => {
       expect(instance.options.css.current).to.equal('is-current-pane');
     });
 
-    it('should set an active class', function() {
+    it('should set an active class', () => {
       expect($tabs).to.have.$class('is-active');
     });
   });
@@ -64,7 +66,7 @@ describe('Herotabs', () => {
     it('should call the onSetup callback before the plugin initialises', () => {
       const spy = sinon.spy();
       $('.tabs').herotabs({
-        onSetup: spy
+        onSetup: spy,
       });
 
       expect(spy).to.have.been.called;
@@ -73,7 +75,7 @@ describe('Herotabs', () => {
     it('should call the onReady callback when the plugin finishes initialise', () => {
       const spy = sinon.spy();
       $('.tabs').herotabs({
-        onReady: spy
+        onReady: spy,
       });
 
       expect(spy).to.have.been.called;
@@ -87,7 +89,7 @@ describe('Herotabs', () => {
       checkUrlIsAnchor = Herotabs.prototype.checkUrlIsAnchor;
     });
 
-    it('should match hrefs that are anchor links', function() {
+    it('should match hrefs that are anchor links', () => {
       expect(checkUrlIsAnchor('#href')).to.be.ok;
       expect(checkUrlIsAnchor('#href_foo')).to.be.ok;
       expect(checkUrlIsAnchor('#href-foo')).to.be.ok;
@@ -106,7 +108,10 @@ describe('Herotabs', () => {
 
   function runDOMTests(name, template) {
     describe(`plugin usage with ${name} html template`, () => {
-      let $tabs, instance, $nav, $tabPanels;
+      let $tabs,
+        instance,
+        $nav,
+        $tabPanels;
 
       beforeEach(() => {
         document.body.innerHTML = template;
@@ -123,15 +128,15 @@ describe('Herotabs', () => {
 
       describe('initial state', () => {
         describe('nav', () => {
-          it('should set roles on the navigation', function() {
+          it('should set roles on the navigation', () => {
             expect($nav).to.have.$attr('role', 'tablist');
             expect($nav.find('.js-herotabs-nav-item')).to.have.$attr('role', 'presentation');
             expect($nav.find('.js-herotabs-nav-item a')).to.have.$attr('role', 'tab');
           });
 
-          it('should generate ids on the nav links', function() {
+          it('should generate ids on the nav links', () => {
             $nav.find('a').each(function(index) {
-              expect($(this)).to.have.$attr('id', 'herotabs' + instance.instanceId + '-' + (index + 1));
+              expect($(this)).to.have.$attr('id', `herotabs${instance.instanceId}-${index + 1}`);
             });
           });
 
@@ -159,11 +164,11 @@ describe('Herotabs', () => {
 
           it('should link tab panels to their nav item ids', () => {
             $tabPanels.each(function(index) {
-              expect($(this)).to.have.$attr('aria-labelledby', 'herotabs' + instance.instanceId + '-' + (index + 1));
+              expect($(this)).to.have.$attr('aria-labelledby', `herotabs${instance.instanceId}-${index + 1}`);
             });
           });
 
-          it('should set the first tab panel to current and visible', function() {
+          it('should set the first tab panel to current and visible', () => {
             expect($tabPanels.eq(0))
             .to.have.$class('is-current-pane')
             .and.to.have.$attr('aria-hidden', 'false')
@@ -205,7 +210,7 @@ describe('Herotabs', () => {
             expect($tabPanels.eq(2)).to.have.$css('display', 'none');
           });
 
-          it('should show the third tab panel by using a jQuery element', function() {
+          it('should show the third tab panel by using a jQuery element', () => {
             instance.showTab($tabPanels.eq(2));
 
             expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
@@ -297,7 +302,7 @@ describe('Herotabs', () => {
           });
 
           it('should show the next tab after the delay', () => {
-            $tabs = $('.tabs').herotabs({delay: 300});
+            $tabs = $('.tabs').herotabs({delay: 300 });
             $tabPanels = $('.js-herotabs-tab');
 
             clock.tick(301);
@@ -313,7 +318,7 @@ describe('Herotabs', () => {
           });
 
           it('should allow the timer to be stopped', () => {
-            $tabs = $('.tabs').herotabs({delay: 500});
+            $tabs = $('.tabs').herotabs({delay: 500 });
             $tabPanels = $('.js-herotabs-tab');
             instance = $tabs.data('herotabs');
 
@@ -331,7 +336,7 @@ describe('Herotabs', () => {
           });
 
           it('should allow the timer to be started', () => {
-            $tabs = $('.tabs').herotabs({delay: 200});
+            $tabs = $('.tabs').herotabs({delay: 200 });
             $tabPanels = $('.js-herotabs-tab');
             instance = $tabs.data('herotabs');
 
@@ -363,14 +368,14 @@ describe('Herotabs', () => {
           });
 
           it('should return the instance on `.start()`', () => {
-            $tabs = $('.tabs').herotabs({delay: 200});
+            $tabs = $('.tabs').herotabs({delay: 200 });
             instance = $tabs.data('herotabs');
 
             expect(instance.start()).to.be.instanceOf($.fn.herotabs.Herotabs);
           });
 
           it('should return the instance on `.stop()`', () => {
-            $tabs = $('.tabs').herotabs({delay: 200});
+            $tabs = $('.tabs').herotabs({delay: 200 });
             instance = $tabs.data('herotabs');
 
             clock.tick(300);
@@ -469,7 +474,7 @@ describe('Herotabs', () => {
         describe('DOM events', () => {
           it('should change tab when second nav item is clicked', () => {
             $nav.trigger($.Event('click', {
-              target: $nav.find('a').get(1)
+              target: $nav.find('a').get(1),
             }));
 
             expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
@@ -485,7 +490,7 @@ describe('Herotabs', () => {
           it('should change tab when the down arrow is pressed', () => {
             $nav.trigger($.Event('keydown', {
               target: $nav.find('a')[1],
-              keyCode: 40
+              keyCode: 40,
             }));
 
             expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');
@@ -501,7 +506,7 @@ describe('Herotabs', () => {
           it('should show last tab when the up arrow is pressed', () => {
             $nav.trigger($.Event('keydown', {
               target: $nav.find('a')[1],
-              keyCode: 38
+              keyCode: 38,
             }));
 
             expect($tabPanels.eq(0)).to.not.have.$class('is-current-pane');

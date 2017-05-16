@@ -74,7 +74,7 @@ class Herotabs {
     $tabToShow
       .show()
       .css({
-        'position': 'absolute'
+        position: 'absolute',
       });
 
     if (parseInt(this.options.duration, 10)) {
@@ -194,13 +194,13 @@ class Herotabs {
   }
 
   setTabVisibilty($tabToShow, $tabToHide) {
-    const { css, zIndex } = this.options;
+    const {css, zIndex} = this.options;
 
     $tabToShow
       .addClass(css.current)
       .css({
         'z-index': zIndex.top,
-        position: 'relative'
+        position: 'relative',
       })
       .attr('aria-hidden', false)
       .find('a')
@@ -210,7 +210,7 @@ class Herotabs {
     $tabToHide
       .removeClass(css.current)
       .css({
-        'z-index': zIndex.bottom
+        'z-index': zIndex.bottom,
       })
       .hide()
       .attr('aria-hidden', true)
@@ -229,14 +229,14 @@ class Herotabs {
       .each(function(index) {
         $(this).attr({
           id: navId + (index + 1),
-          role: 'tab'
+          role: 'tab',
         });
       });
 
     this.$tab.each(function(index) {
       $(this).attr({
         role: 'tabpanel',
-        'aria-labelledby': navId + (index + 1)
+        'aria-labelledby': navId + (index + 1),
       });
     });
   }
@@ -276,7 +276,7 @@ class Herotabs {
     const eventMap = {
       hover: 'mouseenter',
       touch: 'touchstart',
-      click: 'click'
+      click: 'click',
     };
 
     // If touch is supported then override the event in options
@@ -323,7 +323,7 @@ class Herotabs {
         .each(function() {
           $(this).attr({
             'aria-selected': 'false',
-            tabindex: '-1'
+            tabindex: '-1',
           });
         });
 
@@ -335,7 +335,7 @@ class Herotabs {
 
       $navItemLink.attr({
         'aria-selected': 'true',
-        tabindex: '0'
+        tabindex: '0',
       });
 
       if (this.navItemHasFocus()) {
@@ -370,13 +370,13 @@ if (transitionProps.css === undefined) {
     $tabToShow
       .show()
       .css({
-        'position': 'absolute',
-        'opacity': 1
+        position: 'absolute',
+        opacity: 1,
       });
 
     // Animate the current tab and set visibility when
     // the animation has completed
-    $currentTab.animate({opacity: 0}, this.options.duration, () => {
+    $currentTab.animate({opacity: 0 }, this.options.duration, () => {
       this.setTabVisibilty($tabToShow, $currentTab);
     });
 
@@ -423,17 +423,17 @@ $.fn.herotabs.defaults = {
     active: 'is-active',
     current: 'is-current-pane',
     navCurrent: 'is-current-nav',
-    navId: 'herotabs'
+    navId: 'herotabs',
   },
   selectors: {
     tab: '.js-herotabs-tab',
     nav: '.js-herotabs-nav',
-    navItem: '.js-herotabs-nav-item'
+    navItem: '.js-herotabs-nav-item',
   },
   zIndex: {
     bottom: 1,
-    top: 2
-  }
+    top: 2,
+  },
 };
 
 module.exports = Herotabs;

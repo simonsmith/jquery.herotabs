@@ -8,16 +8,16 @@ function transitionProps() {
   if (prop in div.style) {
     return {
       css: prop,
-      js: 'transitionend'
+      js: 'transitionend',
     };
   }
 
   // Map of transitionend types.
   const transitionend = {
-    'transition': 'transitionend',
-    'webkitTransition': 'webkitTransitionEnd',
-    'MozTransition': 'transitionend',
-    'OTransition': 'oTransitionEnd otransitionend'
+    transition: 'transitionend',
+    webkitTransition: 'webkitTransitionEnd',
+    MozTransition: 'transitionend',
+    OTransition: 'oTransitionEnd otransitionend',
   };
   const prefixes = ['Moz', 'webkit', 'O'];
   const prop_ = prop.charAt(0).toUpperCase() + prop.substr(1);
