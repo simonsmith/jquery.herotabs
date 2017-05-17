@@ -38,7 +38,10 @@
     "url": "https://github.com/simonsmith/jquery.herotabs/issues"
   },
   "jest": {
-    "testRegex": "test/*.js$"
+    "testRegex": "test/*.js$",
+    "moduleNameMapper": {
+      "jquery": "<rootDir>/test/jquery-1.12.0.min.js"
+    }
   },
   "scripts": {
     "build": "webpack",

@@ -15,13 +15,12 @@ describe('Herotabs', () => {
   let $, Herotabs;
 
   beforeAll(() => {
-    $ = require('jquery');
+    $ = require('./jquery-1.12.0.min');
     Herotabs = require('../src/');
   });
 
   describe('initialise', () => {
-    let $tabs,
-      instance;
+    let $tabs, instance;
 
     beforeEach(() => {
       document.body.innerHTML = basicHTML;
