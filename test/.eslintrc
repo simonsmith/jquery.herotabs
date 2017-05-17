@@ -6,7 +6,6 @@
     "new-cap": 0
   },
   "env": {
-    "node": true,
-    "mocha": true
+    "jest": true
   }
 }
