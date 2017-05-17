@@ -11,6 +11,20 @@ const basicHTML = fs.readFileSync('test/fixtures/basic.html', 'utf-8');
 const nestedHTML = fs.readFileSync('test/fixtures/nesting.html', 'utf-8');
 const mixedHTML = fs.readFileSync('test/fixtures/mixed-elements.html', 'utf-8');
 
+describe('transitionProps', () => {
+  let transitionProps;
+
+  beforeAll(() => {
+    transitionProps = require('../src/transition-props');
+  });
+
+  it.only('should return an object with the transition props', () => {
+    expect(transitionProps).to.eql(
+      {js: 'webkitTransitionEnd', css: '-webkit-transition'}
+    );
+  });
+});
+
 describe('Herotabs', () => {
   let $, Herotabs;
 

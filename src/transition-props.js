@@ -24,13 +24,12 @@ function transitionProps() {
   const props = {};
 
   // Try and find a matching prefix
-  for (let i = 0, len = prefixes.length; i < len; ++i) {
-    const vendorProp = prefixes[i] + prop_;
+  prefixes.forEach((prefix) => {
+    const vendorProp = prefix + prop_;
     if (vendorProp in div.style) {
       props.js = transitionend[vendorProp];
-      props.css = `-${prefixes[i].toLowerCase()}-${prop}`;
+      props.css = `-${prefix.toLowerCase()}-${prop}`;
     }
-  }
-
+  });
   return props;
 }
