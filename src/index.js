@@ -1,4 +1,4 @@
-const $ = require('jquery');
+const $ = require('jquery'); // eslint-disable-line import/no-unresolved
 const transitionProps = require('./transition-props');
 
 let instanceId = 0;

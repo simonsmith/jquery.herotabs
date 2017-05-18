@@ -45,7 +45,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "lint": "eslint src/*.js test/*.js",
-    "test": "jest"
+    "lint": "eslint src test",
+    "test": "jest && npm run lint"
   }
 }
