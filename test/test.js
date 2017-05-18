@@ -18,7 +18,7 @@ describe('transitionProps', () => {
     transitionProps = require('../src/transition-props');
   });
 
-  it.only('should return an object with the transition props', () => {
+  it('should return an object with the transition props', () => {
     expect(transitionProps).to.eql(
       {js: 'webkitTransitionEnd', css: '-webkit-transition'}
     );
