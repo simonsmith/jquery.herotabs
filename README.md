@@ -61,20 +61,20 @@ A simple example of markup.
 
 ```html
 <div class="tabs">
-    <ul class="js-herotabs-nav">
-        <li class="js-herotabs-nav-item"><a href="#tab1">Item 1</a></li>
-        <li class="js-herotabs-nav-item"><a href="#tab2">Item 2</a></li>
-        <li class="js-herotabs-nav-item"><a href="#tab3">Item 3</a></li>
-    </ul>
-    <div class="js-herotabs-tab" id="tab1">
-        <p>content 1</p>
-    </div>
-    <div class="js-herotabs-tab" id="tab2">
-        <p>content 2</p>
-    </div>
-    <div class="js-herotabs-tab" id="tab3">
-        <p>content 3</p>
-    </div>
+  <ul class="js-herotabs-nav">
+    <li class="js-herotabs-nav-item"><a href="#tab1">Item 1</a></li>
+    <li class="js-herotabs-nav-item"><a href="#tab2">Item 2</a></li>
+    <li class="js-herotabs-nav-item"><a href="#tab3">Item 3</a></li>
+  </ul>
+  <div class="js-herotabs-tab" id="tab1">
+    <p>content 1</p>
+  </div>
+  <div class="js-herotabs-tab" id="tab2">
+    <p>content 2</p>
+  </div>
+  <div class="js-herotabs-tab" id="tab3">
+    <p>content 3</p>
+  </div>
 </div>
 ```
 
@@ -84,15 +84,15 @@ The only expectation it has is that your tab navigation will be contained by an 
 
 ```html
 <ul class="js-herotabs-nav">
-	<li class="js-herotabs-nav-item"><a href="#tab1">Item 1</a></li>
-	<li class="js-herotabs-nav-item"><a href="#tab2">Item 2</a></li>
-	<li class="js-herotabs-nav-item"><a href="#tab3">Item 3</a></li>
+  <li class="js-herotabs-nav-item"><a href="#tab1">Item 1</a></li>
+  <li class="js-herotabs-nav-item"><a href="#tab2">Item 2</a></li>
+  <li class="js-herotabs-nav-item"><a href="#tab3">Item 3</a></li>
 </ul>
 
 <div class="js-herotabs-nav">
-	<span class="js-herotabs-nav-item"><a href="#tab1">Item 1</a></span>
-	<span class="js-herotabs-nav-item"><a href="#tab2">Item 2</a></span>
-	<span class="js-herotabs-nav-item"><a href="#tab3">Item 3</a></span>
+  <span class="js-herotabs-nav-item"><a href="#tab1">Item 1</a></span>
+  <span class="js-herotabs-nav-item"><a href="#tab2">Item 2</a></span>
+  <span class="js-herotabs-nav-item"><a href="#tab3">Item 3</a></span>
 </div>
 ```
 
@@ -111,17 +111,17 @@ The only expectation it has is that your tab navigation will be contained by an 
 * **onReady** - _(function)_ - Called when the plugin has successfully instantiated. _default_ `null`
 * **onSetup** - _(function)_ - Called before the plugin has begun grabbing elements, setting up events etc. _default_ `null`
 * **css** _(object)_  Classes applied to the HTML structure
-	*	**active** _(string)_ - Added to the container when the plugin has setup _default_ `is-active`
-	*	**current** _(string)_ - Added to the current visible tab panel _default_ `is-current-pane`
-	* **navCurrent** _(string)_ - Added to current visible nav item _default_ `is-current-nav`
-	* **navId** _(string)_ - id to add to each nav link. Becomes `herotabs1`, `herotabs2` etc _default_ `herotabs`
+  * **active** _(string)_ - Added to the container when the plugin has setup _default_ `is-active`
+  * **current** _(string)_ - Added to the current visible tab panel _default_ `is-current-pane`
+  * **navCurrent** _(string)_ - Added to current visible nav item _default_ `is-current-nav`
+  * **navId** _(string)_ - id to add to each nav link. Becomes `herotabs1`, `herotabs2` etc _default_ `herotabs`
 * **selectors** _(object)_ - CSS selectors to grab the HTML
-	* **tab** _(string)_ The tab panel containing the content _default_ `.js-herotabs-tab`
-	* **nav** _(string)_ The nav container _default_ `.js-herotabs-nav`
-	* **navItem** _(string)_ Each navigation item _default_ `.js-herotabs-nav-item`
+  * **tab** _(string)_ The tab panel containing the content _default_ `.js-herotabs-tab`
+  * **nav** _(string)_ The nav container _default_ `.js-herotabs-nav`
+  * **navItem** _(string)_ Each navigation item _default_ `.js-herotabs-nav-item`
 * **zIndex** _(object)_ z-index values applied to the tabs
-	* **bottom** (number) Applied to all tabs _default_ `1`
-	* **top** (number) Applied to the currently visible tab _default_ `2`
+  * **bottom** (number) Applied to all tabs _default_ `1`
+  * **top** (number) Applied to the currently visible tab _default_ `2`
 
 ### Overriding defaults for all instances
 
@@ -142,14 +142,14 @@ $('.other-tabs').herotabs();
 Herotabs fires various events that you can listen to. They are fired off the element that `herotabs` is instantiated  on.
 
 ```js
-var $tabs = $('.tabs').herotabs();
+const $tabs = $('.tabs').herotabs();
 
 $tabs.on('herotabs.show', function() {
-    // Do something when the tab shows!
+  // Do something when the tab shows!
 });
 
 $tabs.on('herotabs.show', function() {
-    // Do something else when the tab has shown!
+  // Do something else when the tab has shown!
 });
 ```
 
@@ -166,9 +166,9 @@ visible tab, the index and the current selected nav item.
 var $tabs = $('.tabs').herotabs();
 
 $tabs.on('herotabs.show', function(event, $tab, $index, $nav) {
-    $tab.addClass('currently-visible-tab');
-    $('body').text('The current tab index is ' + $index);
-    $nav.text('I am the current nav element');
+  $tab.addClass('currently-visible-tab');
+  $('body').text('The current tab index is ' + $index);
+  $nav.text('I am the current nav element');
 });
 ```
 
@@ -209,7 +209,7 @@ Fired when the mouse leaves the container of the tabs
 You can get at the Herotabs instance by accessing it from the elements `.data` method
 
 ```js
-var instance = $('.tabs').herotabs().data('herotabs');
+const instance = $('.tabs').herotabs().data('herotabs');
 instance.nextTab();
 ```
 
@@ -277,12 +277,12 @@ instance.showTab(2).nextTab().nextTab();
 If for any reason you need to override or add your own methods then you can access the Herotabs prototype before initialising it:
 
 ```js
-var Herotabs = $.fn.herotabs.Herotabs;
+const Herotabs = $.fn.herotabs.Herotabs;
 Herotabs.prototype.newMethod = function() {
     // Something new!
 };
 
-var instance = $('.tabs').herotabs().data('herotabs');
+const instance = $('.tabs').herotabs().data('herotabs');
 instance.newMethod();
 ```
 
