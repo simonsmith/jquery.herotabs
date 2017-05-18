@@ -11,7 +11,7 @@ http://jsbin.com/hofuma/
 ## Features
 
 * Fade between tabs using **CSS3 transitions** with `.animate()` fallback
-* Works with jQuery **1.9.1+**
+* Tested with jQuery **1.12.0+**
 * Keyboard navigation
 * WAI-ARIA (via http://www.accessibleculture.org/articles/2010/08/aria-tabs/)
 * Focus on tab contents
@@ -28,13 +28,15 @@ http://jsbin.com/hofuma/
 ### Manual
 
 Clone the repository and run `npm install && npm run build`. This will generate
-a UMD version of the plugin in `./build`.
+a UMD version of the plugin in `./build` that can be dropped into a project
+however you want.
 
 ## Usage
 
 It's recommended to `require`/`import` the plugin as part of an existing setup:
 
 ```js
+// index.js
 require('jquery.herotabs');
 ```
 
@@ -72,6 +74,7 @@ A simple example of markup.
     </div>
 </div>
 ```
+
 Herotabs depends on classnames rather than a specific structure so feel free to nest and shuffle your HTML as necessary. [JS prefixed classnames](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) are the default, but are not compulsory.
 
 The only expectation it has is that your tab navigation will be contained by an element structure like the following:
@@ -283,7 +286,6 @@ instance.newMethod();
 #### CommonJS
 
 ```js
-const $ = require('jquery');
 const Herotabs = require('jquery.herotabs');
 Herotabs.prototype.newMethod = function() {
     // Something new!
