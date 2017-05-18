@@ -23,7 +23,16 @@ http://jsbin.com/hofuma/
 
 ### npm
 
-`npm install jquery.herotabs --save`
+It's recommended to `require`/`import` the plugin as part of an existing setup:
+
+```
+npm install jquery.herotabs --save
+```
+
+```js
+// index.js
+require('jquery.herotabs');
+```
 
 ### Manual
 
@@ -31,25 +40,19 @@ Clone the repository and run `npm install && npm run build`. This will generate
 a UMD version of the plugin in `./build` that can be dropped into a project
 however you want.
 
-## Usage
-
-It's recommended to `require`/`import` the plugin as part of an existing setup:
-
-```js
-// index.js
-require('jquery.herotabs');
-```
-
-Herotabs can also be used as a normal script once the build step has been run
-
 ```html
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="jquery.herotabs.js"></script>
-<script>
-    $('.tabs').herotabs({
-	    // options
-    });
-</script>
+```
+
+## Usage
+
+### JS
+
+```js
+$('.tabs').herotabs({
+  // options
+});
 ```
 
 ### HTML
