@@ -31,7 +31,9 @@ npm install jquery.herotabs --save
 
 ```js
 // index.js
+const $ = require('jquery');
 require('jquery.herotabs');
+$('#tabs').herotabs();
 ```
 
 ### Manual
