@@ -1,0 +1,11 @@
+.babelrc
+.eslintrc
+.eslintignore
+.travis.yml
+examples
+herotabs.jquery.json
+node_modules
+src
+test
+test
+webpack.config.js

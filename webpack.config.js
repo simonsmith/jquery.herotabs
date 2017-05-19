@@ -27,8 +27,8 @@ module.exports = {
       banner: `${pkg.name}\n${pkg.version}\nTested with jQuery 1.12+\n${pkg.repository.url}\nLicense: ${pkg.license}`,
     }),
     new UglifyJsPlugin({
-      sourceMap: false,
-      compress: true,
+      beautify: true,
+      mangle: false,
     }),
   ],
 

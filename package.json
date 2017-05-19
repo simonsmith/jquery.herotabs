@@ -2,7 +2,7 @@
   "name": "jquery.herotabs",
   "version": "3.0.5",
   "description": "A tiny, fully accessible tab switcher for jQuery. Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.",
-  "main": "src/index.js",
+  "main": "build/jquery.herotabs.js",
   "directories": {
     "example": "examples",
     "test": "test"
@@ -46,6 +46,7 @@
   "scripts": {
     "build": "webpack",
     "lint": "eslint src test",
-    "test": "jest && npm run lint"
+    "test": "jest && npm run lint",
+    "publish": "npm run build"
   }
 }
