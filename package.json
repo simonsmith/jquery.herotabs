@@ -1,6 +1,6 @@
 {
   "name": "jquery.herotabs",
-  "version": "3.0.5",
+  "version": "4.0.0",
   "description": "A tiny, fully accessible tab switcher for jQuery. Useful for standard tabs and also 'hero' style tabs often found at the top of websites to display content.",
   "main": "build/jquery.herotabs.js",
   "directories": {
