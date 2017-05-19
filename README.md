@@ -26,7 +26,7 @@ http://jsbin.com/hofuma/
 It's recommended to `require`/`import` the plugin as part of an existing setup:
 
 ```
-npm install jquery.herotabs --save
+npm install jquery jquery.herotabs --save
 ```
 
 ```js
@@ -35,6 +35,9 @@ const $ = require('jquery');
 require('jquery.herotabs');
 $('#tabs').herotabs();
 ```
+
+Herotabs relies on jquery as a `peerDependency` so ensure it is installed in
+your application.
 
 ### Manual
 
