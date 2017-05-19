@@ -95,7 +95,7 @@ describe('Herotabs', () => {
     let checkUrlIsAnchor;
 
     beforeAll(() => {
-      checkUrlIsAnchor = Herotabs.prototype.checkUrlIsAnchor;
+      checkUrlIsAnchor = Herotabs.checkUrlIsAnchor;
     });
 
     it('should match hrefs that are anchor links', () => {
@@ -311,7 +311,7 @@ describe('Herotabs', () => {
           });
 
           it('should show the next tab after the delay', () => {
-            $tabs = $('.tabs').herotabs({delay: 300 });
+            $tabs = $('.tabs').herotabs({delay: 300});
             $tabPanels = $('.js-herotabs-tab');
 
             clock.tick(301);
@@ -327,7 +327,7 @@ describe('Herotabs', () => {
           });
 
           it('should allow the timer to be stopped', () => {
-            $tabs = $('.tabs').herotabs({delay: 500 });
+            $tabs = $('.tabs').herotabs({delay: 500});
             $tabPanels = $('.js-herotabs-tab');
             instance = $tabs.data('herotabs');
 
@@ -345,7 +345,7 @@ describe('Herotabs', () => {
           });
 
           it('should allow the timer to be started', () => {
-            $tabs = $('.tabs').herotabs({delay: 200 });
+            $tabs = $('.tabs').herotabs({delay: 200});
             $tabPanels = $('.js-herotabs-tab');
             instance = $tabs.data('herotabs');
 
@@ -377,14 +377,14 @@ describe('Herotabs', () => {
           });
 
           it('should return the instance on `.start()`', () => {
-            $tabs = $('.tabs').herotabs({delay: 200 });
+            $tabs = $('.tabs').herotabs({delay: 200});
             instance = $tabs.data('herotabs');
 
             expect(instance.start()).to.be.instanceOf($.fn.herotabs.Herotabs);
           });
 
           it('should return the instance on `.stop()`', () => {
-            $tabs = $('.tabs').herotabs({delay: 200 });
+            $tabs = $('.tabs').herotabs({delay: 200});
             instance = $tabs.data('herotabs');
 
             clock.tick(300);

@@ -5,12 +5,20 @@ let instanceId = 0;
 
 class Herotabs {
 
+  static checkUrlIsAnchor(url) {
+    // Check if url is a hash anchor e.g #foo, #foo-123 etc
+    return /#[A-Za-z0-9-_]+$/.test(url);
+  }
+
   constructor($container, options) {
     this.$container = $container;
     this.options = options;
     this.$currentTab = null;
     this.timer = null;
-    this.instanceId = ++instanceId;
+
+    instanceId += 1;
+    this.instanceId = instanceId;
+
     this.opacityTransition = `opacity ${(parseInt(options.duration, 10) / 1000)}s ${options.easing}`;
 
     options.onSetup.call(this);
@@ -294,16 +302,11 @@ class Herotabs {
 
       // Only preventDefault if link is an anchor.
       // Allows nav links to use external urls
-      if (this.checkUrlIsAnchor($elem.attr('href'))) {
+      if (Herotabs.checkUrlIsAnchor($elem.attr('href'))) {
         event.preventDefault();
         event.stopPropagation();
       }
     });
-  }
-
-  checkUrlIsAnchor(url) {
-    // Check if url is a hash anchor e.g #foo, #foo-123 etc
-    return /#[A-Za-z0-9-_]+$/.test(url);
   }
 
   navItemHasFocus() {
