@@ -23,7 +23,7 @@ http://jsbin.com/hofuma/
 
 ### npm
 
-It's recommended to `require`/`import` the plugin as part of an existing setup:
+It's recommended to `require`/`import` the plugin as part of an existing webpack or browserify setup:
 
 ```
 npm install jquery jquery.herotabs --save
