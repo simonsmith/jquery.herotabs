@@ -6,7 +6,7 @@ Useful for standard tabs and also 'hero' style tabs often found at the top of we
 
 ## Demo
 
-http://jsbin.com/hofuma/
+https://codepen.io/simonsmith/full/wdYRva/
 
 ## Features
 
