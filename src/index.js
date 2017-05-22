@@ -12,16 +12,15 @@ class Herotabs {
 
   constructor($container, options) {
     this.$container = $container;
-    this.options = options;
+    this.options = $.extend(true, {}, $.fn.herotabs.defaults, options);
     this.$currentTab = null;
     this.timer = null;
 
     instanceId += 1;
     this.instanceId = instanceId;
 
-    this.opacityTransition = `opacity ${(parseInt(options.duration, 10) / 1000)}s ${options.easing}`;
-
-    options.onSetup.call(this);
+    this.opacityTransition = `opacity ${(parseInt(this.options.duration, 10) / 1000)}s ${this.options.easing}`;
+    this.options.onSetup.call(this);
 
     const selectors = this.options.selectors;
     this.$tab = this.$container.find(selectors.tab);
@@ -34,23 +33,23 @@ class Herotabs {
       this.attachNavEvents();
     }
 
-    this.showInitialTab(options.startOn);
+    this.showInitialTab(this.options.startOn);
 
     if (this.options.useKeys) {
       this.attachKeyEvents();
     }
 
     // Begin cycling through tabs if a delay has been set
-    if (parseInt(options.delay, 10)) {
+    if (parseInt(this.options.delay, 10)) {
       this.start();
       this.attachHoverEvents();
     }
 
     this.$container
-      .addClass(options.css.active)
+      .addClass(this.options.css.active)
       .css('position', 'relative');
 
-    options.onReady.call(this);
+    this.options.onReady.call(this);
   }
 
   /**
@@ -406,13 +405,10 @@ if (transitionProps.css === undefined) {
  * */
 
 $.fn.herotabs = function(options) {
-  const mergedOpts = $.extend(true, {}, $.fn.herotabs.defaults, options);
-
   return this.each(function() {
     const $this = $(this);
-
     if (!$this.data('herotabs')) {
-      $this.data('herotabs', new Herotabs($this, mergedOpts));
+      $this.data('herotabs', new Herotabs($this, options));
     }
   });
 };
