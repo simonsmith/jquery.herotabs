@@ -6,8 +6,7 @@ let instanceId = 0;
 class Herotabs {
 
   static checkUrlIsAnchor(url) {
-    // Check if url is a hash anchor e.g #foo, #foo-123 etc
-    return /#[A-Za-z0-9-_]+$/.test(url);
+    return /#\/?\w+/.test(url);
   }
 
   constructor($container, options) {

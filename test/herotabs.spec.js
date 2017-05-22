@@ -92,6 +92,7 @@ describe('jquery.herotabs', () => {
       expect(checkUrlIsAnchor('#hREffoo')).to.be.ok;
       expect(checkUrlIsAnchor('/#hREffoo')).to.be.ok;
       expect(checkUrlIsAnchor('http://google.com')).to.not.be.ok;
+      expect(checkUrlIsAnchor('http://google.com/#')).to.not.be.ok;
       expect(checkUrlIsAnchor('fooo')).to.not.be.ok;
       expect(checkUrlIsAnchor('')).to.not.be.ok;
     });
