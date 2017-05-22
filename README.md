@@ -36,7 +36,7 @@ require('jquery.herotabs');
 $('#tabs').herotabs();
 ```
 
-Herotabs relies on jquery as a `peerDependency` so ensure it is installed in
+Herotabs relies on jQuery as a `peerDependency` so ensure it is installed in
 your application.
 
 ### Manual
