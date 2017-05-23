@@ -296,13 +296,12 @@ class Herotabs {
   attachNavEvents() {
     this.$nav.on(this.getEventType(), 'a', (event) => {
       const $elem = $(event.currentTarget);
-      this.showTab($elem.parents(this.options.selectors.navItem).index());
 
-      // Only preventDefault if link is an anchor.
-      // Allows nav links to use external urls
+      // Allow nav links to use external urls
       if (Herotabs.checkUrlIsAnchor($elem.attr('href'))) {
         event.preventDefault();
         event.stopPropagation();
+        this.showTab($elem.parents(this.options.selectors.navItem).index());
       }
     });
   }

@@ -568,4 +568,27 @@ describe('jquery.herotabs', () => {
       expect($content.eq(2)).to.have.$css('display', 'block');
     });
   });
+
+  describe('external nav links', () => {
+    test('clicking a nav with an external link should be ignored', () => {
+      setBody(template);
+      $('.js-herotabs-nav-item a').eq(1).attr('href', 'http://google.co.uk');
+      $('.tabs').herotabs();
+      const $nav = $('.js-herotabs-nav');
+      const $content = $('.js-herotabs-tab');
+
+      $nav.trigger($.Event('click', {
+        target: $nav.find('a').get(1),
+      }));
+
+      expect($content.eq(0)).to.have.$class('is-current-pane');
+      expect($content.eq(0)).to.have.$css('display', 'block');
+
+      expect($content.eq(1)).to.not.have.$class('is-current-pane');
+      expect($content.eq(1)).to.have.$css('display', 'none');
+
+      expect($content.eq(2)).to.not.have.$class('is-current-pane');
+      expect($content.eq(2)).to.have.$css('display', 'none');
+    });
+  });
 });
